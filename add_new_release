@@ -1,0 +1,149 @@
+#!/bin/bash
+
+# $1 is pathname of swe tarball
+# $2 is pathname of zip file.
+
+# this script will remove all untracked and uncommitted files
+# on the current branch and create a new commit in which
+# the subdirectories tarball_contents tarball_delta zip_contents
+# and zip will represent the new release, the realese no
+# will be taken from the filename of the first parameter.
+# this commit will be tagged with the release no
+
+
+if [ "$1" == "" ]; then
+   echo "no tarball"
+   exit
+fi
+
+File=$1
+
+if [[ ! -e $File ]]; then
+    echo "$File dos not exist"
+    exit
+fi
+
+echo File=$File
+
+base=${File##*/}
+echo base=$base
+
+x=${base%.tar.gz}
+
+if [ "$x" == "$base" ]; then
+    echo "file not ending in .tar.gz"
+    exit
+fi
+
+echo x=$x
+
+ReleaseNo=${x#swe_unix_src_}
+
+if [ "$x" == "$ReleaseNo" ]; then
+    echo "file not beginning in swe_unix_src_"
+    exit
+fi
+
+echo $ReleaseNo
+
+
+if [ "$2" == "" ]; then
+   echo "no zip file"
+fi
+
+ZFile=$2
+
+if [[ ! -e $ZFile ]]; then
+    echo "ZFile does not exist"
+fi
+
+echo ZFile=$ZFile
+
+echo repo stuff here.
+
+if git status
+then
+    echo "good git status"
+else
+    echo "bad git status"
+    exit
+fi
+
+listdir="tarball_contents tarball_delta zip zip_contents"
+
+echo git checkout    #remove untracked and uncommitted files.
+git checkout    #remove untracked and uncommitted files.
+
+
+# remove empty directories
+echo rmdir --ignore-fail-on-non-empty  $(find $(find tarball_contents -type d | sort -r) -type d -empty) 
+rmdir --ignore-fail-on-non-empty  $(find $(find tarball_contents -type d | sort -r) -type d -empty) 
+if git rm -r -f tarball_contents || rm -r -f tarball_contents
+then
+    echo git removed subdirectory
+else
+    echo git failed to remove  subdirectoy
+fi
+
+# remove empty directories
+echo rmdir --ignore-fail-on-non-empty $(find $(find tarball_delta -type d | sort -r) -type d -empty) 
+rmdir --ignore-fail-on-non-empty $(find $(find tarball_delta -type d | sort -r) -type d -empty) 
+if git rm -r -f tarball_delta || rm -r -f tarball_delta
+then
+    echo git removed subdirectory
+else
+    echo git failed to remove subdirectory
+fi
+
+# remove empty directories
+echo rmdir --ignore-fail-on-non-empty $(find $(find zip -type d | sort -r) -type d -empty) 
+rmdir --ignore-fail-on-non-empty $(find $(find zip -type d | sort -r) -type d -empty) 
+if git rm -r -f zip || rm -r -f zip
+then
+    echo git removed subdirectory
+else
+    echo git failed to remove subdirectory
+fi
+
+# remove empty directories
+echo rmdir --ignore-fail-on-non-empty $(find $(find zip_contents -type d | sort -r) -type d -empty) 
+rmdir --ignore-fail-on-non-empty $(find $(find zip_contents -type d | sort -r) -type d -empty) 
+if git rm -r -f zip_contents || rm -r -f zip_contents
+then
+    echo git removed subdirectory
+else
+    echo git failed to remove subdirectory
+fi
+
+echo mkdir -p $listdir
+mkdir -p $listdir
+
+echo tar xzfC $File tarball_contents
+tar xzfC $File tarball_contents
+
+echo pristine-tar gendelta $File tarball_delta/${base}.delta
+pristine-tar gendelta $File tarball_delta/${base}.delta
+
+echo git add tarball_contents tarball_delta
+git add tarball_contents tarball_delta
+
+if [ ! -z "$ZFile" ]
+then
+    echo cp $ZFile zip/sweph.zip
+    cp $ZFile zip/sweph.zip
+    echo ln -s ./sweph.zip zip/sweph-${ReleaseNo}.zip
+    echo ln -s ./sweph.zip zip/sweph-${ReleaseNo}.zip
+    ln -s ./sweph.zip zip/sweph-${ReleaseNo}.zip
+    echo unzip -a zip/sweph.zip -d zip_contents
+    unzip -a zip/sweph.zip -d zip_contents
+    echo git add zip zip_contents
+    git add zip zip_contents
+fi
+
+echo git commit -m "Release number ${ReleaseNo} shell script add_new_release"
+git commit -m "Release number ${ReleaseNo} shell script add_new_release"
+
+echo git tag "${ReleaseNo}"
+git tag "${ReleaseNo}"
+
+echo here
