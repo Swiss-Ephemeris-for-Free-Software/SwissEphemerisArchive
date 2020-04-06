@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Swiss Ephemeris Archive</title>
+</head>
+<body>
+<h1>Archive the Swiss Ephemeris release tarballs and zip files </h1>
+<p>Not used for development, archive only.
+<br>
+<a href="https://github.com/Swiss-Ephemeris-for-Free-Software/SwissEphemerisArchive.git">https://github.com/Swiss-Ephemeris-for-Free-Software/SwissEphemerisArchive.git</a>
+<br>
+<a href="ssh://git@github.com:Swiss-Ephemeris-for-Free-Software/SwissEphemerisArchive.git">ssh://git@github.com:Swiss-Ephemeris-for-Free-Software/SwissEphemerisArchive.git</a>
+<br>
+</p>
+<p>
+The folks at AstroDienst are excellent astrological programmers who
+have created a great GPLed library that can serve as a base for
+astrological free software. However, their distribution practices
+leave a lot to be desired.
+</p>
+<p>
+<ol>
+	<li>They keep only the latest 2 versions of the swe_unix_src
+      tarballs on their website. Later versions get rolled off.</li>
+	<li>The swe_unix_src tarballs contain binary documentation
+      i.e. pdf and html files, but the source, (microsoft .doc files),
+      is in another file, sweph.zip.</li>
+	<li>sweph.zip is not archived by version number, so whenever a new
+      version comes out, the old version disappears.</li>
+</ol></p>
+<p>
+SwissEphemerisArchive is not used for development, it is used to archive
+the historic Swiss Ephemeris release from AstroDienst tarballs and zip files.
+It also has content directories which allow the historic content to be
+browsed.
+</p>
+<h1>Layout</h1>
+<p>
+Swiss Ephemeris release numbers are in the following two forms:
+<ul>
+	<li>2.05</li>
+	<li>2.05.01</li>
+</ul>
+Swiss Ephemeris tarballs have names like this:
+<ul>
+	<li>swe_unix_src_2.05.tar.gz</li>
+	<li>swe_unix_src_2.05.01.tar.gz</li>
+</ul>
+Swiss Ephemeris zip files originally always have this name:
+sweph.zip
+<br>
+But I include an identical file named like this:
+<ul>
+<li>sweph.zip (original file name)</li>
+<li>sweph-2.05.01.zip (symbolic link to above file)</li>
+</ul>
+</p>
+<p>
+For each Astro Dienst release there will be a commit in 
+Swiss Ephemeris Archive which will be taged by its release number.
+These commits will be organized as described below.
+</p>
+<h1>Repository Directory Structure</h1>
+<p>
+<dl>
+	<dt>root directory:</dt>
+	<dd><code>README.md LICENSE</code></dd>
+	<dt>tarball_contents:</dt>
+	<dd>unpacked files from the release tarball
+	<dl>
+		<dt>Example:</dt>
+		<dd><code>tar xzf ../../swe_unix_src_2.05.tar.gz</code></dd>
+	</dl>
+
+		
+	</dd>
+	<dt>tarball_delta:</dt>
+	<dd>delta file necessary to reconstruct the tarball from tarball_contents
+   <dl>
+	  	<dt>Example:</dt>
+		<dd>
+		  <dl>
+			<dt>Reconstruct tarball:</dt>
+			<dd><code>cd tarball_contents
+			          <br>
+       	          pristine-tar gentar ../tarball_delta/swe_unix_src_2.05.tar.gz.delta
+         </code></dd>
+			<dt>Create delta:</dt>
+			<dd><code>pristine-tar gendelta ../swe_unix_src_2.05.tar.gz tarball_delta/swe_unix_src_2.05.tar.gz.delta</code></dd>
+		  </dl>
+
+		</dd>
+</dl>
+
+   </dd>
+	<dt>zip:</dt>
+	<dd>
+	zip file
+	<br>
+	<code>sweph.zip, sweph_20.5.zip</code>
+	</dd>
+	<dt>zip_contents:</dt>
+	<dd>
+	unpacked files from the zip file
+	<br>
+	<dl>
+		<dt>Example:</dt>
+		<dd><code>
+		  cd zip_contents
+		  <br>
+        unzip ../zip/sweph_20.5.zip</code></dd>
+	</dl>
+
+	</dd>
+</dl>
+
+</p>
+</body>
+</html>
