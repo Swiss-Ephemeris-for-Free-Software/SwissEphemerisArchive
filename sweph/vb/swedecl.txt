@@ -1291,6 +1291,10 @@ Const SE_SIDM_TRUE_MULA       As Int32 = 35
 Const SE_SIDM_GALCENT_MULA_WILHELM       As Int32 = 36
 Const SE_SIDM_ARYABHATA_522   As Int32 = 37
 Const SE_SIDM_BABYL_BRITTON   As Int32 = 38
+Const SE_SIDM_BABYL_SHEORAN   As Int32 = 39
+Const SE_SIDM_BABYL_COCHRANE   As Int32 = 40
+Const SE_SIDM_BABYL_FIORENZA   As Int32 = 41
+Const SE_SIDM_BABYL_VALENS_MOON   As Int32 = 42
 
 Const SE_SIDM_USER            As Int32 = 255
 
@@ -1315,10 +1319,11 @@ Const SE_CALC_RISE		As Int32 = 1
 Const SE_CALC_SET		As Int32 = 2
 Const SE_CALC_MTRANSIT		As Int32 = 4
 Const SE_CALC_ITRANSIT		As Int32 = 8
-Const SE_BIT_GEOCTR_NO_ECL_LAT  As Int32 = 128
 Const SE_BIT_DISC_CENTER        As Int32 = 256 '/* to be added to SE_CALC_RISE/SET */
-				    '/* if rise or set of disc center is */
-				    '/* requried */
+				    '/* for rise or set of disc center is */
+Const SE_BIT_DISC_BOTTOM        As Int32 = 8192 '/* to be added to SE_CALC_RISE/SET, */
+				    '/* for rise or set of lower limb of disc */
+Const SE_BIT_GEOCTR_NO_ECL_LAT  As Int32 = 128
 Const SE_BIT_NO_REFRACTION      As Int32 = 512 '/* to be added to SE_CALC_RISE/SET, */
 				    '/* if refraction is not to be considered */
 Const SE_BIT_CIVIL_TWILIGHT     As Int32 = 1024 '/* to be added to SE_CALC_RISE/SET, */
