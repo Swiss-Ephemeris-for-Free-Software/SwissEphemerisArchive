@@ -53,7 +53,7 @@ swehouse.o: swephexp.h sweodef.h swedll.h swephlib.h swehouse.h
 swejpl.o: swephexp.h sweodef.h swedll.h sweph.h swejpl.h
 swemini.o: swephexp.h sweodef.h swedll.h
 swemmoon.o: swephexp.h sweodef.h swedll.h sweph.h swephlib.h
-swemplan.o: swephexp.h sweodef.h swedll.h sweph.h swephlib.h swemptab.c
+swemplan.o: swephexp.h sweodef.h swedll.h sweph.h swephlib.h swemptab.h
 swepcalc.o: swepcalc.h swephexp.h sweodef.h swedll.h
 sweph.o: swejpl.h sweodef.h swephexp.h swedll.h sweph.h swephlib.h
 swephlib.o: swephexp.h sweodef.h swedll.h sweph.h swephlib.h
