@@ -228,9 +228,13 @@ extern "C" {
 #define SE_SIDM_J2000           18
 #define SE_SIDM_J1900           19
 #define SE_SIDM_B1950           20
+#define SE_SIDM_SURYASIDDHANTA  21
+#define SE_SIDM_SURYASIDDHANTA_MSUN  22
+#define SE_SIDM_ARYABHATA       23
+#define SE_SIDM_ARYABHATA_MSUN  24
 #define SE_SIDM_USER            255
 
-#define SE_NSIDM_PREDEF	  	    21
+#define SE_NSIDM_PREDEF	  	    27
 
 /* used for swe_nod_aps(): */
 #define SE_NODBIT_MEAN		1   /* mean nodes/apsides */
@@ -323,6 +327,7 @@ extern "C" {
  * own place for the ephemeris files.
  */
 
+#ifndef SE_EPHE_PATH
 #if MSDOS
 #ifdef PAIR_SWEPH
 #  define SE_EPHE_PATH    "\\pair\\ephe\\"
@@ -340,6 +345,7 @@ extern "C" {
 			   the long file in /users/ephe2/ast*. */
 # endif
 #endif
+#endif  /* SE_EPHE_PATH */
 
 /* defines for function swe_split_deg() (in swephlib.c) */
 # define SE_SPLIT_DEG_ROUND_SEC    1
@@ -669,20 +675,20 @@ ext_def (void) swe_azalt_rev(
       double *xin, 
       double *xout); 
 
-ext_def (int32) swe_rise_trans(
-               double tjd_ut, int32 ipl, char *starname, 
-	       int32 epheflag, int32 rsmi,
-               double *geopos, 
-	       double atpress, double attemp,
-               double *tret,
-               char *serr);
-
 ext_def (int32) swe_rise_trans_true_hor(
                double tjd_ut, int32 ipl, char *starname, 
 	       int32 epheflag, int32 rsmi,
                double *geopos, 
 	       double atpress, double attemp,
 	       double horhgt,
+               double *tret,
+               char *serr);
+
+ext_def (int32) swe_rise_trans(
+               double tjd_ut, int32 ipl, char *starname, 
+	       int32 epheflag, int32 rsmi,
+               double *geopos, 
+	       double atpress, double attemp,
                double *tret,
                char *serr);
 

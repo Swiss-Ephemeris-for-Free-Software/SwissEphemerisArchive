@@ -934,7 +934,7 @@ Private Declare Function swe_vis_limit_mag Lib "swedll32.dll" _
                ' serr must be able to hold 256 bytes
 
 Private Declare Function swe_utc_to_jd Lib "swedll32.dll" _
-   Alias "_swe_utc_to_jd@36" ( _
+   Alias "_swe_utc_to_jd@40" ( _
      ByVal iyear As Long, _
      ByVal imonth As Long, _
      ByVal iday As Long, _
