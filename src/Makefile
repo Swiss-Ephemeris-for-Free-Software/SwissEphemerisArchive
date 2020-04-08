@@ -38,8 +38,8 @@ swemini: swemini.o libswe.a
 libswe.a: $(SWEOBJ)
 	ar r libswe.a	$(SWEOBJ)
 
-libswe.sl: $(SWEOBJ)
-	ld -b -o libswe.sl	$(SWEOBJ)
+libswe.so: $(SWEOBJ)
+	$(CC) -shared -o libswe.so $(SWEOBJ)
 
 clean:
 	rm -f *.o swetest libswe*

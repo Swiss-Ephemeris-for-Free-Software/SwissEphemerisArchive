@@ -1,5 +1,5 @@
 /* 
-  $Header: /home/dieter/sweph/RCS/swetest.c,v 1.74 2008/06/16 10:07:20 dieter Exp $
+  $Header: /home/dieter/sweph/RCS/swetest.c,v 1.75 2009/04/01 13:18:36 dieter Exp $
   swetest.c	A test program
    
   Authors: Dieter Koch and Alois Treindl, Astrodienst Zürich
@@ -69,19 +69,29 @@ static char *infocmd0 = "\n\
   With the proper options, swetest can be used to output a printed\n\
   ephemeris and transfer the data into other programs like spreadsheets\n\
   for graphical display.\n\
-  Version: $Header: /home/dieter/sweph/RCS/swetest.c,v 1.74 2008/06/16 10:07:20 dieter Exp $\n\
+  Version: $Header: /home/dieter/sweph/RCS/swetest.c,v 1.75 2009/04/01 13:18:36 dieter Exp $\n\
 \n";
 static char *infocmd1 = "\n\
   Command line options:\n\
-	-ay..   ayanamsa, with number of method, e.g. ay0 for Fagan/Bradley\n\
+     help commands:\n\
+        -?, -h  display whole info\n\
+        -hcmd   display commands\n\
+        -hplan  display planet numbers\n\
+        -hform  display format characters\n\
+        -hdate  display input date format\n\
+        -hexamp  display examples\n\
+     input time formats:\n\
+        -bDATE  begin date; e.g. -b1.1.1992 if\n\
+                Note: the date format is day month year (European style).\n\
+        -bj...  begin date as an absolute Julian day number; e.g. -bj2415020.5\n\
+        -j...   same as -bj\n\
+        -tHH.MMSS  input time (ephemeris time)\n\
+        -ut     input date is universal time\n\
+	-utHH:MM:SS input time\n\
+	-utHH.MMSS input time\n\
+     object, number of steps, step with\n\
         -pSEQ   planet sequence to be computed.\n\
                 See the letter coding below.\n\
-        -nN     output data for N consecutive days; if no -n option\n\
-                is given, the default is 1. If the option -n without a\n\
-                number is given, the default is 20.\n\
-        -sN     timestep N days, default 1. This option is only meaningful\n\
-                when combined with option -n.\n\
-        -edirPATH change the directory of the ephemeris files \n\
         -dX     differential ephemeris: print differential ephemeris between\n\
                 body X and each body in list given by -p\n\
                 example: -p2 -d0 -fJl -n366 -b1.1.1992 prints the longitude\n\
@@ -89,24 +99,32 @@ static char *infocmd1 = "\n\
                 for a full year starting at 1 Jan 1992.\n\
 	-DX	midpoint ephemeris, works the same way as the differential\n\
 		mode -d described above, but outputs the midpoint position.\n\
-        -hel    compute heliocentric positions\n\
-        -bary   compute barycentric positions (bar. earth instead of node) \n\
-	-sid..    sidereal, with number of method; 'sid0' for Fagan/Bradley\n\
-	-sidt0..  sidereal, projection on ecliptic of t0 \n\
-	-sidsp..  sidereal, projection on solar system plane \n\
-        -topo[long,lat,elev]	\n\
-		topocentric positions. The longitude, latitude (degrees with\n\
-		DECIMAL fraction) and elevation (meters) can be given, with\n\
-		commas separated, + for east and north. If none are given,\n\
-		Zürich is used: 8.55,47.38,400\n\
+        -nN     output data for N consecutive days; if no -n option\n\
+                is given, the default is 1. If the option -n without a\n\
+                number is given, the default is 20.\n\
+        -sN     timestep N days, default 1. This option is only meaningful\n\
+                when combined with option -n.\n\
+		";
+static char *infocmd2 = "\
+     output format:\n\
+        -fSEQ   use SEQ as format sequence for the output columns;\n\
+                default is PLBRS.\n\
+        -head   don\'t print the header before the planet data. This option\n\
+                is useful when you want to paste the output into a\n\
+                spreadsheet for displaying graphical ephemeris.\n\
+        +head   header before every step (with -s..) \n\
+        -gPPP   use PPP as gap between output columns; default is a single\n\
+                blank.  -g followed by white space sets the\n\
+                gap to the TAB character; which is useful for data entry\n\
+                into spreadsheets.\n\
+     astrological house system:\n\
         -house[long,lat,hsys]	\n\
 		include house cusps. The longitude, latitude (degrees with\n\
 		DECIMAL fraction) and house system letter can be given, with\n\
 		commas separated, + for east and north. If none are given,\n\
 		Greenwich UK and Placidus is used: 0.00,51.50,p.\n\
 		The output lists 12 house cusps, Asc, MC, ARMC and Vertex.\n\
-		Houses can only be computed if option -ut is given.\n";
-static char *infocmd2 = "\
+		Houses can only be computed if option -ut is given.\n\
         -hsy[hsys]	\n\
 		house system to be used (for house positions of planets)\n\
 		for long, lat, hsys, see -house\n\
@@ -116,56 +134,53 @@ static char *infocmd2 = "\
                 The longitude, latitude (degrees with DECIMAL fraction)\n\
 		and elevation (meters) can be given, with\n\
 		commas separated, + for east and north. If none are given,\n\
-		Zürich is used: 8.55,47.38,400\n\
-        -head   don\'t print the header before the planet data. This option\n\
-                is useful when you want to paste the output into a\n\
-                spreadsheet for displaying graphical ephemeris.\n\
-        -bDATE  begin date; e.g. -b1.1.1992 if\n\
-                Note: the date format is day month year (European style).\n\
-        -bj...  begin date as an absolute Julian day number; e.g. -bj2415020.5\n\
-        -j...   same as -bj\n\
-        -fSEQ   use SEQ as format sequence for the output columns;\n\
-                default is PLBRS.\n\
-        -tHH.MMSS  input time (ephemeris time)\n\
-        -ut     input date is universal time\n\
-	-utHH:MM:SS input time\n\
-	-utHH.MMSS input time\n";
+		Greenwich is used: 0,51.5,0\n\
+     sidereal astrology:\n\
+	-ay..   ayanamsa, with number of method, e.g. ay0 for Fagan/Bradley\n\
+	-sid..    sidereal, with number of method; 'sid0' for Fagan/Bradley\n\
+	                                           'sid1' for Lahiri\n\
+	-sidt0..  sidereal, projection on ecliptic of t0 \n\
+	-sidsp..  sidereal, projection on solar system plane \n\
+	";
 static char *infocmd3 = "\
+     ephemeris specifications:\n\
+        -edirPATH change the directory of the ephemeris files \n\
         -eswe   swiss ephemeris\n\
         -ejpl   jpl ephemeris (DE406), or with ephemeris file name\n\
                 -ejplde200.eph \n\
         -emos   moshier ephemeris\n\
-        -true   true positions\n\
-        -noaberr        no aberration\n\
-        -nodefl no gravitational light deflection\n\
-        -j2000  no precession (i.e. J2000 positions)\n\
-        -icrs   ICRS (positions in the Internat. Celestial Reference System)\n\
-        -nonut  no nutation \n\
-        -speed  high precision speed \n\
-        -speed3 'low' precision speed from 3 positions \n\
-                do not use this option. -speed parameter is faster and preciser \n\
-        -testaa96       test example in AA 96, B37,\n\
-                        i.e. venus, j2450442.5, DE200.\n\
-                        attention: use precession IAU1976\n\
-                        and nutation 1980 (s. swephlib.h)\n\
+        -true             true positions\n\
+        -noaberr          no aberration\n\
+        -nodefl           no gravitational light deflection\n\
+	-noaberr -nodefl  astrometric positions\n\
+        -j2000            no precession (i.e. J2000 positions)\n\
+        -icrs             ICRS (use Internat. Celestial Reference System)\n\
+        -nonut            no nutation \n\
+        -speed            calculate high precision speed \n\
+        -speed3           'low' precision speed from 3 positions \n\
+                          do not use this option. -speed parameter\n\
+			  is faster and preciser \n\
+	-iXX	          force iflag to value XX\n\
+        -testaa96         test example in AA 96, B37,\n\
+                          i.e. venus, j2450442.5, DE200.\n\
+                          attention: use precession IAU1976\n\
+                          and nutation 1980 (s. swephlib.h)\n\
         -testaa95\n\
         -testaa97\n\
-        -roundsec       round to seconds\n\
-        -roundmin       round to minutes\n\
+        -roundsec         round to seconds\n\
+        -roundmin         round to minutes\n\
+     observer position:\n\
+        -hel    compute heliocentric positions\n\
+        -bary   compute barycentric positions (bar. earth instead of node) \n\
+        -topo[long,lat,elev]	\n\
+		topocentric positions. The longitude, latitude (degrees with\n\
+		DECIMAL fraction) and elevation (meters) can be given, with\n\
+		commas separated, + for east and north. If none are given,\n\
+		Zürich is used: 8.55,47.38,400\n\
 \n\
-        -?, -h  display whole info\n\
-        -hcmd   display commands\n\
-        -hplan  display planet numbers\n\
-        -hform  display format characters\n\
-        -hdate  display input date format\n\
-        +head   header before every step (with -s..) \n\
-        -gPPP   use PPP as gap between output columns; default is a single\n\
-                blank.  -g followed by white space sets the\n\
-                gap to the TAB character; which is useful for data entry\n\
-                into spreadsheets.\n\
-	-iXX	force iflag to value XX\n\
-        -hexamp  display examples\n";
+	";
 static char *infocmd4 = "\
+     special events:\n\
         -solecl solar eclipse\n\
                 output 1st line:\n\
                   eclipse date,\n\
@@ -199,33 +214,64 @@ static char *infocmd4 = "\
                   fraction of solar diameter that is eclipsed\n\
                 output 2nd line:\n\
                   local eclipse duration,\n\
-                  local four contacts,\n";
+                  local four contacts,\n\
+        -hev[type] heliacal events,\n\
+		type 1 = heliacal rising\n\
+		type 2 = heliacal setting\n\
+		type 3 = evening first\n\
+		type 4 = morning last\n\
+	        type 0 or missing = all four events are listed.\n\
+        -rise   rising and setting of a planet or star.\n\
+                Use -geopos[long,lat,elev] to specify geographical position.\n\
+		";
 static char *infocmd5 = "\
+        -metr   southern and northern meridian transit of a planet of star\n\
+                Use -geopos[long,lat,elev] to specify geographical position.\n\
+     specifications for eclipses:\n\
         -total  total eclipse (only with -solecl, -lunecl)\n\
         -partial partial eclipse (only with -solecl, -lunecl)\n\
         -annular annular eclipse (only with -solecl)\n\
-        -anntot annular-total eclipse (only with -solecl)\n\
+        -anntot annular-total (hybrid) eclipse (only with -solecl)\n\
         -penumbral penumbral lunar eclipse (only with -lunecl)\n\
         -central central eclipse (only with -solecl, nonlocal)\n\
         -noncentral non-central eclipse (only with -solecl, nonlocal)\n\
-        -rise   rising and setting of a planet or star.\n\
-                Use -geopos[long,lat,elev] to specify geographical position.\n\
+     specifications for risings and settings:\n\
         -norefrac   neglect refraction (with option -rise)\n\
         -disccenter find rise of disc center (with option -rise)\n\
 	-hindu      hindu version of sunrise (with option -rise)\n\
-        -metr   southern and northern meridian transit of a planet of star\n\
-                Use -geopos[long,lat,elev] to specify geographical position.\n\
-        -bwd    search backward\n";
+     specifications for heliacal events:\n\
+        -at[press,temp,rhum,visr]:\n\
+	            pressure in hPa\n\
+		    temperature in degrees Celsius\n\
+		    relative humidity in %\n\
+		    visual range, interpreted as follows:\n\
+		      > 1 : meteorological range in km\n\
+		      1>visr>0 : total atmospheric coefficient (ktot)\n\
+		      = 0 : calculated from press, temp, rhum\n\
+		    Default values are -at1013.25,15,40,0\n\
+         -obs[age,SN] age of observer and Snellen ratio\n\
+	            Default values are -obs36,1\n\
+         -opt[age,SN,binocular,magn,diam,transm]\n\
+	            age and SN as with -obs\n\
+		    0 monocular or 1 binocular\n\
+		    telescope magnification\n\
+		    optical aperture in mm\n\
+		    optical transmission\n\
+		    Default values: -opt36,1,1,1,0,0 (naked eye)\n\
+     backward search:\n\
+        -bwd\n";
 /* characters still available:
   bcegijklruvxy
  */
 static char *infoplan = "\n\
   Planet selection letters:\n\
+     planetary lists:\n\
         d (default) main factors 0123456789mtABCcg\n\
         p main factors as above, plus main asteroids DEFGHI\n\
         h ficticious factors J..X\n\
         a all factors\n\
         (the letters above can only appear as a single letter)\n\n\
+     single planet letters:\n\
         0 Sun (character zero)\n\
         1 Moon (character 1)\n\
         2 Mercury\n\
@@ -240,13 +286,24 @@ static char *infoplan = "\n\
         B osculating lunar apogee \n\
         c intp. lunar apogee \n\
         g intp. lunar perigee \n\
-        C Earth \n\
+        C Earth (in heliocentric or barycentric calculation)\n\
+     dwarf planets, plutoids\n\
+        F Ceres\n\
+	9 Pluto\n\
+	s -xs136199   Eris\n\
+	s -xs136472   Makemake\n\
+	s -xs136108   Haumea\n\
+     some minor planets:\n\
         D Chiron\n\
         E Pholus\n\
-        F Ceres \n\
         G Pallas \n\
         H Juno \n\
         I Vesta \n\
+        s minor planet, with MPC number given in -xs\n\
+     fixed stars:\n\
+        f fixed star, with name or number given in -xf option\n\
+	f -xfSirius   Sirius\n\
+     fictitious objects:\n\
         J Cupido \n\
         K Hades \n\
         L Zeus \n\
@@ -265,9 +322,7 @@ static char *infoplan = "\n\
         Y Vulcan\n\
         Z White Moon\n\
 	w Waldemath's dark Moon\n\
-        f fixed star, with name or number given in -xf option\n\
         z hypothetical body, with number given in -xz\n\
-        s minor planet, with MPC number given in -xs\n\
         e print a line of labels\n\
           \n";
 /* characters still available 
@@ -316,15 +371,16 @@ static char *infoform = "\n\
         U unit vector ecliptical\n\
         u unit vector equatorial\n\
         Q l, b, r, dl, db, dr, a, d, da, dd\n\
-	n mean values: ascending, descending node (Me - Ne) decimal degree\n\
-	N osculating values: ascending, descending node\n\
-	f mean values for longitude: perihel, aphel, second focal point\n\
-	F oscul. values for longitude: perihel, aphel, second focal point\n\
+	n nodes (mean): ascending/descending (Me - Ne); longitude decimal\n\
+	N nodes (osculating): ascending/descending, longitude; decimal\n\
+	f apsides (mean): perihel, aphel, second focal point; longitude dec.\n\
+	F apsides (osc.): perihel, aphel, second focal point; longitude dec.\n\
 	+ phase angle\n\
 	- phase\n\
 	* elongation\n\
 	/ apparent diameter of disc (without refraction)\n\
-	= magnitude\n";
+	= magnitude\n\
+	";
 static char *infodate = "\n\
   Date entry:\n\
   In the interactive mode, when you are asked for a start date,\n\
@@ -445,7 +501,7 @@ static char *dms(double x, int32 iflag);
 static int make_ephemeris_path(int32 iflag, char *argv0);
 static int letter_to_ipl(int letter);
 static int print_line(int mode);
-static int do_eclipse_etc();
+static int do_special_event(double tjd, int32 ipl, char *star, int32 special_event, int32 special_mode, double *geopos, double *datm, double *dobs, char *serr) ;
 static char *hms_from_tjd(double x);
 static void do_printf(char *info);
 static char *hms(double x, int32 iflag);
@@ -465,13 +521,14 @@ static int gregflag = SE_GREG_CAL;
 static int diff_mode = 0;
 static AS_BOOL universal_time = FALSE;
 static int32 round_flag = 0;
-static double x[6], x2[6], xequ[6], xcart[6], xcartq[6], xobl[6], xaz[6], xt[6], geopos[3], hpos, hpos2, hposj, armc, xsv[6];
+static int32 special_event = 0;
+static int32 special_mode = 0;
+static double x[6], x2[6], xequ[6], xcart[6], xcartq[6], xobl[6], xaz[6], xt[6], hpos, hpos2, hposj, armc, xsv[6];
 static int hpos_meth = 0;
-static double attr[20], tret[20];
+static double attr[20], tret[20], geopos[3], datm[4], dobs[6];
 static int32 iflag = 0, iflag2;              /* external flag: helio, geo... */
 static char *hs_nam[] = {"undef",
 	"Ascendant", "MC", "ARMC", "Vertex"};
-static int smod = 0;
 static int direction = 1;
 static AS_BOOL direction_flag = FALSE;
 static double tjd = 2415020.5;
@@ -483,20 +540,16 @@ static char *psp;
 static int32 norefrac = 0;
 static int32 disccenter = 0;
 
-# define SMOD_LUNAR     1
-# define SMOD_HOW       2       /* an option for Lunar */
-# define SMOD_SOLAR     4
-# define SMOD_LOCAL     8       /* an option for Solar */
-# define SMOD_TOTAL     16
-# define SMOD_ANNULAR   32      /* count as penumbral for Lunar */
-# define SMOD_ANNTOT    64
-# define SMOD_PARTIAL   128
-# define SMOD_PENUMBRAL 256
-# define SMOD_ALL       (SMOD_TOTAL| SMOD_ANNULAR|SMOD_PARTIAL|SMOD_ANNTOT)
-# define SMOD_OCCULT    512
-# define SMOD_RISE      1024
-# define SMOD_METR      2048
-# define SMOD_HOCAL     4096
+#define SP_LUNAR_ECLIPSE	1
+#define SP_SOLAR_ECLIPSE	2
+#define SP_OCCULTATION	3
+#define SP_RISE_SET	4
+#define SP_MERIDIAN_TRANSIT	5
+#define SP_HELIACAL	6
+
+# define SP_MODE_HOW       2       /* an option for Lunar */
+# define SP_MODE_LOCAL     8       /* an option for Solar */
+# define SP_MODE_HOCAL     4096
 
 # define ECL_LUN_PENUMBRAL       1       /* eclipse types for hocal list */
 # define ECL_LUN_PARTIAL        2
@@ -507,9 +560,9 @@ static int32 disccenter = 0;
 
 int main(int argc, char *argv[])
 {
-  char saves[AS_MAXCH]; 
+  char sdate_save[AS_MAXCH]; 
   char s1[AS_MAXCH], s2[AS_MAXCH];
-  char *sp, *spsave, *sp2;
+  char *sp, *sp2;
   char *spno;
   char *plsel = PLSEL_D;
 #if HPUNIX
@@ -535,8 +588,11 @@ int main(int argc, char *argv[])
   int32 sid_mode = SE_SIDM_FAGAN_BRADLEY;
   double t2, tstep = 1, thour = 0;
   double delt;
+  datm[0] = 0; datm[1] = 0; datm[2] = 0; datm[3] = 0;
+  dobs[0] = 0; dobs[1] = 0;
+  dobs[2] = 0; dobs[3] = 0; dobs[4] = 0; dobs[5] = 0;
 /*  swe_set_tid_acc(-25.858); * to test delta t output */
-  serr[0] = serr_save[0] = serr_warn[0] = saves[0] = '\0';
+  serr[0] = serr_save[0] = serr_warn[0] = sdate_save[0] = '\0';
 # ifdef MACOS
   argc = ccommand(&argv); /* display the arguments window */    
 # endif
@@ -652,35 +708,28 @@ int main(int argc, char *argv[])
       universal_time = FALSE;
       plsel="3";
     } else if (strcmp(argv[i], "-lunecl") == 0) {
-      smod |= SMOD_LUNAR;
-      smod &= ~SMOD_SOLAR;
+      special_event = SP_LUNAR_ECLIPSE;
     } else if (strcmp(argv[i], "-solecl") == 0) {
-      smod |= SMOD_SOLAR;
-      search_flag |= SE_ECL_CENTRAL;
-      search_flag |= SE_ECL_NONCENTRAL;
+      special_event = SP_SOLAR_ECLIPSE;
       have_geopos = TRUE;
     } else if (strcmp(argv[i], "-occult") == 0) {
-      smod |= SMOD_OCCULT;
-      smod &= ~SMOD_SOLAR;
-      smod &= ~SMOD_LUNAR;
-      search_flag |= SE_ECL_CENTRAL;
-      search_flag |= SE_ECL_NONCENTRAL;
+      special_event = SP_OCCULTATION;
       have_geopos = TRUE;
     } else if (strcmp(argv[i], "-hocal") == 0) {
       /* used to create a listing for inclusion in hocal.c source code */
-      smod |= SMOD_HOCAL;
+      special_mode |= SP_MODE_HOCAL;
     } else if (strcmp(argv[i], "-how") == 0) {
-      smod |= SMOD_HOW;
+      special_mode |= SP_MODE_HOW;
     } else if (strcmp(argv[i], "-total") == 0) {
-      smod |= SMOD_TOTAL;
+      search_flag |= SE_ECL_TOTAL|SE_ECL_CENTRAL|SE_ECL_NONCENTRAL;
     } else if (strcmp(argv[i], "-annular") == 0) {
-      smod |= SMOD_ANNULAR;
+      search_flag |= SE_ECL_ANNULAR|SE_ECL_CENTRAL|SE_ECL_NONCENTRAL;
     } else if (strcmp(argv[i], "-anntot") == 0) {
-      smod |= SMOD_ANNTOT;
+      search_flag |= SE_ECL_ANNULAR_TOTAL|SE_ECL_CENTRAL|SE_ECL_NONCENTRAL;
     } else if (strcmp(argv[i], "-partial") == 0) {
-      smod |= SMOD_PARTIAL;
+      search_flag |= SE_ECL_PARTIAL|SE_ECL_CENTRAL|SE_ECL_NONCENTRAL;
     } else if (strcmp(argv[i], "-penumbral") == 0) {
-      smod |= SMOD_PENUMBRAL;
+      search_flag |= SE_ECL_PENUMBRAL;
     } else if (strcmp(argv[i], "-noncentral") == 0) {
       search_flag &= ~SE_ECL_CENTRAL;
       search_flag |= SE_ECL_NONCENTRAL;
@@ -688,10 +737,9 @@ int main(int argc, char *argv[])
       search_flag &= ~SE_ECL_NONCENTRAL;
       search_flag |= SE_ECL_CENTRAL;
     } else if (strcmp(argv[i], "-local") == 0) {
-      smod |= SMOD_LOCAL;
+      special_mode |= SP_MODE_LOCAL;
     } else if (strcmp(argv[i], "-rise") == 0) {
-      smod |= SMOD_RISE;
-      smod &= ~SMOD_SOLAR;
+      special_event = SP_RISE_SET;
       have_geopos = TRUE;
     } else if (strcmp(argv[i], "-norefrac") == 0) {
       norefrac = 1;
@@ -701,9 +749,20 @@ int main(int argc, char *argv[])
       norefrac = 1;
       disccenter = 1;
     } else if (strcmp(argv[i], "-metr") == 0) {
-      smod |= SMOD_METR;
-      smod &= ~SMOD_SOLAR;
+      special_event = SP_MERIDIAN_TRANSIT;
       have_geopos = TRUE;
+    } else if (strncmp(argv[i], "-hev", 4) == 0) {
+      special_event = SP_HELIACAL;
+      search_flag = 0;
+      if (strlen(argv[i]) > 4)
+	search_flag = atoi(argv[i] + 4);
+      have_geopos = TRUE;
+    } else if (strncmp(argv[i], "-at", 3) == 0) {
+      sscanf(argv[i]+3, "%lf,%lf,%lf,%lf", &(datm[0]), &(datm[1]), &(datm[2]), &(datm[3]));
+    } else if (strncmp(argv[i], "-obs", 4) == 0) {
+      sscanf(argv[i]+4, "%lf,%lf", &(dobs[0]), &(dobs[1]));
+    } else if (strncmp(argv[i], "-opt", 4) == 0) {
+      sscanf(argv[i]+4, "%lf,%lf,%lf,%lf,%lf,%lf", &(dobs[0]), &(dobs[1]), &(dobs[2]), &(dobs[3]), &(dobs[4]), &(dobs[5]));
     } else if (strcmp(argv[i], "-bwd") == 0) {
       direction = -1;
       direction_flag = TRUE;
@@ -802,13 +861,17 @@ int main(int argc, char *argv[])
       exit(1);
     }
   }
-  if (smod & (SMOD_OCCULT | SMOD_RISE | SMOD_METR)) {
+  if (special_event == SP_OCCULTATION ||
+      special_event == SP_RISE_SET ||
+      special_event == SP_MERIDIAN_TRANSIT ||
+      special_event == SP_HELIACAL
+      ) {
     ipl = letter_to_ipl(*plsel);
     if (*plsel == 'f') 
       ipl = SE_FIXSTAR;
     else
       *star = '\0';
-    if ((smod & SMOD_OCCULT) && ipl == 1)
+    if (special_event == SP_OCCULTATION && ipl == 1)
       ipl = 2; /* no occultation of moon by moon */
   }
   geopos[0] = top_long;
@@ -877,14 +940,15 @@ int main(int argc, char *argv[])
       *sdate = '\0';
     }
     sp = sdate;
-    spsave = sp;
     if (*sp == '.') {
       goto end_main;
-    } else if (*sp == '\0') {
-      strcpy (sdate, saves);
+    } else if (*sp == '\0' || *sp == '\n' || *sp == '\r') {
+      strcpy (sdate, sdate_save);
     } else {
-      strcpy (saves, sdate);
+      strcpy (sdate_save, sdate);
     }
+    if (*sdate == '\0')
+      sprintf(sdate, "j%f", tjd);
     if (*sp == 'j') {   /* it's a day number */
       if ((sp2 = strchr(sp, ',')) != NULL) 
         *sp2 = '.';
@@ -922,20 +986,20 @@ int main(int argc, char *argv[])
       tjd = swe_julday(jyear,jmon,jday,jut,gregflag);        
       tjd += thour / 24.0;
     }
-    line_count = 0;
-    if (smod > 0) {
-      do_eclipse_etc();
+    if (special_event > 0) {
+      do_special_event(tjd, ipl, star, special_event, special_mode, geopos, datm, dobs, serr) ;
       swe_close();
       return OK;
     }
+    line_count = 0;
     for (t = tjd, istep = 1; istep <= nstep; t += tstep, istep++) {
       if (t < 2299160.5)
         gregflag = SE_JUL_CAL;
       else
         gregflag = SE_GREG_CAL;
-      if (strstr(spsave, "jul") != NULL)
+      if (strstr(sdate, "jul") != NULL)
         gregflag = SE_JUL_CAL;
-      else if (strstr(spsave, "greg") != NULL)
+      else if (strstr(sdate, "greg") != NULL)
         gregflag = SE_GREG_CAL;
       t2 = t;
       swe_revjul(t2, gregflag, &jyear, &jmon, &jday, &jut);
@@ -959,11 +1023,12 @@ int main(int argc, char *argv[])
           printf(" UT");
         else
           printf(" ET");
+	printf("\t\tversion %s", swe_version(sout));
       }
       delt = swe_deltat(t);
       if (universal_time) {
         if (with_header) {
-          sprintf(sout, "\nUT: %f", t);
+          sprintf(sout, "\nUT: %.11f", t);
           printf(sout);
         }
         if (with_header) {
@@ -978,7 +1043,7 @@ int main(int argc, char *argv[])
       }
       iflgret = swe_calc(te, SE_ECL_NUT, iflag, xobl, serr);
       if (with_header) {
-        sprintf(sout, "\nET: %f", te);
+        sprintf(sout, "\nET: %.11f", te);
         printf(sout);
 	if (iflag & SEFLG_SIDEREAL) {
 	  daya = swe_get_ayanamsa(te);
@@ -1792,36 +1857,105 @@ static int letter_to_ipl(int letter)
   return -2;
 }
 
-static int do_eclipse_etc() 
+static int32 call_rise_set(double t_ut, int32 ipl, char *star, int32 whicheph, int32 special_mode, double *geopos, char *serr)
 {
-  int ii, i;
-  AS_BOOL has_found = FALSE;
-  double t_ut, dt;
-  int ecl_type = 0, eclflag;
-  char s1[AS_MAXCH], s2[AS_MAXCH];
+  int ii;
   int32 rsmi = 0;
-  if (smod & (SMOD_LUNAR | SMOD_SOLAR | SMOD_OCCULT))  {
-    if ((smod & SMOD_ALL) == 0) /* no selective eclipse type set, set all */
-      smod |= SMOD_ALL;
-    if (smod & SMOD_TOTAL) search_flag |= SE_ECL_TOTAL;
-    if (smod & SMOD_ANNULAR) search_flag |= SE_ECL_ANNULAR | SE_ECL_PENUMBRAL;
-    if (smod & SMOD_PARTIAL) search_flag |= SE_ECL_PARTIAL;
-    if (smod & SMOD_ANNTOT) search_flag |= SE_ECL_ANNULAR_TOTAL;
-  }
-  /* 
-   * for local eclipses: set geographic position of observer 
-   */
-  if (smod & (SMOD_LOCAL|SMOD_RISE|SMOD_METR))
-    swe_set_topo(geopos[0], geopos[1], geopos[2]); 
-  t_ut = tjd;
+  double tret[10];
+  swe_set_topo(geopos[0], geopos[1], geopos[2]); 
   do_printf("\n");
-  for (ii = 0; ii < nstep; ii++) {
+  /* loop over days */
+  for (ii = 0; ii < nstep; ii++, t_ut = tret[1] + 0.1) {
     *sout = '\0';
-    if ((smod & SMOD_LUNAR) && (smod & SMOD_HOW)) { 
+    /* swetest -rise
+     * calculate and print rising and setting */
+    if (special_event == SP_RISE_SET) {
+      /* rising */
+      rsmi = SE_CALC_RISE;
+      if (norefrac) rsmi |= SE_BIT_NO_REFRACTION;
+      if (disccenter) rsmi |= SE_BIT_DISC_CENTER;
+      if (swe_rise_trans(t_ut, ipl, star, whicheph, rsmi, geopos, 1013.25, 10, &(tret[0]), serr) != OK) {
+	do_printf(serr);
+	exit(0);
+      } 
+      /* setting */
+      rsmi = SE_CALC_SET;
+      if (norefrac) rsmi |= SE_BIT_NO_REFRACTION;
+      if (disccenter) rsmi |= SE_BIT_DISC_CENTER;
+      if (swe_rise_trans(t_ut, ipl, star, whicheph, rsmi, geopos, 1013.25, 10, &(tret[1]), serr) != OK) {
+	do_printf(serr);
+	exit(0);
+      } 
+      strcpy(sout, "rise     ");
+      if (tret[0] == 0 || tret[0] > tret[1]) {
+        strcat(sout, "         -                     ");
+      } else {
+	swe_revjul(tret[0], gregflag, &jyear, &jmon, &jday, &jut);
+	sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s    ", 
+		  jday, jmon, jyear, hms(jut,0));
+      }
+      strcat(sout, "set      ");
+      if (tret[1] == 0) {
+        strcat(sout, "         -                     \n");
+      } else {
+	swe_revjul(tret[1], gregflag, &jyear, &jmon, &jday, &jut);
+	sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s\n", 
+		  jday, jmon, jyear, hms(jut,0));
+      }
+      do_printf(sout);
+    }
+    /* swetest -metr
+     * calculate and print transits over meridian (midheaven and lower
+     * midheaven */
+    if (special_event == SP_MERIDIAN_TRANSIT) {
+      /* transit over midheaven */
+      if (swe_rise_trans(t_ut, ipl, star, whicheph, SE_CALC_MTRANSIT, geopos, 1013.25, 10, &(tret[0]), serr) != OK) {
+	do_printf(serr);
+	return ERR;
+      } 
+      /* transit over lower midheaven */
+      if (swe_rise_trans(t_ut, ipl, star, whicheph, SE_CALC_ITRANSIT, geopos, 1013.25, 10, &(tret[1]), serr) != OK) {
+	do_printf(serr);
+	return ERR;
+      } 
+      strcpy(sout, "mtransit ");
+      if (tret[0] == 0) strcat(sout, "         -                     ");
+      else {
+	swe_revjul(tret[0], gregflag, &jyear, &jmon, &jday, &jut);
+	sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s    ", 
+		  jday, jmon, jyear, hms(jut,0));
+      }
+      strcat(sout, "itransit ");
+      if (tret[1] == 0) strcat(sout, "         -                     \n");
+      else {
+	swe_revjul(tret[1], gregflag, &jyear, &jmon, &jday, &jut);
+	sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s\n", 
+		  jday, jmon, jyear, hms(jut,0));
+      }
+      do_printf(sout);
+    }
+  }
+  return OK;
+}
+
+static int32 call_lunar_eclipse(double t_ut, int32 whicheph, int32 special_mode, double *geopos, char *serr)
+{
+  int ii, eclflag, ecl_type;
+  int ihou, imin, isec, isgn;
+  double dfrc, attr[30];
+  /* no selective eclipse type set, set all */
+  if ((search_flag & SE_ECL_ALLTYPES_LUNAR) == 0)
+    search_flag |= SE_ECL_ALLTYPES_LUNAR;
+  do_printf("\n");
+  for (ii = 0; ii < nstep; ii++, t_ut += direction) {
+    *sout = '\0';
+    /* swetest -lunecl -how 
+     * type of lunar eclipse and percentage for a given time: */
+    if (special_mode & SP_MODE_HOW) { 
       if ((eclflag = swe_lun_eclipse_how(t_ut, whicheph, geopos, attr, serr)) ==
 ERR) {
         do_printf(serr);
-        exit(0);
+        return ERR;
       } else {
 	ecl_type = 0;
         if (eclflag & SE_ECL_TOTAL) {
@@ -1839,11 +1973,13 @@ ERR) {
         do_printf(sout);
       }
     }
-    if ((smod & SMOD_LUNAR) && ! (smod & SMOD_HOW)) { 
+    /* swetest -lunecl 
+     * find next lunar eclipse: */
+    if (!(special_mode & SP_MODE_HOW)) { 
       if ((eclflag = swe_lun_eclipse_when(t_ut, whicheph, search_flag, 
                 tret, direction_flag, serr)) == ERR) {
         do_printf(serr);
-        exit(0);
+        return ERR;
       } 
       t_ut = tret[0];
       if ((eclflag & SE_ECL_TOTAL)) {
@@ -1863,7 +1999,7 @@ ERR) {
       if ((eclflag = swe_lun_eclipse_how(t_ut, whicheph, geopos, attr, serr)) ==
 ERR) {
         do_printf(serr);
-        exit(0);
+        return ERR;
       }
       sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s\t%f o/o\n", 
       /* eclipse times, penumbral, partial, total begin and end */
@@ -1886,33 +2022,52 @@ ERR) {
         else
           strcat(sout, "   -         ");
 	sprintf(sout + strlen(sout), "%s\n", hms_from_tjd(tret[7])); 
-      if (smod & SMOD_HOCAL) {
-	int ihou, imin, isec, isgn;
-	double dfrc;
+      if (special_mode & SP_MODE_HOCAL) {
 	swe_split_deg(jut, SE_SPLIT_DEG_ROUND_MIN, &ihou, &imin, &isec, &dfrc, &isgn);
 	sprintf(sout, "\"%04d %02d %02d %02d.%02d %d\",\n", jyear, jmon, jday, ihou, imin, ecl_type);
       } 
       do_printf(sout);
     }
-    if ((smod & SMOD_SOLAR) && (smod & SMOD_LOCAL)) {
+  }
+  return OK;
+}
+
+static int32 call_solar_eclipse(double t_ut, int32 whicheph, int32 special_mode, double *geopos, char *serr)
+{
+  int ii, eclflag, ecl_type = 0;
+  double dt, tret[30], attr[30];
+  char s1[AS_MAXCH], s2[AS_MAXCH];
+  AS_BOOL has_found = FALSE;
+  /* no selective eclipse type set, set all */
+  if ((search_flag & SE_ECL_ALLTYPES_SOLAR) == 0)
+    search_flag |= SE_ECL_ALLTYPES_SOLAR;
+  /* for local eclipses: set geographic position of observer */
+  if (special_mode & SP_MODE_LOCAL)
+    swe_set_topo(geopos[0], geopos[1], geopos[2]); 
+  do_printf("\n");
+  for (ii = 0; ii < nstep; ii++, t_ut += direction) {
+    *sout = '\0';
+    /* swetest -solecl -local -geopos...
+     * find next solar eclipse observable from a given geographic position */
+    if (special_mode & SP_MODE_LOCAL) {
       if ((eclflag = swe_sol_eclipse_when_loc(t_ut, whicheph, geopos, tret,
 attr, direction_flag, serr)) == ERR) {
         do_printf(serr);
-        exit(0);
+        return ERR;
       } else { 
 	has_found = FALSE;
         t_ut = tret[0];
-        if ((smod & SMOD_TOTAL) && (eclflag & SE_ECL_TOTAL)) {
+        if ((search_flag & SE_ECL_TOTAL) && (eclflag & SE_ECL_TOTAL)) {
           strcpy(sout, "total   ");
 	  has_found = TRUE;
 	  ecl_type = ECL_SOL_TOTAL;
 	}
-        if ((smod & SMOD_ANNULAR) && (eclflag & SE_ECL_ANNULAR)) {
+        if ((search_flag & SE_ECL_ANNULAR) && (eclflag & SE_ECL_ANNULAR)) {
           strcpy(sout, "annular ");
 	  has_found = TRUE;
 	  ecl_type = ECL_SOL_ANNULAR;
 	}
-        if ((smod & SMOD_PARTIAL) && (eclflag & SE_ECL_PARTIAL)) {
+        if ((search_flag & SE_ECL_PARTIAL) && (eclflag & SE_ECL_PARTIAL)) {
           strcpy(sout, "partial ");
 	  has_found = TRUE;
 	  ecl_type = ECL_SOL_PARTIAL;
@@ -1920,7 +2075,7 @@ attr, direction_flag, serr)) == ERR) {
 	if (!has_found) {
 	  ii--;
 	} else {
-	  i = swe_calc(t_ut + swe_deltat(t_ut), SE_ECL_NUT, 0, x, serr);
+	  swe_calc(t_ut + swe_deltat(t_ut), SE_ECL_NUT, 0, x, serr);
 	  swe_revjul(t_ut, gregflag, &jyear, &jmon, &jday, &jut);
 	  sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s\t%fo/o\n", jday, jmon, jyear, hms(jut,0), attr[0]);
 	  dt = (tret[3] - tret[2]) * 24 * 60;
@@ -1955,72 +2110,13 @@ attr, direction_flag, serr)) == ERR) {
 	}
       }
     }   /* endif search_local */
-    if ((smod & SMOD_OCCULT) && (smod & SMOD_LOCAL)) {
-      if ((eclflag = swe_lun_occult_when_loc(t_ut, ipl, star, whicheph, geopos, tret, attr, direction_flag, serr)) == ERR) {
-        do_printf(serr);
-        exit(0);
-      } else { 
-	has_found = FALSE;
-        t_ut = tret[0];
-        if ((smod & SMOD_TOTAL) && (eclflag & SE_ECL_TOTAL)) {
-          strcpy(sout, "total   ");
-	  has_found = TRUE;
-	  ecl_type = ECL_SOL_TOTAL;
-	}
-        if ((smod & SMOD_ANNULAR) && (eclflag & SE_ECL_ANNULAR)) {
-          strcpy(sout, "annular ");
-	  has_found = TRUE;
-	  ecl_type = ECL_SOL_ANNULAR;
-	}
-        if ((smod & SMOD_PARTIAL) && (eclflag & SE_ECL_PARTIAL)) {
-          strcpy(sout, "partial ");
-	  has_found = TRUE;
-	  ecl_type = ECL_SOL_PARTIAL;
-	}
-	if (!has_found) {
-	  ii--;
-	} else {
-	  i = swe_calc(t_ut + swe_deltat(t_ut), SE_ECL_NUT, 0, x, serr);
-	  swe_revjul(t_ut, gregflag, &jyear, &jmon, &jday, &jut);
-	  sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s\t%fo/o\n", jday, jmon, jyear, hms(jut,0), attr[0]);
-	  dt = (tret[3] - tret[2]) * 24 * 60;
-	  sprintf(sout + strlen(sout), "\t%d min %4.2f sec\t",
-                (int) dt, fmod(dt, 1) * 60); 
-	  if (eclflag & SE_ECL_1ST_VISIBLE)
-	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[1])); 
-	  else
-	    strcat(sout, "   -         ");
-	  if (eclflag & SE_ECL_2ND_VISIBLE)
-	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[2])); 
-	  else
-	    strcat(sout, "   -         ");
-	  if (eclflag & SE_ECL_3RD_VISIBLE)
-	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[3])); 
-	  else
-	    strcat(sout, "   -         ");
-	  if (eclflag & SE_ECL_4TH_VISIBLE)
-	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[4])); 
-	  else
-	    strcat(sout, "   -         ");
-#if 0
-	  sprintf(sout + strlen(sout), "\t%d min %4.2f sec   %s %s %s %s", 
-                (int) dt, fmod(dt, 1) * 60, 
-                strcpy(s1, hms(fmod(tret[1] + 0.5, 1) * 24, 0)), 
-                strcpy(s3, hms(fmod(tret[2] + 0.5, 1) * 24, 0)), 
-                strcpy(s4, hms(fmod(tret[3] + 0.5, 1) * 24, 0)),
-                strcpy(s2, hms(fmod(tret[4] + 0.5, 1) * 24, 0)));
-#endif
-	  strcat(sout, "\n");
-	  do_printf(sout);
-	}
-      }
-    }   /* endif search_local */
-    if ((smod & SMOD_SOLAR) && ! (smod & SMOD_LOCAL)) {
-    /* * global search for eclipses */
+    /* swetest -solecl
+     * find next solar eclipse observable from anywhere on earth */
+    if (!(special_mode & SP_MODE_LOCAL)) {
       if ((eclflag = swe_sol_eclipse_when_glob(t_ut, whicheph, search_flag,
                 tret, direction_flag, serr)) == ERR) {
         do_printf(serr);
-        exit(0);
+        return ERR;
       } 
       t_ut = tret[0];
       if ((eclflag & SE_ECL_TOTAL)) {
@@ -2067,7 +2163,7 @@ attr, direction_flag, serr)) == ERR) {
         if ((eclflag = swe_sol_eclipse_when_loc(t_ut - 10, whicheph,
 geopos, tret, attr, 0, serr)) == ERR) {
           do_printf(serr);
-          exit(0);
+          return ERR;
         }
         if (fabs(tret[0] - t_ut) > 1) 
           do_printf("when_loc returns wrong date\n");
@@ -2076,7 +2172,7 @@ geopos, tret, attr, 0, serr)) == ERR) {
                 (int) dt, fmod(dt, 1) * 60);
       } 
       strcat(sout, "\n");
-      if (smod & SMOD_HOCAL) {
+      if (special_mode & SP_MODE_HOCAL) {
 	int ihou, imin, isec, isgn;
 	double dfrc;
 	swe_split_deg(jut, SE_SPLIT_DEG_ROUND_MIN, &ihou, &imin, &isec, &dfrc, &isgn);
@@ -2084,11 +2180,90 @@ geopos, tret, attr, 0, serr)) == ERR) {
       } 
       do_printf(sout);
     }
-    if ((smod & SMOD_OCCULT) && ! (smod & SMOD_LOCAL)) {
-    /* * global search for eclipses */
+  }
+  return OK;
+}
+
+static int32 call_lunar_occultation(double t_ut, int32 ipl, char *star, int32 whicheph, int32 special_mode, double *geopos, char *serr)
+{
+  int ii, ecl_type = 0, eclflag;
+  double dt, tret[30], attr[30];
+  char s1[AS_MAXCH], s2[AS_MAXCH];
+  AS_BOOL has_found = FALSE;
+  /* no selective eclipse type set, set all */
+  if ((search_flag & SE_ECL_ALLTYPES_SOLAR) == 0)
+    search_flag |= SE_ECL_ALLTYPES_SOLAR;
+  /* for local occultations: set geographic position of observer */
+  if (special_mode & SP_MODE_LOCAL)
+    swe_set_topo(geopos[0], geopos[1], geopos[2]); 
+  do_printf("\n");
+  for (ii = 0; ii < nstep; ii++) {
+    *sout = '\0';
+    if (special_mode & SP_MODE_LOCAL) {
+      if ((eclflag = swe_lun_occult_when_loc(t_ut, ipl, star, whicheph, geopos, tret, attr, direction_flag, serr)) == ERR) {
+        do_printf(serr);
+        return ERR;
+      } else { 
+	has_found = FALSE;
+        t_ut = tret[0];
+        if ((search_flag & SE_ECL_TOTAL) && (eclflag & SE_ECL_TOTAL)) {
+          strcpy(sout, "total   ");
+	  has_found = TRUE;
+	  ecl_type = ECL_SOL_TOTAL;
+	}
+        if ((search_flag & SE_ECL_ANNULAR) && (eclflag & SE_ECL_ANNULAR)) {
+          strcpy(sout, "annular ");
+	  has_found = TRUE;
+	  ecl_type = ECL_SOL_ANNULAR;
+	}
+        if ((search_flag & SE_ECL_PARTIAL) && (eclflag & SE_ECL_PARTIAL)) {
+          strcpy(sout, "partial ");
+	  has_found = TRUE;
+	  ecl_type = ECL_SOL_PARTIAL;
+	}
+	if (!has_found) {
+	  ii--;
+	} else {
+	  swe_calc(t_ut + swe_deltat(t_ut), SE_ECL_NUT, 0, x, serr);
+	  swe_revjul(t_ut, gregflag, &jyear, &jmon, &jday, &jut);
+	  sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s\t%fo/o\n", jday, jmon, jyear, hms(jut,0), attr[0]);
+	  dt = (tret[3] - tret[2]) * 24 * 60;
+	  sprintf(sout + strlen(sout), "\t%d min %4.2f sec\t",
+                (int) dt, fmod(dt, 1) * 60); 
+	  if (eclflag & SE_ECL_1ST_VISIBLE)
+	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[1])); 
+	  else
+	    strcat(sout, "   -         ");
+	  if (eclflag & SE_ECL_2ND_VISIBLE)
+	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[2])); 
+	  else
+	    strcat(sout, "   -         ");
+	  if (eclflag & SE_ECL_3RD_VISIBLE)
+	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[3])); 
+	  else
+	    strcat(sout, "   -         ");
+	  if (eclflag & SE_ECL_4TH_VISIBLE)
+	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[4])); 
+	  else
+	    strcat(sout, "   -         ");
+#if 0
+	  sprintf(sout + strlen(sout), "\t%d min %4.2f sec   %s %s %s %s", 
+                (int) dt, fmod(dt, 1) * 60, 
+                strcpy(s1, hms(fmod(tret[1] + 0.5, 1) * 24, 0)), 
+                strcpy(s3, hms(fmod(tret[2] + 0.5, 1) * 24, 0)), 
+                strcpy(s4, hms(fmod(tret[3] + 0.5, 1) * 24, 0)),
+                strcpy(s2, hms(fmod(tret[4] + 0.5, 1) * 24, 0)));
+#endif
+	  strcat(sout, "\n");
+	  do_printf(sout);
+	}
+      }
+    }   /* endif search_local */
+    if (!(special_mode & SP_MODE_LOCAL)) {
+    /* * global search for occultations */
       if ((eclflag = swe_lun_occult_when_glob(t_ut, ipl, star, whicheph, search_flag, tret, direction_flag, serr)) == ERR) {
         do_printf(serr);
-        exit(0);
+        return ERR;
       } 
       t_ut = tret[0];
       if ((eclflag & SE_ECL_TOTAL)) {
@@ -2134,7 +2309,7 @@ geopos, tret, attr, 0, serr)) == ERR) {
       if (!(eclflag & SE_ECL_PARTIAL) && !(eclflag & SE_ECL_NONCENTRAL)) {
         if ((eclflag = swe_lun_occult_when_loc(t_ut - 10, ipl, star, whicheph, geopos, tret, attr, 0, serr)) == ERR) {
           do_printf(serr);
-          exit(0);
+          return ERR;
         }
         if (fabs(tret[0] - t_ut) > 1) 
           do_printf("when_loc returns wrong date\n");
@@ -2143,7 +2318,7 @@ geopos, tret, attr, 0, serr)) == ERR) {
                 (int) dt, fmod(dt, 1) * 60);
       } 
       strcat(sout, "\n");
-      if (smod & SMOD_HOCAL) {
+      if (special_mode & SP_MODE_HOCAL) {
 	int ihou, imin, isec, isgn;
 	double dfrc;
 	swe_split_deg(jut, SE_SPLIT_DEG_ROUND_MIN, &ihou, &imin, &isec, &dfrc, &isgn);
@@ -2151,73 +2326,135 @@ geopos, tret, attr, 0, serr)) == ERR) {
       } 
       do_printf(sout);
     }
-    if (smod & SMOD_RISE) {
-      rsmi = SE_CALC_RISE;
-      if (norefrac) rsmi |= SE_BIT_NO_REFRACTION;
-      if (disccenter) rsmi |= SE_BIT_DISC_CENTER;
-      if (swe_rise_trans(t_ut, ipl, star, whicheph, rsmi, geopos, 1013.25, 10, &(tret[0]), serr) != OK) {
-	do_printf(serr);
-	exit(0);
-      } 
-      rsmi = SE_CALC_SET;
-      if (norefrac) rsmi |= SE_BIT_NO_REFRACTION;
-      if (disccenter) rsmi |= SE_BIT_DISC_CENTER;
-      if (swe_rise_trans(t_ut, ipl, star, whicheph, rsmi, geopos, 1013.25, 10, &(tret[1]), serr) != OK) {
-	do_printf(serr);
-	exit(0);
-      } 
-      strcpy(sout, "rise     ");
-      if (tret[0] == 0 || tret[0] > tret[1]) strcat(sout, "         -                     ");
-      else {
-	swe_revjul(tret[0], gregflag, &jyear, &jmon, &jday, &jut);
-	sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s    ", 
-		  jday, jmon, jyear, hms(jut,0));
-      }
-      strcat(sout, "set      ");
-      if (tret[1] == 0) strcat(sout, "         -                     \n");
-      else {
-	swe_revjul(tret[1], gregflag, &jyear, &jmon, &jday, &jut);
-	sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s\n", 
-		  jday, jmon, jyear, hms(jut,0));
-      }
-      do_printf(sout);
-    }
-    if (smod & SMOD_METR) {
-      if (swe_rise_trans(t_ut, ipl, star, whicheph, SE_CALC_MTRANSIT, geopos, 1013.25, 10, &(tret[0]), serr) != OK) {
-	do_printf(serr);
-	exit(0);
-      } 
-      if (swe_rise_trans(t_ut, ipl, star, whicheph, SE_CALC_ITRANSIT, geopos, 1013.25, 10, &(tret[1]), serr) != OK) {
-	do_printf(serr);
-	exit(0);
-      } 
-      strcpy(sout, "mtransit ");
-      if (tret[0] == 0) strcat(sout, "         -                     ");
-      else {
-	swe_revjul(tret[0], gregflag, &jyear, &jmon, &jday, &jut);
-	sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s    ", 
-		  jday, jmon, jyear, hms(jut,0));
-      }
-      strcat(sout, "itransit ");
-      if (tret[1] == 0) strcat(sout, "         -                     \n");
-      else {
-	swe_revjul(tret[1], gregflag, &jyear, &jmon, &jday, &jut);
-	sprintf(sout + strlen(sout), "%2d.%2d.%4d\t%s\n", 
-		  jday, jmon, jyear, hms(jut,0));
-      }
-      do_printf(sout);
-    }
-    if ((smod & (SMOD_RISE | SMOD_METR)) && tret[1] > 0)
-      t_ut = tret[1] + 0.1;
-    else
-      t_ut += direction;
-  }
-  if (*serr_warn != '\0') {
-    do_printf("\nwarning: ");
-    do_printf(serr_warn);
-    do_printf("\n");
+    t_ut += direction;
   }
   return OK;
+}
+
+static void do_print_heliacal(double *dret, int32 event_type, char *obj_name)
+{
+  char *sevtname[] = {"", "heliacal rising ", "heliacal setting", "evening first   ", "morning last    "};
+  *sout = '\0';
+  swe_revjul(dret[0], gregflag, &jyear, &jmon, &jday, &jut);
+  sprintf(sout + strlen(sout), "%s %s: %d/%02d/%02d %sUT, visible for: %#4.1f min\n", obj_name, sevtname[event_type], jyear, jmon, jday, hms_from_tjd(dret[0]), (dret[2] - dret[0]) * 1440);
+  do_printf(sout);
+}
+
+static int32 call_heliacal_event(double t_ut, int32 ipl, char *star, int32 whicheph, int32 special_mode, double *geopos, double *datm, double *dobs, char *serr)
+{
+  int ii, event_type = 0, retflag, helflag = whicheph;
+  double dret[40], tsave1, tsave2;
+  char obj_name[AS_MAXCH];
+  /* if invalid heliacal event type was required, set 0 for any type */
+  if (search_flag < 0 || search_flag > 4)
+    search_flag = 0;
+  /* optical instruments used: */
+  if (dobs[3] > 0) 
+    helflag |= SE_HELFLAG_OPTICAL_PARAMS;
+  if (ipl == SE_FIXSTAR)
+    strcpy(obj_name, star);
+  else
+    swe_get_planet_name(ipl, obj_name);
+  do_printf("\n");
+  for (ii = 0; ii < nstep; ii++, t_ut = dret[0] + 1) {
+    *sout = '\0';
+    if (search_flag > 0)
+      event_type = search_flag;
+    else if (ipl == SE_MOON)
+      event_type = SE_EVENING_FIRST;
+    else
+      event_type = SE_HELIACAL_RISING;
+    retflag = swe_heliacal_ut(t_ut, geopos, datm, dobs, obj_name, event_type, helflag, dret, serr);
+    if (retflag == ERR) {
+      do_printf(serr);
+      return ERR;
+    }
+    do_print_heliacal(dret, event_type, obj_name);
+    /* list all events within synodic cycle */
+    if (search_flag == 0) {
+      if (ipl == SE_VENUS || ipl == SE_MERCURY) {
+	/* we have heliacal rising (morning first), now find morning last */
+	event_type = SE_MORNING_LAST;
+	retflag = swe_heliacal_ut(dret[0], geopos, datm, dobs, obj_name, event_type, helflag, dret, serr);
+	if (retflag == ERR) {
+	  do_printf(serr);
+	  return ERR;
+	}
+	do_print_heliacal(dret, event_type, obj_name);
+	tsave1 = dret[0];
+	/* mercury can have several evening appearances without any morning
+	 * appearances in betweeen. We have to find out when the next 
+	 * morning appearance is and then find all evening appearances 
+	 * that take place before that */
+        if (ipl == SE_MERCURY) {
+	  event_type = SE_HELIACAL_RISING;
+	  retflag = swe_heliacal_ut(dret[0], geopos, datm, dobs, obj_name, event_type, helflag, dret, serr);
+	  if (retflag == ERR) {
+	    do_printf(serr);
+	    return ERR;
+	  }
+	  tsave2 = dret[0];
+	}
+repeat_mercury:
+	/* evening first */
+	event_type = SE_EVENING_FIRST;
+	retflag = swe_heliacal_ut(tsave1, geopos, datm, dobs, obj_name, event_type, helflag, dret, serr);
+	if (retflag == ERR) {
+	  do_printf(serr);
+	  return ERR;
+	}
+	if (ipl == SE_MERCURY && dret[0] > tsave2)
+	  continue;
+	do_print_heliacal(dret, event_type, obj_name);
+      }
+      if (ipl == SE_MOON) {
+	/* morning last */
+	event_type = SE_MORNING_LAST;
+	retflag = swe_heliacal_ut(dret[0], geopos, datm, dobs, obj_name, event_type, helflag, dret, serr);
+	if (retflag == ERR) {
+	  do_printf(serr);
+	  return ERR;
+	}
+	do_print_heliacal(dret, event_type, obj_name);
+      } else {
+	/* heliacal setting (evening last) */
+	event_type = SE_HELIACAL_SETTING;
+	retflag = swe_heliacal_ut(dret[0], geopos, datm, dobs, obj_name, event_type, helflag, dret, serr);
+	if (retflag == ERR) {
+	  do_printf(serr);
+	  return ERR;
+	}
+	do_print_heliacal(dret, event_type, obj_name);
+	if (ipl == SE_MERCURY) {
+	  tsave1 = dret[0];
+	  goto repeat_mercury;
+	}
+      }
+    }
+  }
+  return OK;
+}
+
+static int do_special_event(double tjd, int32 ipl, char *star, int32 special_event, int32 special_mode, double *geopos, double *datm, double *dobs, char *serr) 
+{
+  int retc;
+  /* risings, settings, meridian transits */
+  if (special_event == SP_RISE_SET || 
+      special_event == SP_MERIDIAN_TRANSIT)
+    retc = call_rise_set(tjd, ipl, star, whicheph, special_mode, geopos, serr);
+  /* lunar eclipses */
+  if (special_event == SP_LUNAR_ECLIPSE)
+    retc = call_lunar_eclipse(tjd, whicheph, special_mode, geopos, serr);
+  /* solar eclipses */
+  if (special_event == SP_SOLAR_ECLIPSE)
+    retc = call_solar_eclipse(tjd, whicheph, special_mode, geopos, serr);
+  /* occultations by the moon */
+  if (special_event == SP_OCCULTATION)
+    retc = call_lunar_occultation(tjd, ipl, star, whicheph, special_mode, geopos, serr);
+  /* heliacal event */
+  if (special_event == SP_HELIACAL)
+    retc = call_heliacal_event(tjd, ipl, star, whicheph, special_mode, geopos, datm, dobs, serr);
+  return retc;
 }
 
 static char *hms_from_tjd(double x)

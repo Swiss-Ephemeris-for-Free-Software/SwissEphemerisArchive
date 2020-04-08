@@ -1470,7 +1470,11 @@ void swi_icrs2fk5(double *x, int32 iflag, AS_BOOL backward)
  * file description in: ftp://maia.usno.navy.mil/ser7/readme.finals
  * Delta T = TAI-UT1 + 32.184 sec = (TAI-UTC) - (UT1-UTC) + 32.184 sec
  *
- * Last update of table dt[]: Dieter Koch, 8 June 2007.
+ * Also, there is the following file: 
+ * http://maia.usno.navy.mil/ser7/deltat.data, but it is about 3 months
+ * behind (on 3 feb 2009)
+ *
+ * Last update of table dt[]: Dieter Koch, 3 feb 2009.
  * ATTENTION: Whenever updating this table, do not forget to adjust
  * the macros TABEND and TABSIZ !
  */
@@ -1478,7 +1482,7 @@ void swi_icrs2fk5(double *x, int32 iflag, AS_BOOL backward)
 #define TABEND 		2014
 #define TABSIZ 		(TABEND-TABSTART+1) 
 /* we make the table greater for additional values read from external file */
-#define TABSIZ_SPACE 	(TABSIZ+50)
+#define TABSIZ_SPACE 	(TABSIZ+100)
 static short FAR dt[TABSIZ_SPACE] = {
 /* 1620.0 thru 1659.0 */
 12400, 11900, 11500, 11000, 10600, 10200, 9800, 9500, 9100, 8800,
@@ -1529,11 +1533,10 @@ static short FAR dt[TABSIZ_SPACE] = {
 /* 1980.0 thru 1999.0 */
  5054, 5138, 5217, 5296, 5379, 5434, 5487, 5532, 5582, 5630,
  5686, 5757, 5831, 5912, 5998, 6078, 6163, 6230, 6297, 6347,
-/* 2000.0 thru 2007.0 */
- 6383, 6409, 6430, 6447, 6457, 6469, 6485, 6515,      
-/* Extrapolated values, 2008 - 2014 */
-                                                 6548, 6580,
- 6620, 6660, 6700, 6750, 6800,
+/* 2000.0 thru 2009.0 */
+ 6383, 6409, 6430, 6447, 6457, 6469, 6485, 6515, 6546, 6578,      
+/* Extrapolated values, 2010 - 2014 */
+ 6607, 6660, 6700, 6750, 6800,
 };
 #define DELTAT_STEPHENSON_2004 TRUE
 #if DELTAT_STEPHENSON_2004
@@ -1751,7 +1754,8 @@ static int init_dt(void)
   if (!init_dt_done) {
     init_dt_done = TRUE;
     /* no error message if file is missing */
-    if ((fp = swi_fopen(-1, "sedeltat.txt", swed.ephepath, NULL)) == NULL)
+    if ((fp = swi_fopen(-1, "swe_deltat.txt", swed.ephepath, NULL)) == NULL
+      && (fp = swi_fopen(-1, "sedeltat.txt", swed.ephepath, NULL)) == NULL)
       return TABSIZ; 
     while(fgets(s, AS_MAXCH, fp) != NULL) {
       sp = s;

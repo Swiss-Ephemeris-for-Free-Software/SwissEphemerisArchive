@@ -63,6 +63,8 @@
  * move over from swephexp.h
  */
 
+#define SE_VERSION      "1.76.00"
+
 #define J2000           2451545.0  	/* 2000 January 1.5 */
 #define B1950           2433282.42345905  	/* 1950 January 0.923 */
 #define J1900           2415020.0  	/* 1900 January 0.5 */
@@ -298,7 +300,7 @@
 #define square_sum(x)   (x[0]*x[0]+x[1]*x[1]+x[2]*x[2])
 #define dot_prod(x,y)   (x[0]*y[0]+x[1]*y[1]+x[2]*y[2])
 
-#define PNOINT2JPL {J_EARTH, J_MOON, J_MERCURY, J_VENUS, J_MARS, J_JUPITER, J_SATURN, J_URANUS, J_NEPTUNE, J_PLUTO, J_SUN,}
+#define PNOINT2JPL {J_EARTH, J_MOON, J_MERCURY, J_VENUS, J_MARS, J_JUPITER, J_SATURN, J_URANUS, J_NEPTUNE, J_PLUTO, J_SUN, }
 
 /* planetary radii in meters */
 #define NDIAM  (SE_VESTA + 1)

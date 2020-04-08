@@ -238,7 +238,7 @@
 /* default ephemeris used when no ephemeris flagbit is set */
 #define SEFLG_DEFAULTEPH SEFLG_SWIEPH
 
-#define SE_MAX_STNAME		20	/* maximum size of fixstar name;
+#define SE_MAX_STNAME		256	/* maximum size of fixstar name;
                                          * the parameter star in swe_fixstar
 					 * must allow twice this space for
 				         * the returned star name.
@@ -253,6 +253,8 @@
 #define SE_ECL_PARTIAL		16
 #define SE_ECL_ANNULAR_TOTAL	32
 #define SE_ECL_PENUMBRAL	64
+#define SE_ECL_ALLTYPES_SOLAR   (SE_ECL_CENTRAL|SE_ECL_NONCENTRAL|SE_ECL_TOTAL|SE_ECL_ANNULAR|SE_ECL_PARTIAL|SE_ECL_ANNULAR_TOTAL)
+#define SE_ECL_ALLTYPES_LUNAR   (SE_ECL_TOTAL|SE_ECL_PARTIAL|SE_ECL_PENUMBRAL)
 #define SE_ECL_VISIBLE		128
 #define SE_ECL_MAX_VISIBLE	256
 #define SE_ECL_1ST_VISIBLE	512
@@ -273,6 +275,10 @@
 				    /* required */
 #define SE_BIT_NO_REFRACTION    512 /* to be or'ed to SE_CALC_RISE/SET, */
 				    /* if refraction is not to be considered */
+#define SE_BIT_CIVIL_TWILIGHT    1024 /* to be or'ed to SE_CALC_RISE/SET */
+#define SE_BIT_NAUTIC_TWILIGHT   2048 /* to be or'ed to SE_CALC_RISE/SET */
+#define SE_BIT_ASTRO_TWILIGHT    4096 /* to be or'ed to SE_CALC_RISE/SET */
+
 
 /* for swe_azalt() and swe_azalt_rev() */
 #define SE_ECL2HOR		0
@@ -336,6 +342,33 @@
 # define SE_SPLIT_DEG_KEEP_DEG    32	/* don't round to next degree
 					 * e.g. 13.9999999 will be rounded
 					 * to 13°59'59" (or 13°59' or 13°) */
+
+/* for heliacal functions */
+#define SE_HELIACAL_RISING		1
+#define SE_HELIACAL_SETTING		2
+#define SE_MORNING_FIRST		SE_HELIACAL_RISING
+#define SE_EVENING_LAST			SE_HELIACAL_SETTING
+#define SE_EVENING_FIRST		3
+#define SE_MORNING_LAST			4
+#define SE_ACRONYCHAL_RISING		5  /* still not implemented */
+#define SE_COSMICAL_SETTING		6  /* still not implemented */
+#define SE_ACRONYCHAL_SETTING		SE_COSMICAL_SETTING
+
+#define SE_HELFLAG_LONG_SEARCH 	128
+#define SE_HELFLAG_HIGH_PRECISION 	256
+#define SE_HELFLAG_OPTICAL_PARAMS	512
+#define SE_HELFLAG_NO_DETAILS		1024
+#define SE_HELFLAG_AVKIND_VR 		2048
+#define SE_HELFLAG_AVKIND_PTO 		4096
+#define SE_HELFLAG_AVKIND_MIN7 	8192
+#define SE_HELFLAG_AVKIND_MIN9 	16384
+#define SE_HELFLAG_AVKIND (SE_HELFLAG_AVKIND_VR|SE_HELFLAG_AVKIND_PTO|SE_HELFLAG_AVKIND_MIN7|SE_HELFLAG_AVKIND_MIN9)
+#define TJD_INVALID		 	99999999.0
+#define SIMULATE_VICTORVB               1
+
+#define SE_PHOTOPIC_FLAG		0
+#define SE_SCOTOPIC_FLAG		1
+#define SE_MIXEDOPIC_FLAG		2
 
 /*
  * by compiling with -DPAIR_SWEPH in the compiler options it
@@ -423,9 +456,18 @@
 #define ext_def(x)	extern EXP32 x FAR PASCAL_CONV EXP16
 			/* ext_def(x) evaluates to x on Unix */
 
+ext_def(int32) swe_heliacal_ut(double tjdstart_ut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 TypeEvent, int32 iflag, double *dret, char *serr);
+ext_def(int32) swe_heliacal_pheno_ut(double tjd_ut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 TypeEvent, int32 helflag, double *darr, char *serr);
+ext_def(int32) swe_vis_limit_mag(double tjdut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 helflag, double *dret, char *serr);
+/* the following are secret, for Victor Reijs' */
+ext_def(int32) swe_heliacal_angle(double tjdut, double *dgeo, double *datm, double *dobs, int32 helflag, double mag, double azi_obj, double azi_sun, double azi_moon, double alt_moon, double *dret, char *serr);
+ext_def(int32) swe_topo_arcus_visionis(double tjdut, double *dgeo, double *datm, double *dobs, int32 helflag, double mag, double azi_obj, double alt_obj, double azi_sun, double azi_moon, double alt_moon, double *dret, char *serr);
+
 /**************************** 
  * exports from sweph.c 
  ****************************/
+
+ext_def(char *) swe_version(char *);
 
 /* planets, moon, nodes etc. */
 ext_def( int32 ) swe_calc(
@@ -490,6 +532,21 @@ ext_def( void ) swe_revjul (
         double jd, 
         int gregflag,
         int *jyear, int *jmon, int *jday, double *jut);
+
+ext_def(int32) swe_utc_to_jd(
+        int32 iyear, int32 imonth, int32 iday, 
+	int32 ihour, int32 imin, double dsec, 
+	int32 gregflag, double *dret, char *serr);
+
+ext_def(void) swe_jdet_to_utc(
+        double tjd_et, int32 gregflag, 
+	int32 *iyear, int32 *imonth, int32 *iday, 
+	int32 *ihour, int32 *imin, double *dsec);
+
+ext_def(void) swe_jdut1_to_utc(
+        double tjd_ut, int32 gregflag, 
+	int32 *iyear, int32 *imonth, int32 *iday, 
+	int32 *ihour, int32 *imin, double *dsec);
 
 /**************************** 
  * exports from swehouse.c 

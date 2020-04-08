@@ -81,8 +81,16 @@ extern "C" {
 # endif
 #endif
 
+DllImport int32 FAR PASCAL swe_heliacal_ut(double JDNDaysUTStart, double *geopos, double *datm, double *dobs, char *ObjectName, int32 TypeEvent, int32 iflag, double *dret, char *serr);
+DllImport int32 FAR PASCAL swe_heliacal_pheno_ut(double JDNDaysUT, double *geopos, double *datm, double *dobs, char *ObjectName, int32 TypeEvent, int32 helflag, double *darr, char *serr);
+DllImport int32 FAR PASCAL swe_vis_limit_mag(double tjdut, double *geopos, double *datm, double *dobs, char *ObjectName, int32 helflag, double *dret, char *serr);
+/* the following are secret, for Victor Reijs' */
+DllImport int32 FAR PASCAL swe_heliacal_angle(double tjdut, double *dgeo, double *datm, double *dobs, int32 helflag, double mag, double azi_obj, double azi_sun, double azi_moon, double alt_moon, double *dret, char *serr);
+DllImport int32 FAR PASCAL swe_topo_arcus_visionis(double tjdut, double *dgeo, double *datm, double *dobs, int32 helflag, double mag, double azi_obj, double alt_obj, double azi_sun, double azi_moon, double alt_moon, double *dret, char *serr);
 
 DllImport double FAR PASCAL swe_degnorm(double deg);
+
+DllImport char * FAR PASCAL swe_version(char *);
 
 DllImport int32 FAR PASCAL swe_calc( 
         double tjd, int ipl, int32 iflag, 
@@ -154,6 +162,21 @@ DllImport void FAR PASCAL swe_revjul(
         double jd, int gregflag,
         int *year, int *mon, int *mday,
         double *hour);
+
+DllImport int32 FAR PASCAL swe_utc_to_jd(
+        int32 iyear, int32 imonth, int32 iday, 
+	int32 ihour, int32 imin, double dsec, 
+	int32 gregflag, double *dret, char *serr);
+
+DllImport void FAR PASCAL swe_jdet_to_utc(
+        double tjd_et, int32 gregflag, 
+	int32 *iyear, int32 *imonth, int32 *iday, 
+	int32 *ihour, int32 *imin, double *dsec);
+
+DllImport void FAR PASCAL swe_jdut1_to_utc(
+        double tjd_ut, int32 gregflag, 
+	int32 *iyear, int32 *imonth, int32 *iday, 
+	int32 *ihour, int32 *imin, double *dsec);
 
 DllImport int FAR PASCAL swe_time_equ(
         double tjd, double *e, char *serr);

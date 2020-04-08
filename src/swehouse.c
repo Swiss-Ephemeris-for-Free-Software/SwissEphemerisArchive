@@ -1391,7 +1391,7 @@ double FAR PASCAL_CONV swe_house_pos(
 	    hpos = 270 + (mdd + sna) * 90 / sda;
 	}
 	hpos = swe_degnorm(hpos - 90) / 30.0 + 1.0;
-	if (hpos >= 12.99999) hpos -= 12;
+	if (hpos >= 13.0) hpos -= 12;
       }
       break;
     case 'X': /* Merdidian or axial rotation system */

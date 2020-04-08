@@ -170,6 +170,12 @@ static void trace_swe_fixstar(int swtch, char *star, double tjd, int32 iflag, do
 static void trace_swe_get_planet_name(int swtch, int ipl, char *s);
 #endif
 
+char *FAR PASCAL_CONV swe_version(char *s)
+{
+  strcpy(s, SE_VERSION);
+  return s;
+}
+
 /* The routine called by the user.
  * It checks whether a position for the same planet, the same t, and the
  * same flag bits has already been computed. 
@@ -2139,8 +2145,8 @@ static int app_pos_etc_plan(int ipli, int32 iflag, char *serr)
     switch(epheflag) {
 #ifndef NO_JPL
       case SEFLG_JPLEPH:
-	if (ibody > IS_ANY_BODY)
-	  ipl = pnoint2jpl[SEI_ANYBODY];
+	if (ibody >= IS_ANY_BODY)
+	  ipl = -1; /* will not be used */ /*pnoint2jpl[SEI_ANYBODY];*/
 	else
 	  ipl = pnoint2jpl[ipli];
 	if (ibody == IS_PLANET) {
@@ -5249,7 +5255,7 @@ int32 FAR PASCAL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
   cmplen = strlen(sstar);
   if (cmplen == 0) {
     if (serr != NULL)
-      sprintf(serr, "star name empty");
+      sprintf(serr, "swe_fixstar(): star name empty");
     retc = ERR;
     goto return_err;
   }
@@ -5656,7 +5662,7 @@ int32 FAR PASCAL_CONV swe_fixstar_mag(char *star, double *mag, char *serr)
   cmplen = strlen(sstar);
   if (cmplen == 0) {
     if (serr != NULL)
-      sprintf(serr, "star name empty");
+      sprintf(serr, "swe_fixstar_mag(): star name empty");
     retc = ERR;
     goto return_err;
   }
@@ -5708,7 +5714,7 @@ int32 FAR PASCAL_CONV swe_fixstar_mag(char *star, double *mag, char *serr)
     retc = ERR;
     goto return_err;
   }
-  mag[0] = atof(cpos[13]);
+  *mag = atof(cpos[13]);
   /* return trad. name, nomeclature name */
   if (strlen(cpos[0]) > SE_MAX_STNAME)
     cpos[0][SE_MAX_STNAME] = '\0';
@@ -5717,7 +5723,7 @@ int32 FAR PASCAL_CONV swe_fixstar_mag(char *star, double *mag, char *serr)
   sprintf(star, "%s,%s", cpos[0], cpos[1]);
   return OK;
   return_err:
-  mag[0] = 0;
+  *mag = 0;
   return retc;
 }
 

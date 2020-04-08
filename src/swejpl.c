@@ -746,11 +746,11 @@ static int state(double et, int32 *list, int do_bary,
     fread((void *) &ts[0], sizeof(double), 2, js->jplfptr);
     if (js->do_reorder)
       reorder((char *) &ts[0], sizeof(double), 2);
-    fseek(js->jplfptr, (2 + nseg) * irecsz, 0);
+    fseek(js->jplfptr, (nseg + 2 - 1) * irecsz, 0);
     fread((void *) &ts[2], sizeof(double), 2, js->jplfptr);
     if (js->do_reorder)
       reorder((char *) &ts[2], sizeof(double), 2);
-    if (ts[0] != js->eh_ss[0] && ts[3] != js->eh_ss[1]) {
+    if (ts[0] != js->eh_ss[0] || ts[3] != js->eh_ss[1]) {
       if (serr != NULL)
 	strcpy(serr, "JPL ephemeris file is corrupt; start/end date check failed.");
       return NOT_AVAILABLE;

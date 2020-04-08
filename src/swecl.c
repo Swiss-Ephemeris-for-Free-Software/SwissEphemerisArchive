@@ -886,7 +886,7 @@ next_try:
   else 
     o = 2;
   dta = twohr;
-  dtb = tenmin;
+  dtb = tenmin / 3.0;
   for (n = 0; n <= o; n++) {
     if (n == 0) {
       /*dc[1] = dcore[3] / 2 + de - dcore[1];*/
@@ -1465,10 +1465,10 @@ int32 FAR PASCAL_CONV swe_sol_eclipse_when_loc(double tjd_start, int32 ifl,
  *                    field, also see swe_fixstar().
  * int32 ifl	      ephemeris flag. If you want to have only one conjunction 
  *                    of the moon with the body tested, add the following flag:
- *                    ifl |= SE_ECL_ONE_TRY. If this flag is not set, 
+ *                    backward |= SE_ECL_ONE_TRY. If this flag is not set, 
  *                    the function will search for an occultation until it
  *                    finds one. For bodies with ecliptical latitudes > 5,
- *                    the function may search successlessly until it reaches
+ *                    the function may search unsuccessfully until it reaches
  *                    the end of the ephemeris.
  */
 int32 FAR PASCAL_CONV swe_lun_occult_when_loc(double tjd_start, int32 ipl, char *starname, int32 ifl,
@@ -2323,11 +2323,17 @@ double FAR PASCAL_CONV swe_refrac_extended(double inalt, double geoalt, double a
   if( (inalt>90) )
     inalt=180-inalt;
   if (calc_flag == SE_TRUE_TO_APP) {
-    trualt = inalt;
-    if (inalt < -10)
+    if (inalt < -10) {
+      if (dret != NULL) {
+	dret[0]=inalt;
+	dret[1]=inalt;
+	dret[2]=0;
+	dret[3]=dip;
+      }
       return inalt;
+    }
     /* by iteration */
-    y = trualt;
+    y = inalt;
     D = 0.0;
     yy0 = 0;
     D0 = D;
@@ -2336,9 +2342,9 @@ double FAR PASCAL_CONV swe_refrac_extended(double inalt, double geoalt, double a
       N = y - yy0;
       yy0 = D - D0 - N; /* denominator of derivative */
       if (N != 0.0 && yy0 != 0.0) /* sic !!! code by Moshier */
-        N = y - N*(trualt + D - y)/yy0; /* Newton iteration with numerically estimated derivative */
+        N = y - N*(inalt + D - y)/yy0; /* Newton iteration with numerically estimated derivative */
       else /* Can't do it on first pass */
-        N = trualt + D;
+        N = inalt + D;
       yy0 = y;
       D0 = D;
       y = N;
@@ -2355,16 +2361,16 @@ double FAR PASCAL_CONV swe_refrac_extended(double inalt, double geoalt, double a
     }
     if (dret != NULL) {
       dret[0]=inalt;
-      dret[1]=trualt+refr;
+      dret[1]=inalt+refr;
       dret[2]=refr;
       dret[3]=dip;
     }
-    return trualt+refr;
+    return inalt+refr;
   } else {
     refr = calc_astronomical_refr(inalt,atpress,attemp);
     trualt=inalt-refr;
     if (dret != NULL) {
-      if (trualt > dip) {
+      if (inalt > dip) {
 	dret[0]=trualt;
 	dret[1]=inalt;
 	dret[2]=refr;
@@ -3102,6 +3108,18 @@ static int find_zero(double y00, double y11, double y2, double dx,
   return OK;
 }
 
+double rdi_twilight(int32 rsmi)
+{
+  double rdi = 0;
+  if (rsmi & SE_BIT_CIVIL_TWILIGHT) 
+    rdi = 6; 
+  if (rsmi & SE_BIT_NAUTIC_TWILIGHT)
+    rdi = 12; 
+  if (rsmi & SE_BIT_ASTRO_TWILIGHT)
+    rdi = 18; 
+  return rdi;
+}
+
 /* rise, set, and meridian transits of sun, moon, planets, and stars
  *
  * tjd_ut	universal time from when on search ought to start
@@ -3137,6 +3155,7 @@ int32 FAR PASCAL_CONV swe_rise_trans(
   int32 iflag = epheflag;
   int jmax = 14;
   double t, te, tt, dt, twohrs = 1.0 / 12.0;
+  AS_BOOL do_calc_twilight = 0;
   AS_BOOL do_fixstar = (starname != NULL && *starname != '\0');
   /* function calls for Pluto with asteroid number 134340
    * are treated as calls for Pluto as main body SE_PLUTO */
@@ -3150,8 +3169,11 @@ int32 FAR PASCAL_CONV swe_rise_trans(
   if (rsmi & (SE_CALC_MTRANSIT | SE_CALC_ITRANSIT))
     return calc_mer_trans(tjd_ut, ipl, epheflag, rsmi, 
 		geopos, starname, tret, serr);
-  if (!(rsmi & (SE_CALC_RISE | SE_CALC_SET))) {
+  if (!(rsmi & (SE_CALC_RISE | SE_CALC_SET)))
     rsmi |= SE_CALC_RISE;
+  if (ipl == SE_SUN && (rsmi & (SE_BIT_CIVIL_TWILIGHT|SE_BIT_NAUTIC_TWILIGHT|SE_BIT_ASTRO_TWILIGHT))) {
+    rsmi |= (SE_BIT_NO_REFRACTION | SE_BIT_DISC_CENTER);
+    do_calc_twilight = 1;
   }
   /* find culmination points within 28 hours from t0 - twohrs.
    * culminations are required in case there are maxima or minima
@@ -3187,6 +3209,9 @@ int32 FAR PASCAL_CONV swe_rise_trans(
     }
     /* apparent radius of disc */
     rdi = asin(dd / 2 / AUNIT / xc[2]) * RADTODEG;
+    /* twilight calculation: */
+    if (do_calc_twilight)
+      rdi = rdi_twilight(rsmi);
     /* true height of center of body */
     swe_azalt(t, SE_EQU2HOR, geopos, atpress, attemp, xc, xh[ii]);
     /* true height of uppermost point of body */
@@ -3250,6 +3275,9 @@ int32 FAR PASCAL_CONV swe_rise_trans(
         }
         /* apparent radius of disc */
         rdi = asin(dd / 2 / AUNIT / xc[2]) * RADTODEG;
+	/* twilight calculation: */
+	if (do_calc_twilight)
+	  rdi = rdi_twilight(rsmi);
         /* true height of center of body */
         swe_azalt(tc[j], SE_EQU2HOR, geopos, atpress, attemp, xc, ah);
         /* true height of uppermost point of body */
@@ -3290,6 +3318,9 @@ int32 FAR PASCAL_CONV swe_rise_trans(
       }
       /* apparent radius of disc */
       rdi = asin(dd / 2 / AUNIT / xc[2]) * RADTODEG;
+      /* twilight calculation: */
+      if (do_calc_twilight)
+	rdi = rdi_twilight(rsmi);
       /* true height of center of body */
       swe_azalt(t, SE_EQU2HOR, geopos, atpress, attemp, xc, ah);
       /* true height of uppermost point of body */
@@ -4415,4 +4446,3 @@ int32 FAR PASCAL_CONV swe_gauquelin_sector(double t_ut, int32 ipl, char *starnam
     return ERR;
   }
 }
-
