@@ -143,6 +143,17 @@ Public Declare Sub swe_cs2timestr Lib "swedll32.dll" _
           ByVal s As String _
         )
 
+Public Declare Function swe_split_deg Lib "swedll32.dll" _
+        Alias "_swe_split_deg@32" ( _
+          ByVal ddeg As Double, _
+          ByVal roundflag As Int32, _
+          ByRef ideg As Int32, _
+          ByRef imin As Int32, _
+          ByRef isec As Int32, _
+          ByRef dsecfr As Double, _
+          ByRef isgn As Int32, _
+        ) 
+
 Public Declare Function swe_cs2timestr_d Lib "swedll32.dll" _
         Alias "_swe_cs2timestr_d@16" ( _
           ByVal t As Int32, _
@@ -333,6 +344,36 @@ Public Declare Function swe_fixstar_ut_d Lib "swedll32.dll" _
 
 Public Declare Function swe_fixstar_mag Lib "swedll32.dll" _
         Alias "_swe_fixstar_mag@12" ( _
+          ByVal star As String, _
+          ByRef mag As Double, _
+          ByVal serr As String _
+        ) As Int32       ' serr must be able to hold 256 bytes
+                        ' star must be able to hold 40 bytes
+
+Public Declare Function swe_fixstar2 Lib "swedll32.dll" _
+        Alias "_swe_fixstar2@24" ( _
+          ByVal star As String, _
+          ByVal tjd As Double, _
+          ByVal iflag As Int32, _
+          ByRef x As Double, _
+          ByVal serr As String _
+        ) As Int32       ' x must be first of six array elements
+                        ' serr must be able to hold 256 bytes
+                        ' star must be able to hold 40 bytes
+
+Public Declare Function swe_fixstar2_ut Lib "swedll32.dll" _
+        Alias "_swe_fixstar2_ut@24" ( _
+          ByVal star As String, _
+          ByVal tjd_ut As Double, _
+          ByVal iflag As Int32, _
+          ByRef x As Double, _
+          ByVal serr As String _
+        ) As Int32       ' x must be first of six array elements
+                        ' serr must be able to hold 256 bytes
+                        ' star must be able to hold 40 bytes
+
+Public Declare Function swe_fixstar2_mag Lib "swedll32.dll" _
+        Alias "_swe_fixstar2_mag@12" ( _
           ByVal star As String, _
           ByRef mag As Double, _
           ByVal serr As String _
@@ -1274,6 +1315,7 @@ Const SE_CALC_RISE		As Int32 = 1
 Const SE_CALC_SET		As Int32 = 2
 Const SE_CALC_MTRANSIT		As Int32 = 4
 Const SE_CALC_ITRANSIT		As Int32 = 8
+Const SE_BIT_GEOCTR_NO_ECL_LAT  As Int32 = 128
 Const SE_BIT_DISC_CENTER        As Int32 = 256 '/* to be added to SE_CALC_RISE/SET */
 				    '/* if rise or set of disc center is */
 				    '/* requried */
@@ -1283,6 +1325,7 @@ Const SE_BIT_CIVIL_TWILIGHT     As Int32 = 1024 '/* to be added to SE_CALC_RISE/
 Const SE_BIT_NAUTIC_TWILIGHT    As Int32 = 2048 '/* to be added to SE_CALC_RISE/SET, */
 Const SE_BIT_ASTRO_TWILIGHT     As Int32 = 4096 '/* to be added to SE_CALC_RISE/SET, */
 Const SE_BIT_FIXED_DISC_SIZE    As Int32 = 16384 '/* to be added to SE_CALC_RISE/SET, */
+Const SE_BIT_HINDU_RISING       As Int32 = 896
 
 
 
@@ -1322,3 +1365,15 @@ Const SE_PHOTOPIC_FLAG    As Int32 = 0
 Const SE_SCOTOPIC_FLAG    As Int32 = 1
 Const SE_MIXEDOPIC_FLAG   As Int32 = 2
 
+Const define SE_AUNIT_TO_KM        As Double = (149597870.691)
+Const define SE_AUNIT_TO_LIGHTYEAR As Double = (1.0/63241.077088071)
+Const define SE_AUNIT_TO_PARSEC    As Double = (1.0/206264.8062471) 
+
+' for function swe_split_deg
+Const SE_SPLIT_DEG_ROUND_SEC    1
+Const SE_SPLIT_DEG_ROUND_MIN    2
+Const SE_SPLIT_DEG_ROUND_DEG    4
+Const SE_SPLIT_DEG_ZODIACAL     8
+Const SE_SPLIT_DEG_NAKSHATRA 1024
+Const SE_SPLIT_DEG_KEEP_SIGN   16    ' don't round to next sign, e.g. 29.9999999 will be rounded to 29d59'59" (or 29d59' or 29d) 
+Const SE_SPLIT_DEG_KEEP_DEG    32    ' don't round to next degree e.g. 13.9999999 will be rounded to 13d59'59" (or 13d59' or 13d) 
