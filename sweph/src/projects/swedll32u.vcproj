@@ -2,7 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="7.10"
-	Name="swedll32"
+	Name="swedll32u"
+	ProjectGUID="{805A86B2-DB48-4353-9E6A-B733890F20FE}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -178,9 +179,6 @@
 					Optimization="2"
 					PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;MAKE_DLL;$(NoInherit)"/>
 			</FileConfiguration>
-		</File>
-		<File
-			RelativePath=".\swedll32.aps">
 		</File>
 		<File
 			RelativePath=".\swedll32.rc">
