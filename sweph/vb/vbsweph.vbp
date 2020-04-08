@@ -1,0 +1,36 @@
+Type=Exe
+Module=Module1; Module1.bas
+Form=frmAbout.frm
+Form=frmMain.frm
+Startup="Sub Main"
+HelpFile=""
+Title="vbsweph"
+ExeName32="vbsweph.exe"
+Command32=""
+Name="vbsweph"
+HelpContextID="0"
+CompatibleMode="0"
+MajorVer=1
+MinorVer=3
+RevisionVer=2
+AutoIncrementVer=0
+ServerSupportFiles=0
+VersionComments="This is a simple Visual Basic demo program which demonstrates the use of a few importen SWISS EPHEMERIS DLL funtcion to compute a horoscope."
+VersionCompanyName="Astrodienst AG"
+CompilationType=0
+OptimizationType=0
+FavorPentiumPro(tm)=0
+CodeViewDebugInfo=0
+NoAliasing=0
+BoundsCheck=0
+OverflowCheck=0
+FlPointCheck=0
+FDIVCheck=0
+UnroundedFP=0
+StartMode=0
+Unattended=0
+ThreadPerObject=0
+MaxNumberOfThreads=1
+
+[MS Transaction Server]
+AutoRefresh=1
