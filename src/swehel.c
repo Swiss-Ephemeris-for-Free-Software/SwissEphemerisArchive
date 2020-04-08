@@ -1439,10 +1439,11 @@ if (0) {
   return -16.57 - 2.5 * (log(Th) / log10);
 }
 
-static char *tolower_string(char *str)
+/* tolower star name, but not Bayer designation */
+static char *tolower_string_star(char *str)
 {
   char *sp;
-  for (sp = str; *sp != '\0'; sp++)
+  for (sp = str; *sp != '\0' && *sp != ','; sp++)
     *sp = tolower(*sp);
   return str;
 }
@@ -1462,7 +1463,7 @@ int32 CALL_CONV swe_vis_limit_mag(double tjdut, double *dgeo, double *datm, doub
   double sunra;
   for (i = 0; i < 7; i++)
     dret[i] = 0;
-  tolower_string(ObjectName);
+  tolower_string_star(ObjectName);
   if (DeterObject(ObjectName) == SE_SUN) {
     if (serr != NULL) {
       strcpy(serr, "it makes no sense to call swe_vis_limit_mag() for the Sun");
@@ -1873,7 +1874,7 @@ int32 CALL_CONV swe_heliacal_pheno_ut(double JDNDaysUT, double *dgeo, double *da
   /* note, the fixed stars functions rewrite the star name. The input string 
      may be too short, so we have to make sure we have enough space */
   strcpy_VBsafe(ObjectName, ObjectNameIn);
-  tolower_string(ObjectName);
+  tolower_string_star(ObjectName);
   default_heliacal_parameters(datm, dgeo, dobs, helflag);
   swe_set_topo(dgeo[0], dgeo[1], dgeo[2]);
   retval = ObjectLoc(JDNDaysUT, dgeo, datm, "sun", 1, helflag, &AziS, serr);
@@ -3392,7 +3393,7 @@ int32 CALL_CONV swe_heliacal_ut(double JDNDaysUTStart, double *dgeo, double *dat
   /* note, the fixed stars functions rewrite the star name. The input string 
      may be too short, so we have to make sure we have enough space */
   strcpy_VBsafe(ObjectName, ObjectNameIn);
-  tolower_string(ObjectName);
+  tolower_string_star(ObjectName);
   default_heliacal_parameters(datm, dgeo, dobs, helflag);
   swe_set_topo(dgeo[0], dgeo[1], dgeo[2]);
   Planet = DeterObject(ObjectName);
