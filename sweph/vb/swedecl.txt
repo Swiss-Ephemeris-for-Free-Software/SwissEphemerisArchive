@@ -224,6 +224,13 @@ Private Declare Function swe_deltat Lib "swedll32.dll" _
           ByVal jd As Double _
         ) As Double
 
+Private Declare Function swe_deltat_ex Lib "swedll32.dll" _
+        Alias "_swe_deltat_ex@16" ( _
+          ByVal jd As Double, _
+          ByVal iflag As Long, _
+          ByVal serr As String _
+        ) As Double
+
 Private Declare Function swe_deltat_d Lib "swedll32.dll" _
         Alias "_swe_deltat_d@8" ( _
           ByRef jd As Double, _
@@ -367,6 +374,22 @@ Private Declare Function swe_get_ayanamsa_ut_d Lib "swedll32.dll" _
           ByRef tjd_ut As Double, _
           ByRef ayan As Double _
         ) As Long 
+
+Private Declare Function swe_get_ayanamsa_ex Lib "swedll32.dll" _
+        Alias "_swe_get_ayanamsa_ex@20" ( _
+          ByVal tjd_et As Double, _
+          ByVal iflag as Long, _
+          ByRef ayan As Double, _
+          ByVal serr as String _
+        ) As Double 
+
+Private Declare Function swe_get_ayanamsa_ex_ut Lib "swedll32.dll" _
+        Alias "_swe_get_ayanamsa_ex_ut@20" ( _
+          ByVal tjd_ut As Double, _
+          ByVal iflag as Long, _
+          ByRef ayan As Double, _
+          ByVal serr as String _
+        ) As Double 
 
 Private Declare Sub swe_get_planet_name Lib "swedll32.dll" _
         Alias "_swe_get_planet_name@8" ( _
