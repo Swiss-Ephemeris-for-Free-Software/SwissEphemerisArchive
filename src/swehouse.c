@@ -356,7 +356,7 @@ static int sidereal_houses_ssypl(double tjde,
                            double *ascmc)
 {
   int i, j, retc = OK;
-  double x[6], x0[6], xvpx[6], x2[6], epst0, xnorm[6];
+  double x[6], x0[6], xvpx[6], x2[6], xnorm[6];
   double rxy, rxyz, c2, epsx, eps2000, sgn, fac, dvpx, dvpxe, x00;
   double armcx;
   struct sid_data *sip = &swed.sidd;
@@ -365,8 +365,6 @@ static int sidereal_houses_ssypl(double tjde,
     ito = 36;
   else
     ito = 12;
-  /* epsilon at t0 */
-  epst0 = swi_epsiln(sip->t0);
   eps2000 = swi_epsiln(J2000);
   /* cartesian coordinates of the zero point on the
    * the solar system rotation plane */
@@ -589,15 +587,17 @@ static int CalcH(
  *                   E  equal
  *                   B  Alcabitius
  *                   C  Campanus
+ *                   G  36 Gauquelin sectors
  *                   H  horizon / azimut
  *                   K  Koch
+ *                   M  Morinus
  *                   O  Porphyry
  *                   P  Placidus
  *                   R  Regiomontanus
+ *                   T  Polich/Page ("topocentric")
  *                   V  equal Vehlow
  *                   W  equal, whole sign
  *                   X  axial rotation system/ Meridian houses
- *                   G  36 Gauquelin sectors
  *                   U  Krusinski-Pisa-Goelzer
  *             fi = geographic latitude
  *             ekl = obliquity of the ecliptic

@@ -872,9 +872,8 @@ style='color:windowtext;display:none;text-decoration:none;'>. </span><span
 style='color:windowtext;display:none;text-decoration:none;'>24</span></a></span></span></p>
 
 <p class=MsoToc3><span
-class=MsoHyperlink><span lang=DE><a href="#_Toc335142969"><span lang=EN-US>The Spica/Citra tradition and the Lahiri
-ayanamsha</span><span style='color:windowtext;display:none;
-text-decoration:none;'>. </span><span
+class=MsoHyperlink><span lang=DE><a href="#_Toc335142969"><span lang=EN-US>The Spica/Citra tradition and the Lahiri ayanamsha</span><span
+style='color:windowtext;display:none;text-decoration:none;'>. </span><span
 style='color:windowtext;display:none;text-decoration:none;'>26</span></a></span></span></p>
 
 <p class=MsoToc3><span
@@ -1367,6 +1366,9 @@ Dieter: Delta T updated, v. 1.77.</p>
 <p class=MsoEnvelopeReturn><span lang=EN-US>2-Aug-2012:
 Dieter: New precession, v. 1.78.</span></p>
 
+<p class=MsoEnvelopeReturn><span lang=EN-US>23-apr-2013:
+Dieter: new ayanamshas</span></p>
+
 <p class=MsoEnvelopeReturn><span lang=EN-US>&nbsp;</span></p>
 
 <p class=MsoEnvelopeReturn><span lang=EN-US>Swiss
@@ -1455,11 +1457,14 @@ License</span></p>
 
 <p class=MsoEnvelopeReturn><span lang=EN-US>1.76      31-mar-2009     <span style='color:red'>NEW: </span>Heliacal events</span></p>
 
-<p class=MsoEnvelopeReturn><span lang=EN-US>1.77      25-jan-2011     Delta T calculation updated acc. to Espenak/Meeus 2006, new
-fixed stars file</span></p>
+<p class=MsoEnvelopeReturn><span lang=EN-US>1.77      25-jan-2011     Delta T calculation updated acc. to Espenak/Meeus 2006, new fixed
+stars file</span></p>
 
 <p class=MsoEnvelopeReturn><span lang=EN-US>1.78      2-aug-2012            Precession
 calculation updated acc. to Vondrák et alii 2012</span></p>
+
+<p class=MsoEnvelopeReturn><span lang=EN-US>1.79      23-apr-2013     New ayanamshas, improved precision of eclipse functions, minor
+bug fixes</span></p>
 
 <h2 style='margin-left:0cm;text-indent:0cm;'><a
 name="_Toc335142925"><span lang=EN-US>Introduction</span></a></h2>
@@ -1525,15 +1530,15 @@ his  or her whole software project under
 the GNU GPL or a compatible license. 
 See http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</span></p>
 
-<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>If the developer choses the Swiss Ephemeris Professional license,  he must follow the instructions as found in
+<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>If the developer choses the Swiss Ephemeris Professional license,  he must follow the instructions as found in
 http://www.astro.com/swisseph/  and
 purchase the Swiss Ephemeris Professional Edition from Astrodienst and sign the
 corresponding license contract.</span></p>
 
-<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The Swiss Ephemeris Professional Edition can be purchased from Astrodienst
-for a one-time fixed fee for each commercial&nbsp; programming project. The
-license is just a legal document. All actual software and data are found in the
-public download area and are to be downloaded from there.&nbsp;</span></p>
+<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The Swiss Ephemeris Professional Edition can be purchased from
+Astrodienst for a one-time fixed fee for each commercial&nbsp; programming
+project. The license is just a legal document. All actual software and data are
+found in the public download area and are to be downloaded from there.&nbsp;</span></p>
 
 <p class=Textkrper-Einzug><b><span lang=EN-US style='font-size:10.0pt;'>Professional license:</span></b><span lang=EN-US
 style='font-size:10.0pt;'> The license fee for the first
@@ -2078,7 +2083,13 @@ lunar ephemeris file 'semo_18.se1' of Swiss Ephemeris.</span></p>
 Its disadvantage besides the limited precision is reduced speed: it is about 10
 times slower than JPL and Swiss Ephemeris.</span></p>
 
-<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The Moshier Ephemeris covers the interval from 3000 BC to 3000 AD.</span></p>
+<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The Moshier Ephemeris covers the interval from 3000 BC to 3000 AD.
+However, “the adjustment for the inner planets is strictly valid only from 1350
+B.C. to 3000 A.D., but may be used to 3000 B.C. with some loss of precision”.
+And:  “The Moon's position is calculated
+by a modified version of the lunar theory of Chapront-Touze' and Chapront. This
+has a precision of 0.5 arc second relative to DE404 for all dates between 1369
+B.C. and 3000 A.D. “ (Moshier, http://www.moshier.net/aadoc.html). </span></p>
 
 <h4 style='margin-left:0cm;text-indent:0cm;'><a
 name="_Toc335142932"><b><span lang=EN-US>3.         The full JPL Ephemeris</span></b></a></h4>
@@ -2168,13 +2179,13 @@ style='font-style:normal'>    end date              3 Mar 3000 AD               
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:11.0pt;font-family:
 "FuturaBlack BT";'>Swiss Ephemeris</span><span
-lang=EN-US style='font-size:10.0pt;'> is based on the
-latest JPL file, and reproduces the full JPL precision with better than 1/1000
-of an arc second, while requiring only 18 Mb instead of 200 Mb. Therefore for
-most applications it makes little sense to get the full JPL file, except to
-compare the precision. Precision comparison can also be done at the Astrodienst
-web server, because we have a test utility online which allows to compute
-planetary positions for any date with any of the three ephemerides.</span></p>
+lang=EN-US style='font-size:10.0pt;'> is based on the latest
+JPL file, and reproduces the full JPL precision with better than 1/1000 of an
+arc second, while requiring only 18 Mb instead of 200 Mb. Therefore for most
+applications it makes little sense to get the full JPL file, except to compare
+the precision. Precision comparison can also be done at the Astrodienst web
+server, because we have a test utility online which allows to compute planetary
+positions for any date with any of the three ephemerides.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>For the extension of the JPL time range to 5400 BC - 5400 AD please see
 section 2.5.1 below.</span></p>
@@ -2467,8 +2478,8 @@ lang=EN-US style='font-size:10.0pt;'>   1000           -0.05436&quot;      
 </span></p>
 
 <p class=Textkrper-Einzug style='margin-bottom:0cm;margin-bottom:.0001pt'><span
-lang=EN-US style='font-size:10.0pt;'>   1800           -0.00144&quot;    
-  </span></p>
+lang=EN-US style='font-size:10.0pt;'>   1800           -0.00144&quot;      
+</span></p>
 
 <p class=Textkrper-Einzug style='margin-bottom:0cm;margin-bottom:.0001pt'><span
 lang=EN-US style='font-size:10.0pt;'>   1900           -0.00036&quot;      
@@ -2532,7 +2543,7 @@ lang=EN-US style='font-size:10.0pt;'>-20000       11074.43664&quot;</span></p>
 lang=EN-US style='font-size:10.0pt;'>-15000         3321.50652&quot;</span></p>
 
 <p class=Textkrper-Einzug style='margin-bottom:0cm;margin-bottom:.0001pt'><span
-lang=EN-US style='font-size:10.0pt;'>-10000           632.60532&quot;</span></p>
+lang=EN-US style='font-size:10.0pt;'>-10000           632.60532&quot;</span></p>
 
 <p class=Textkrper-Einzug style='margin-bottom:0cm;margin-bottom:.0001pt'><span
 lang=EN-US style='font-size:10.0pt;'>  -5000           -33.42636&quot;</span></p>
@@ -2657,10 +2668,10 @@ Dr. Peter Kammeyer of the U.S. Naval Observatory in 1987.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The lunar and the inner planets ephemerides require by far the largest
 part of the storage. A more sophisticated mechanism is needed for them than for
-the outer planets.  Instead of the positions
-we store the differences between JPL and the mean orbits of the analytical
-theory VSOP87. These differences are much smaller than the position values,
-wherefore they require less storage. 
+the outer planets.  Instead of the
+positions we store the differences between JPL and the mean orbits of the
+analytical theory VSOP87. These differences are much smaller than the position
+values, wherefore they require less storage. 
 They are stored in Chebyshew polynomials covering a period of an
 anomalistic cycle each. (By the way, this is the reason, why Swiss Ephemeris
 begins only with 4 Nov -3000 (instead of 23 Feb -3000 as JPL).  This is the date, when the last of the inner
@@ -3166,9 +3177,9 @@ But the definition makes a difference for topocentric ephemerides.</span></p>
 it has also been argued that the second focal point ought to be called ”Dark
 Earth” rather than ”Dark Moon” (Ernst Ott).</span></p>
 
-<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The opposite point, the lunar perigee or orbital point closest to the
-Earth, is also known as <i>Priapus</i>. However, if Lilith is understood as the
-second focus, an opposite point makes no sense, of course. </span></p>
+<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The opposite point, the lunar perigee or orbital point closest to the Earth,
+is also known as <i>Priapus</i>. However, if Lilith is understood as the second
+focus, an opposite point makes no sense, of course. </span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:9.0pt;'>Originally, the term ”Dark Moon” was used for a hypothetical second body
 that was believed to move around the earth. There are still ephemerides around
@@ -3179,21 +3190,21 @@ from the astrological symbolism of the lunar apogee, the expression ”Dark Moon”
 seems to be appropriate.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The Swiss Ephemeris apogee differs from the ephemeris given by Joëlle de
-Gravelaine in her book ”Lilith, der schwarze Mond” (Astrodata 1990). The
-difference reaches several arc minutes. The mean apogee (or perigee) moves
-along the mean lunar orbit which has an inclination of 5 degrees. Therefore it
-has to be projected on the ecliptic. With de Gravelaine's ephemeris, this has
-been forgotten and therefore the book contains a false ephemeris. As a result
-of this projection, we also provide an ecliptic latitude of the apogee, which
-will be of importance if you work with declinations.</span></p>
+Gravelaine in her book ”Lilith, der schwarze Mond” (Astrodata 1990). The difference
+reaches several arc minutes. The mean apogee (or perigee) moves along the mean
+lunar orbit which has an inclination of 5 degrees. Therefore it has to be
+projected on the ecliptic. With de Gravelaine's ephemeris, this has been
+forgotten and therefore the book contains a false ephemeris. As a result of
+this projection, we also provide an ecliptic latitude of the apogee, which will
+be of importance if you work with declinations.</span></p>
 
-<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>There may be still another problem. The 'first' focal point does not
-coincide with the geocenter but with the barycenter of the earth-moon-system.
-The difference is about 4700 km. If one took this into account, it would result
-in a monthly oscillation of the Black Moon. If one defines it as the apogee,
-this oscillation would be about +/- 40 arc minutes. If one defines it as the
-second focus, the effect is much greater: +/- 6 degrees! However, we have
-neglected this effect.</span></p>
+<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>There may be still another problem. The 'first' focal point does not coincide
+with the geocenter but with the barycenter of the earth-moon-system. The
+difference is about 4700 km. If one took this into account, it would result in
+a monthly oscillation of the Black Moon. If one defines it as the apogee, this
+oscillation would be about +/- 40 arc minutes. If one defines it as the second
+focus, the effect is much greater: +/- 6 degrees! However, we have neglected
+this effect.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>[added by Alois 7-feb-2005, arising out of a discussion with Juan
 Revilla] The concept of 'mean lunar orbit' means that short term. e.g. monthly,
@@ -3235,13 +3246,13 @@ not true with the mean nodes.  </span></p>
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>However, in the strict sense of the word, even the ”true” nodes are true
 only twice a month, viz. at the times when the moon crosses the ecliptic.
 Positions given for the times in between those two points are just a
-hypothesis. They are founded on the idea that celestial orbits can be
-approximated by elliptical elements. This works well with the planets, but not
-with the moon, because its orbit is strongly perturbed by the sun. Another
-procedure, which might be more reasonable, would be to interpolate between the
-true node passages. The monthly oscillation of the node would be suppressed,
-and the maximum deviation from the conventional ”true” node would be about 20
-arc minutes.</span></p>
+hypothesis. They are founded on the idea that celestial orbits can be approximated
+by elliptical elements. This works well with the planets, but not with the
+moon, because its orbit is strongly perturbed by the sun. Another procedure,
+which might be more reasonable, would be to interpolate between the true node
+passages. The monthly oscillation of the node would be suppressed, and the
+maximum deviation from the conventional ”true” node would be about 20 arc
+minutes.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>Precision of the true node:</span></p>
 
@@ -3266,8 +3277,8 @@ la lune noire vraie 1910-2010' (Editions St. Michel, 1993). Both Ephemerides
 coincide precisely.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The relation of this point to the mean apogee is not exactly of the same
-kind as the relation between the true node and the mean node.  Like the 'true' node, it can be considered as
-an osculating orbital element of the lunar motion. But there is an important
+kind as the relation between the true node and the mean node.  Like the 'true' node, it can be considered
+as an osculating orbital element of the lunar motion. But there is an important
 difference: The apogee contains the concept of the ellipse, whereas the node
 can be defined without thinking of an ellipse. As has been shown above, the
 node can be derived from orbital planes or great circles, which is not possible
@@ -3277,10 +3288,12 @@ sun. <i>The lunar orbit is far away from being an ellipse!</i></span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>However, the osculating apogee is 'true' twice a month: when it is in
 exact conjunction with the moon, the moon is most distant from the earth; and
-when it is in exact opposition to the moon, the moon is closest to the earth.  In between those two points, the value of
-the osculating apogee is pure imagination. The amplitude of the oscillation of
-the <i>osculating</i> apogee around the mean apogee is +/- 25 degrees, while
-the <i>true</i> apogee's deviation from the mean one never exceeds 5 degrees.</span></p>
+when it is in exact opposition to the moon, the moon is closest to the
+earth.  In between those two points, the
+value of the osculating apogee is pure imagination. The amplitude of the
+oscillation of the <i>osculating</i> apogee around the mean apogee is +/- 25
+degrees, while the <i>true</i> apogee's deviation from the mean one never
+exceeds 5 degrees.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>It has also to be mentioned, that there is a small difference between
 the NIE's 'true Lilith' and our osculating apogee, which results from an
@@ -3355,10 +3368,9 @@ position is 5 degrees for the apogee and 25 degrees for the perigee.</span></p>
 or &quot;realistic&quot; apogee and perigee by Dieter Koch in his publications.
 Juan Revilla prefers to call them the <i>&quot;natural&quot;
 </i>apogee and perigee. Today, Dieter Koch would prefer the designation
-&quot;natural&quot;. The designation &quot;interpolated&quot; is a bit
-misleading, because it associates something that astrologers used to do
-everyday in old days, when they still used to work with printed ephemerides and
-house tables.</span></p>
+&quot;natural&quot;. The designation &quot;interpolated&quot; is a bit misleading,
+because it associates something that astrologers used to do everyday in old
+days, when they still used to work with printed ephemerides and house tables.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>Note on implementation (from Swiss Ephemeris Version 1.70 on):</span></p>
 
@@ -3381,8 +3393,7 @@ Meridian 1/95</span></p>
 
 <p class=Textkrper-Einzug><span style='font-size:10.0pt;'>-
 Dieter Koch and Bernhard Rindgen, &quot;Lilith und Priapus&quot;,
-Frankfurt/Main, 2000.
-(http://www.vdhb.de/Lilith_und_Priapus/lilith_und_priapus.html)</span></p>
+Frankfurt/Main, 2000. (http://www.vdhb.de/Lilith_und_Priapus/lilith_und_priapus.html)</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>- Juan Revilla, &quot;The Astronomical Variants of the Lunar Apogee -
 Black Moon&quot;, http://www.expreso.co.cr/centaurs/blackmoon/barycentric.html</span></p>
@@ -3465,9 +3476,9 @@ planetary nodes, where, the nodal points on the planets orbit are transformed
 to the geocenter. The two points will not be in opposition anymore, or they
 will roughly be so with the outer planets. The advantage of these nodes is that
 when a planet is in conjunction with its node, then its ecliptic latitude will
-be zero. This is not true when a planet is in geocentric conjunction with its heliocentric
-node. (And neither is it always true for inner the planets, for Mercury and
-Venus.)</span></p>
+be zero. This is not true when a planet is in geocentric conjunction with its
+heliocentric node. (And neither is it always true for inner the planets, for
+Mercury and Venus.)</span></p>
 
 <p class=Textkrper-Einzug style='margin-left:18.0pt;text-align:justify'><span
 lang=EN-US style='font-size:9.0pt;'>Note: There is
@@ -3545,10 +3556,10 @@ position points of this axis are not calculated by the Swiss Ephemeris.</span></
 style='font-size:10.0pt;'>In addition to the Earth (EMB)
 apsides, our software computes so-to-say &quot;apsides&quot; of the solar orbit
 around the Earth, i.e. points on the orbit of the Sun where it is closest to
-and where it is farthest from the Earth. These points form an opposition and
-are used by some astrologers, e.g. by the Dutch astrologer George Bode or the
-Swiss astrologer Liduina Schmed. The ”perigee”, located at about 13 Capricorn,
-is called the &quot;Black Sun&quot;, the other one, in Cancer, is called the
+and where it is farthest from the Earth. These points form an opposition and are
+used by some astrologers, e.g. by the Dutch astrologer George Bode or the Swiss
+astrologer Liduina Schmed. The ”perigee”, located at about 13 Capricorn, is
+called the &quot;Black Sun&quot;, the other one, in Cancer, is called the
 ”Diamond”.</span></p>
 
 <p class=Textkrper-Einzug style='text-align:justify'><span lang=EN-US
@@ -3669,10 +3680,10 @@ is not heliocentric at all. The double perihelia and aphelia are an effect of
 the motion of the sun about the solar system barycenter. This motion is much
 faster than the motion of Neptune, and Neptune cannot react on such fast
 displacements of the Sun. As a result, Neptune seems to move around the
-barycenter (or a mean sun) rather than around the real sun. In fact, Neptune's orbit
-around the barycenter is therefore closer to an ellipse than his orbit around
-the sun. The same statement is also true, though less obvious, for Saturn,
-Uranus and Pluto, but not for Jupiter and the inner planets.</span></p>
+barycenter (or a mean sun) rather than around the real sun. In fact, Neptune's
+orbit around the barycenter is therefore closer to an ellipse than his orbit
+around the sun. The same statement is also true, though less obvious, for
+Saturn, Uranus and Pluto, but not for Jupiter and the inner planets.</span></p>
 
 <p class=Textkrper-Einzug style='text-align:justify'><span lang=EN-US
 style='font-size:10.0pt;'>This fundamental problem about
@@ -3688,8 +3699,8 @@ comes closer to the mean apsides and nodes for planets that have such points
 defined. For Pluto and all transsaturnian asteroids, this solution may be used
 as a substitute for &quot;mean&quot; nodes and apsides. Note, however, that
 there are considerable differences between barycentric osculating and mean
-nodes and apsides for Saturn, Uranus, and Neptune. (A few degrees! But
-heliocentric ones are worse.)</span></p>
+nodes and apsides for Saturn, Uranus, and Neptune. (A few degrees! But heliocentric
+ones are worse.)</span></p>
 
 <p class=Textkrper-Einzug style='text-align:justify'><span lang=EN-US
 style='font-size:10.0pt;'>Anyway, neither the
@@ -3715,7 +3726,8 @@ asteroids: osculating nodes/apsides from a barycentric ellipse.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>&nbsp;</span></p>
 
-<p class=Textkrper-Einzug><i><span lang=EN-US style='font-size:10.0pt;'>The modes of the Swiss Ephemeris function swe_nod_aps()</span></i></p>
+<p class=Textkrper-Einzug><i><span lang=EN-US style='font-size:10.0pt;'>The modes of the Swiss Ephemeris function
+swe_nod_aps()</span></i></p>
 
 <p class=Textkrper-Einzug style='text-align:justify'><span lang=EN-US
 style='font-size:10.0pt;'>The  function <i>swe_nod_aps()</i> can be run in the following modes:</span></p>
@@ -3845,9 +3857,9 @@ perturbations, which makes a difference of 10 arcsec for Ceres and 80 arcsec
 for Pallas. This means that our asteroid ephemerides are even better than the
 ones that JPL offers on the web.)</span></p>
 
-<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The accuracy limits are therefore not set by the algorithms of our program
-but by the inherent uncertainties in the orbital elements of the asteroids from
-which our integrator has to start. </span></p>
+<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>The accuracy limits are therefore not set by the algorithms of our
+program but by the inherent uncertainties in the orbital elements of the
+asteroids from which our integrator has to start. </span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>Sources of errors are:</span></p>
 
@@ -4217,17 +4229,26 @@ problem of defining the zodiac</span></a></h3>
 <p class=MsoNormal><span lang=EN-US>One of the
 main differences between the western and the eastern tradition of astrology is
 the definition of the zodiac. Western astrology uses the so-called <i>tropical
-zodiac</i> which defines 0 Aries as the vernal point (the celestial point where
-the sun stands at the beginning of spring). The tropical zodiac has actually
-nothing to do with the star constellations of the same names. Based on these
-star constellations is the so-called <i>sidereal zodiac</i>, which is used in
-eastern astrology. Because the vernal point slowly moves through these
-constellations and completes its cycle once in 26000 years, tropical Aries
-moves through all sidereal signs, staying in each one for roughly 2160 years.
-Currently, the vernal point, and the beginning of tropical Aries, is located in
-sidereal Pisces. In a few hundred years, it will enter Aquarius, which is the
-reason why the more impatient ones among us are already preparing for the age
-of Aquarius.</span></p>
+zodiac</i> in which 0 Aries is defined as the vernal point (the celestial point
+where the sun stands at the beginning of spring). The <i>tropical zodiac </i>is a division of the ecliptic into 12 <i>zodiac
+signs</i> that are all of equal size, i. e. 30°. Astrologers call these signs
+after some constellations that are found along the ecliptic, but they are
+actually independent of these constellations. Because the vernal point slowly
+moves through the constellations and completes its cycle once in 26000 years,
+tropical Aries moves through all constellations along the ecliptic, staying in
+each one for roughly 2160 years. Currently, the vernal point, and the beginning
+of tropical Aries, is located in sidereal Pisces. In a few hundred years, it will
+enter Aquarius, which is the reason why the more impatient ones among us are
+already preparing for the “Age of Aquarius”.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The
+so-called <i>sidereal zodiac </i>also consists of 12 equal-sized zodiac signs,
+but it is tied to the fixed stars. These sidereal signs, which are used in
+Hindu astrology but also by some western Neo-Babylonian and Neo-Hellenistic
+astrologers, only roughly coincide with the sidereal constellations, which are
+of variable size.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4237,7 +4258,7 @@ astrology has quite some problems in defining its zodiac. There are many
 different definitions of the sidereal zodiac, and they differ by several
 degrees. At a first glance, all of them look arbitrary, and there is no
 striking evidence – from a mere astronomical point of view – for anyone of
-them. However, a historical study shows at least that all of them to stem from
+them. However, a historical study shows at least that all of them stem from
 only one sidereal zodiac. On the other hand, this does not mean that it be
 simple to give a precise definition of it.</span></p>
 
@@ -4254,9 +4275,10 @@ is the difference between the two zodiacs and changes with time. (Sanskrit <i>ay
 means ”part of a path”; the Hindi form of the word is <i>ayanamsa</i> with an <i>s</i>
 instead of <i>sh</i>.) ”</span></p>
 
-<p class=MsoNormal><span lang=EN-US>The <i>ayanamsha</i>
-is computed from the <i>ayanamsha</i> at a starting date (e.g. 1 Jan 1900) and
-the speed of the vernal point, the so-called <i>precession rate</i>.</span></p>
+<p class=MsoNormal><span lang=EN-US>The value
+of the <i>ayanamsha</i> of date is computed from the <i>ayanamsha</i> value at
+a start date (e.g. 1 Jan 1900) and the speed of the vernal point, the so-called
+<i>precession rate</i> in ecliptic longitude.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4272,9 +4294,9 @@ date for which this equation is true.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-US>The Swiss Ephemeris
-allows for about twenty different <i>ayanamshas</i>, but the user can also
-define his or her own <i>ayanamsha</i>.</span></p>
+<p class=MsoNormal><span lang=EN-US>The Swiss
+Ephemeris allows for about twenty different <i>ayanamshas</i>, but the user can
+also define his or her own <i>ayanamsha</i>.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4385,8 +4407,8 @@ with Aldebaran at 15ta00’00” and Antares at 15sc00’17” around the year –100.</sp
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-US>The difference
-between this <i>ayanamsha</i> and the Fagan/Bradley one is 1’06”.</span></p>
+<p class=MsoNormal><span lang=EN-US>The
+difference between this <i>ayanamsha</i> and the Fagan/Bradley one is 1’06”.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4446,8 +4468,8 @@ gives the following <i>ayanamsha</i>s for <i>Hipparchus</i> and <i>Ptolemy</i>
 to Mercier’s calculations, the Hipparchan zero point should have been between
 12 and 22 arc min east of zePsc, but the Hipparchan <i>ayanamsha</i>, as given
 by Mercier, has actually the zero point 26’ east of zePsc. This comes from the
-fact that Mercier refers to the <i>Hipparchan</i> position of zeta Piscium,
-which was at least rounded to 10’ – if otherwise correct.)</span></p>
+fact that Mercier refers to the <i>Hipparchan</i> position of zeta Piscium, which
+was at least rounded to 10’ – if otherwise correct.)</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4531,8 +4553,8 @@ show how important that date was considered to be. </span></p>
 
 <p class=MsoNormal><span lang=EN-US>After the
 Sassanian reform of astronomical tables, we have a new definition of the
-Greek-Arabic-Hindu sidereal zodiac, and a very precise one (this is not
-explicitly stated by Mercier, however):</span></p>
+Greek-Arabic-Hindu sidereal zodiac (this is not explicitly stated by Mercier,
+however):</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4562,48 +4584,232 @@ arc minutes.)</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
+<h3 style='margin-left:0cm;text-indent:0cm;'><span
+lang=EN-US>Suryasiddhanta and Aryabhata</span></h3>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>The explanations above are mainly
+derived from the article by Mercier. However, it is possible to derive
+ayanamshas from ancient Indian works themselves. </span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>The planetary theory of the main
+work of ancient Indian astronomy, the Suryasiddhanta, uses the so-called
+Kaliyuga era as its zero point, i. e. the 18<sup>th</sup> February 3102 BC,
+0:00 local time at Ujjain, which is at geographic longitude of 75.7684565 east
+(Mahakala temple). This era is henceforth called “K0s”. This is also the zero
+date for the planetary theory of the ancient Indian astronomer Aryabhata, with
+the only difference that he reckons from sunrise of the same date instead of
+midnight. We call this Aryabhatan era “K0a”. </span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>Now, Aryabhata mentioned that he was
+23 years old when exactly 3600 years had passed since the beginning of the
+Kaliyuga era. If 3600 years with a year length as defined by the Aryabhata are
+counted from K0a, we arrive at the 21<sup>st</sup> March, 499 AD, 6:56:55.57
+UT. At this point of time the mean Sun is assumed to have returned to the
+beginning of the sidereal zodiac, and we can derive an ayanamsha from this
+information. There are two possible solutions, though:</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>1. We can find the place of the mean
+Sun at that time using modern astronomical algorithms and define this point as
+the beginning of the sidereal zodiac.</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>2. As Aryabhata believed that the
+zodiac began at the vernal point, we can take the vernal point of this date as
+the zero point.</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>The same calculations can be done
+based on K0s and the year length of the Suryasiddhanta. The resulting date of
+Kali 3600 is the same day but about half an hour later: 7:30:31.57 UT.</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal style='text-autospace:ideograph-numeric ideograph-other'><span
+lang=EN-US>Algorithms for the mean Sun were
+taken from: Simon et alii, “Numerical expressions for precession formulae and
+mean elements for the Moon and the planets”, in: Astron. Astrophys. 282,663-683
+(1994).    </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
 <h3 style='margin-left:0cm;text-indent:0cm;'><a
 name="_Toc335142969"><span lang=EN-US>The
 Spica/Citra tradition and the Lahiri ayanamsha</span></a></h3>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-US>After the
-Babylonian and the Greek definitions of the zero point, there is a third one
-which fixes the star Spica (in Sanskrit <i>Citra</i>) at 0 Libra. This
-definition is today the most common one in Hindu astrology. It is named after <i>N.C.
-Lahiri</i>:</span></p>
+<p class=MsoNormal><span lang=EN-US>There is
+another ayanamsha tradition that assumes the star Spica (in Sanskrit Citra) at
+0° Libra. This ayanamsha definition is the most common one in modern Hindu astrology.
+It was first proposed by the astronomy historian S. B. Dixit (also written
+Dikshit), who in 1896 published his important work <i>History of Indian
+Astronomy</i> (=<i> Bharatiya Jyotih
+Shastra</i>; bibliographical details further below). Dixit came to the
+conclusion that, given the prominence that Vedic religion gave to the cardinal
+points of the tropical year, the Indian calendar, which is based on the zodiac,
+should be reformed and no longer be calculated relative to the sidereal, but to
+the tropical zodiac. However, if such a reform could not be brought about due
+to the rigid conservatism of contemporary Vedic culture, then the ayanamsha
+should be chosen in such a way that the sidereal zero point would be in
+opposition to Spica. In this way, it would be in accordance with <i>Grahalaghava</i>, a work by the 16th century
+astronomer <i>Gane&#347;a Daivajña</i> that
+was still used in the 20<sup>th</sup> century by Indian calendar makers. (op.
+cit., Part II, p. 323ff.). This view was taken over by the <i>Indian Calendar Reform Committee</i> on the occasion of the Indian
+calendar reform</span><span lang=EN-US style='font-family:SimSun;'> in 1956</span><span
+lang=EN-US>, when the ayanamsha based on the
+star Spica/Citra was declared the Indian standard. This standard is mandatory
+not only for astrology but also for astronomical ephemerides and almanacs and
+calendars published in India. The ayanamsha based on the star Spica/Citra
+became known as “Lahiri ayanamsha”. It was named after the Calcuttan astronomer
+and astrologer Nirmala Chandra Lahiri, who was a member of the Reform
+Committee. </span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-US>1) <i>ayanamsha</i>
-= 22°27’37.7                             1 Jan. 1900        Lahiri, Spica at 0 Libra</span></p>
-
-<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>However,
-and this is very confusing, the same definition seems to have used in Babylon
-and Greece as well. While the information given in the chapters about the
+<p class=MsoNormal><span lang=EN-US>However, as
+has been said, it was Dixit who first propagated this solution to the ayanamsha
+problem. Besides, the Suryasiddhanta, the most important work of ancient Hindu
+astronomy, which was written in the first centuries AD, but reworked several
+times, already assumes Spica/Citra at 180° (although this statement has caused
+a lot of controversy because it is in contradiction with the positions of other
+stars, and in particular with zeta Piscium/Revati at 359°50‘). And last but not
+least, the same ayanamsha definition seems to have been used in Babylon and
+Greece, as well. While the information given above in the chapters about the
 Babylonian and the Hipparchan traditions are based on analyses of old star
-catalogues and planetary theories, the consideration of 22 ancient Greek and 5
-Babylonian birth charts leads to different conclusions: <i>they fit better with
-Spica at 0 Libra</i>, than with Aldebaran at 15 Taurus and Spica at 29 Virgo
-(Fagan/Bradley)! See <i>Nick Kollerstrom</i>, in <i>Culture and Cosmos</i> in
-1997 (Vol. 1, n.2). </span></p>
+catalogues and planetary theories, a study by Nick Kollerstrom of 22 ancient
+Greek and 5 Babylonian birth charts has lead to a different conclusion: they
+fit better with Spica at 0 Libra (= Lahiri), than with Aldebaran at 15 Taurus
+and Spica at 29 Virgo (= Fagan/Bradley). </span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=EN-US>Were there
-a different zodiacs for astronomical and astrological purposes? May be, Spica
-was chosen as an anchor star for reasons of more convenience, but it was not
-originally meant to be located precisely at 0 Libra. </span></p>
 
 <p class=MsoNormal><span lang=EN-US>The
-definition by Spica at 0 Libra would be so simple, clear, and convincing that,
-had it really been intended, it would probably never have been given up and the
-other definitions would never have been taken into consideration. </span></p>
+standard definition of the Indian ayanamsha (“Lahiri” ayanamsha) was originally
+introduced in 1955 by the Indian <i>Calendar
+Reform Committee</i> (23°15' 00&quot; on the 21 March 1956, 0:00 Ephemeris
+Time). The definition was corrected in <i>Indian
+Astronomical Ephemeris</i> 1989, page 556, footnote: </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&quot;According
+to new determination of the location of equinox this initial value has been
+revised to and used in computing the mean ayanamsha with effect from
+1985'.&quot;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>The mention
+of “mean ayanamsha” is misleading though. The value 23°15' 00&quot;.658 is true
+ayanamsha, i. e. it includes nutation and is relative to the true equinox of
+date.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>1) true
+ayanamsha = 23°15' 00&quot;.658                             21 March 1956, 0:00 TDT        Lahiri, Spica roughly at 0 Libra</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>The Lahiri
+standard position of Spica is 179°59’04 in the year 2000, and 179°59’08 in
+1900. In the year 285, when the star was conjunct the autumnal equinox, its
+position was 180°00’16. It was in the year 667 AD that its position was
+precisely 180°. The motion of the star is a result partly of its proper motion
+and partly of planetary precession, which has the ecliptic slightly change its
+orientation. But what method exactly was used to define this ayanamsha?
+According to the Indian pundit AK Kaul, an expert in Hindu calendar and
+astrology, Lahiri wanted to place the star at 180°, but at the same time arrive
+at an ayanamsha that was in agreement with the Grahalaghava, an important work
+for traditional Hindu calendar calculation that was written in the 16<sup>th</sup>
+century. (e-mail from Mr. Kaul to Dieter Koch on 1 March 2013)</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>In 1967, 12
+years after the standard definition of the Lahiri ayanamsha had been published
+by the Calendar Reform Committee, Lahiri published another ayanamsha in his
+Bengali book <i>Panchanga Darpan</i>. There,
+the value of “mean ayanamsha” is given as 22°26’45”.50 in 1900, whereas the
+official value is 22°27’37”.76. The idea behind this modification was obviously
+that he wanted to have the star exactly at 180° for recent years, whereas with
+the standard definition the star is “wrong” by almost an arc minute. It
+therefore seems that Lahiri did not follow the Indian standard himself but was
+of the opinion that Spica had to be at exactly 180° (true chitrapaksha
+ayanamsha). At the moment, the Swiss only supports the official standard.
+However, it is rather trivial to calculate the positions of a planet and the
+star and then subtract the star from the planet.</span></p>
+
+<p class=MsoNormal><span lang=EN-GB>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Swiss
+Ephemeris versions below 1.78.01, had a slightly different definition of the
+Lahiri ayanamsha that had been taken from Robert Hand's astrological software
+Nova. It made a difference of only 0.01 arc sec.</span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Many thanks
+to Vinay Jha, Narasimha Rao, and Avtar Krishen Kaul for helping us to better
+understand the complicated matter. </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>If the
+reader finds errors in this documentation or is able to contribute important
+information, his or her feedback will be greatly appreciated. </span></p>
+
+<p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Sources:</span></p>
+
+<p class=MsoNormal><span lang=EN-US>Burgess,
+E., <i>The Surya Siddanta. A Text-book of Hindu Astronomy</i>, Delhi, 2000
+(MLBD).</span></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><span
+lang=EN-GB>Dikshit, S(ankara) B(alkrishna), <i>Bharatiya Jyotish Sastra (History of Indian Astronomy)</i> (Tr.
+from Marathi), Govt. of India, 1969, part I &amp; II. </span></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><span
+lang=EN-US>Kollerstrom, Nick, „</span><span
+lang=EN-GB>The Star Zodiac of Antiquity“, in: <i>Culture
+&amp; Cosmos</i></span><span lang=EN-US>, Vol.
+1, No.2, 1997).</span></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><span
+lang=IT>Lahiri, N. C., <i>Panchanga Darpan </i>(in Bengali), Calcutta, 1967 (Astro Research
+Bureau).</span></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><span
+lang=EN-GB>Lahiri,
+N. C., <i>Tables of the Sun</i>, Calcutta, 1952 (Astro Research Bureau).</span></p>
+
+<p class=MsoBodyText style='margin-bottom:0cm;margin-bottom:.0001pt'><span
+lang=EN-GB>Saha, M.
+N., and Lahiri, N. C., <i>Report of the Calendar Reform Committee</i></span><span
+lang=EN-GB>, C.S.I.R., New Delhi, 1955.</span></p>
+
+<p class=MsoBodyText><i><span lang=EN-US>The
+Indian astronomical ephemeris for the year</span></i><span lang=EN-US> <i>1989</i>,
+Delhi (Positional Astronomy Centre, India Meteorological Department)</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4639,8 +4845,8 @@ will be Saturn in a few hundred years). </span></p>
 <p class=MsoNormal><span lang=EN-US>A
 correction of the Fagan <i>ayanamsha</i> by about 2 degrees or a correction of
 the Lahiri <i>ayanamsha</i> by 3 degrees would place the Galactic Center at 0
-Sagittarius. Astrologically, this would obviously make some sense. Therefore, we
-add an <i>ayanamsha</i> fixed at the Galactic Center:</span></p>
+Sagittarius. Astrologically, this would obviously make some sense. Therefore,
+we add an <i>ayanamsha</i> fixed at the Galactic Center:</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4654,8 +4860,8 @@ possibility – in analogy with the tropical ecliptic and the house circle –
 would be to start the sidereal ecliptic at the intersection point of the
 ecliptic and the galactic plane. At present, this point is located near 0
 Capricorn. However, defining this point as sidereal 0 Aries would mean to break
-completely with the tradition, because it is far away from the traditional
-sidereal zero points.</span></p>
+completely with the tradition, because it is far away from the traditional sidereal
+zero points.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4780,10 +4986,11 @@ the time when it was 0. </span></p>
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
 <p class=MsoNormal><span lang=EN-US>On the
-other hand, the point 10’ East of zePsc has no astronomical significance at all,
-and the great difference between this zero point and the Babylonian one raises
-the question: Did Hipparchus’ definition result from a misunderstanding of the
-Babylonian definition, or was it an attempt to improve the Babylonian zodiac?</span></p>
+other hand, the point 10’ East of zePsc has no astronomical significance at
+all, and the great difference between this zero point and the Babylonian one
+raises the question: Did Hipparchus’ definition result from a misunderstanding
+of the Babylonian definition, or was it an attempt to improve the Babylonian
+zodiac?</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4801,8 +5008,8 @@ precession algorithm to be applied. We can think of five possibilities:</span></
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;'><span lang=EN-US>1)     <i>the traditional algorithm (implemented
-in Swiss Ephemeris as default mode)</i></span></p>
+<p class=MsoNormal style='margin-left:18.0pt;text-indent:-18.0pt;'><span lang=EN-US>1)     <i>the traditional algorithm (implemented in
+Swiss Ephemeris as default mode)</i></span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -4994,10 +5201,10 @@ of the traditional method.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-US>For the
-planets and for centuries close to t0, the difference from the traditional
-procedure will be only a few arc seconds in longitude. Note that the Sun will
-have an ecliptical latitude of several arc minutes after a few centuries.</span></p>
+<p class=MsoNormal><span lang=EN-US>For the planets
+and for centuries close to t0, the difference from the traditional procedure
+will be only a few arc seconds in longitude. Note that the Sun will have an
+ecliptical latitude of several arc minutes after a few centuries.</span></p>
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
@@ -5071,9 +5278,9 @@ reference plane. The only remaining problem is the choice of the zero point.</sp
 
 <p class=MsoNormal><span lang=EN-US>&nbsp;</span></p>
 
-<p class=MsoNormal><span lang=EN-US>This algorithm
-must not be applied to any of the predefined sidereal modes, except the
-Sassanian one. You can use this algorithm, if you want to research on a
+<p class=MsoNormal><span lang=EN-US>This
+algorithm must not be applied to any of the predefined sidereal modes, except
+the Sassanian one. You can use this algorithm, if you want to research on a
 better-founded sidereal astrology, experiment with your own sidereal mode, and
 calibrate it as you like.</span></p>
 
@@ -5135,18 +5342,18 @@ transformation”, light-time and aberration) Astronomers therefore make a
 difference between <i>apparent </i>and<i> true </i>positions. However, this
 effect is below 1 arc minute. </span></p>
 
-<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>Most astrological ephemerides provide <i>apparent</i> positions.
-However, this may be wrong. The use of apparent positions presupposes that
-astrological effects can be derived from one of the four fundamental forces of
-physics, which is impossible. Also, many astrologers think that astrological
-”effects” are a synchronistic phenomenon (the ones familiar with physics may
-refer to the Bell theorem). For such reasons, it might be more convincing to
-work with true positions. </span></p>
+<p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>Most astrological ephemerides provide <i>apparent</i> positions. However,
+this may be wrong. The use of apparent positions presupposes that astrological
+effects can be derived from one of the four fundamental forces of physics,
+which is impossible. Also, many astrologers think that astrological ”effects”
+are a synchronistic phenomenon (the ones familiar with physics may refer to the
+Bell theorem). For such reasons, it might be more convincing to work with true
+positions. </span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>Moreover, the Swiss Ephemeris supports so-called <i>astrometric</i>
-positions, which are used by astronomers when they measure positions of celestial
-bodies with respect to fixed stars. These calculations are of no use for
-astrology, though.</span></p>
+positions, which are used by astronomers when they measure positions of
+celestial bodies with respect to fixed stars. These calculations are of no use
+for astrology, though.</span></p>
 
 <h1 style='margin-left:0cm;text-indent:0cm;'><a
 name="_Toc335142976"><span lang=EN-US>4.         Geocentric versus topocentric and
@@ -5290,8 +5497,8 @@ dependencies on aspects of: </span></p>
 margin-left:41.95pt;text-indent:-17.85pt;'><span lang=EN-US style='font-family:Symbol;'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><span lang=EN-US>Position
 celestial objects &nbsp;<br>
-like the position and magnitude of the Sun, Moon and the studied celestial
-object, </span></p>
+like the position and magnitude of the Sun, Moon and the studied celestial object,
+</span></p>
 
 <p class=MsoNormal style='margin-right:5.95pt;
 margin-left:41.95pt;text-indent:-17.85pt;'><span lang=EN-US style='font-family:Symbol;'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -5304,8 +5511,9 @@ magnification of optical instruments (like binoculars)</span></p>
 margin-left:41.95pt;text-indent:-17.85pt;'><span lang=EN-US style='font-family:Symbol;'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><span lang=EN-US>Meteorological
 circumstances&nbsp;<br>
-mainly expressed in the astronomical extinction coefficient, which is determined
-by temperature, air pressure, humidity, visibility range (air quality).</span></p>
+mainly expressed in the astronomical extinction coefficient, which is
+determined by temperature, air pressure, humidity, visibility range (air
+quality).</span></p>
 
 <p class=MsoNormal style='margin-right:5.95pt;
 margin-left:41.95pt;text-indent:-17.85pt;'><span lang=EN-US style='font-family:Symbol;'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -5433,8 +5641,8 @@ ordinary heliacal rising in its ordinary synodic cycle which took place on 11
 June 1960.</span></p>
 
 <p class=MsoNormal style='margin-bottom:6.0pt'><span lang=EN-US>However, we may find a solution for such
-problems in future releases of the Swiss Ephemeris and even extend the geographic
-range of swe_heliacal_ut() to beyond +/- 60.</span></p>
+problems in future releases of the Swiss Ephemeris and even extend the
+geographic range of swe_heliacal_ut() to beyond +/- 60.</span></p>
 
 <h4 style='margin-left:0cm;text-indent:0cm'><a name="_Toc335142990"><span
 lang=EN-US>5.1.3.4. Visibility of Venus and the
@@ -5467,8 +5675,8 @@ lang=EN-US>5.1.4. Future developments</span></a></h3>
 <p class=MsoNormal style='margin-bottom:6.0pt'><span lang=EN-US>The section of the Swiss Ephemeris software is
 still under development. The acronychal events of superior planets and stars
 will be added. And comparing other visibility criterions will be included; like
-Schoch’s criterion [1928], Hoffman’s overview [2005] and Caldwall&amp;Laney&nbsp;
-criterion [2005].</span></p>
+Schoch’s criterion [1928], Hoffman’s overview [2005] and
+Caldwall&amp;Laney&nbsp; criterion [2005].</span></p>
 
 <h3 style='margin-left:0cm;text-indent:0cm'><a name="_Toc335142992"><span
 lang=EN-US>5.1.5. References</span></a></h3>
@@ -5489,10 +5697,9 @@ href="http://articles.adsabs.harvard.edu/cgi-bin/nph-iarticle_query?1936PA.....4
 lunar-visibility criteria, <i>The observatory</i>, Vol. 125, June 2005, No.
 1186, pp 156-168.&nbsp;</span></p>
 
-<p class=MsoNormal style='margin-bottom:6.0pt'><span lang=EN-US>- Reijs, V.M.M., Extinction angle and heliacal
-events, </span><span lang=DE><a
-href="http://www.iol.ie/%7Egeniet/eng/extinction.htm" target="_blank"><span
-lang=EN-US>http://www.iol.ie/~geniet/eng/extinction.htm</span></a></span><span
+<p class=MsoNormal style='margin-bottom:6.0pt'><span lang=EN-US>- Reijs, V.M.M., Extinction angle and heliacal events,
+</span><span lang=DE><a href="http://www.iol.ie/%7Egeniet/eng/extinction.htm"
+target="_blank"><span lang=EN-US>http://www.iol.ie/~geniet/eng/extinction.htm</span></a></span><span
 lang=EN-US>, 2003, viewed March, 30<sup>th</sup>,
 2009&nbsp;</span></p>
 
@@ -5563,12 +5770,13 @@ name="_Toc335142996"><span lang=EN-US>6.1.1.
 Placidus</span></a></h4>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>This system is named after the Italian monk
-Placidus de Titis (1590-1668). The cusps are defined by divisions of semidiurnal
-and seminocturnal arcs. The 11</span><span lang=EN-US style='font-size:8.0pt;'>th</span><span lang=EN-US style='font-size:10.0pt;'> cusp is the point on the
-ecliptic that has completed 2/3 of its semidiurnal arc, the 12</span><span
-lang=EN-US style='font-size:8.0pt;'>th</span><span
-lang=EN-US style='font-size:10.0pt;'> cusp the point that has completed 1/3 of it. The 2</span><span
-lang=EN-US style='font-size:8.0pt;'>nd</span><span
+Placidus de Titis (1590-1668). The cusps are defined by divisions of
+semidiurnal and seminocturnal arcs. The 11</span><span lang=EN-US
+style='font-size:8.0pt;'>th</span><span lang=EN-US
+style='font-size:10.0pt;'>
+cusp is the point on the ecliptic that has completed 2/3 of its semidiurnal
+arc, the 12</span><span lang=EN-US style='font-size:8.0pt;'>th</span><span lang=EN-US style='font-size:10.0pt;'> cusp the point that has completed 1/3 of it.
+The 2</span><span lang=EN-US style='font-size:8.0pt;'>nd</span><span
 lang=EN-US style='font-size:10.0pt;'> cusp has completed 2/3 of its seminocturnal arc, and the 3</span><span
 lang=EN-US style='font-size:8.0pt;'>rd</span><span
 lang=EN-US style='font-size:10.0pt;'> cusp 1/3.</span></p>
@@ -5581,11 +5789,12 @@ Koch/GOH</span></a></h4>
 style='font-size:10.0pt;'>This system is called after
 the German astrologer Walter Koch (1895-1970). Actually it was invented by
 Fiedrich Zanzinger and Heinz Specht, but it was made known by Walter Koch. In
-German-speaking countries, it is also called the &quot;Geburtsorthäusersystem&quot;
-(GOHS), i.e. the &quot;Birth place house system&quot;. Walter Koch thought that
-this system was more related to the birth place than other systems, because all
-house cusps are computed with the &quot;polar height of the birth place&quot;,
-which has the same value as the geographic latitude. </span></p>
+German-speaking countries, it is also called the
+&quot;Geburtsorthäusersystem&quot; (GOHS), i.e. the &quot;Birth place house
+system&quot;. Walter Koch thought that this system was more related to the
+birth place than other systems, because all house cusps are computed with the &quot;polar
+height of the birth place&quot;, which has the same value as the geographic
+latitude. </span></p>
 
 <p class=Textkrper-Einzug style='text-align:justify'><span lang=EN-US
 style='font-size:10.0pt;'>This argumentation shows
@@ -5681,9 +5890,9 @@ style='font-size:10.0pt;'>This system was introduced in
 1961 by Wendel Polich and A.P. Nelson Page. Its construction is rather
 abstract: The tangens of the polar height of the 11<sup>th</sup> house is the
 tangens of the geo. latitude divided by 3. (2/3 of it are taken for the 12<sup>th</sup>
-house cusp.) The philosophical reasons for this algorithm are obscure. Nor is
-this house system more “topocentric” (i.e. birth-place-related) than any other
-house system. (c.f. the misunderstanding with the “birth place system”.) The
+house cusp.) The philosophical reasons for this algorithm are obscure. Nor is this
+house system more “topocentric” (i.e. birth-place-related) than any other house
+system. (c.f. the misunderstanding with the “birth place system”.) The
 “topocentric” house cusps are close to Placidus house cusps except for high
 geographical latitudes. It also works for latitudes beyond the polar circles,
 wherefore some consider it to be an improvement of the Placidus system.
@@ -5774,8 +5983,8 @@ defines the house system as “… based on the great circle passing through
 ascendant and zenith. This circle is divided into 12 equal parts (1st cusp is
 ascendant, 10th cusp is zenith), then the resulting points are projected onto
 the ecliptic through meridian circles. The house cusps in space are
-half-circles perpendicular to the equator and running from the north to the
-south celestial pole through the resulting cusp points on the house circle. The
+half-circles perpendicular to the equator and running from the north to the south
+celestial pole through the resulting cusp points on the house circle. The
 points where they cross the ecliptic mark the ecliptic house cusps.”
 (Krusinski, e-mail to Dieter Koch)</span></p>
 
@@ -5943,9 +6152,9 @@ clockwise direction.</span></p>
 house system</i> for birth places in the tropics. The <i>Vertex</i> is defined
 as the point on the ecliptic that is located in precise western direction. The
 ecliptic east point is the opposition point and is called the <i>Antivertex</i>.
-Our program code makes sure that the Vertex (and the cusps 11, 12, 1, 2, 3 of
-the horizon house system) is always located in the western hemisphere. Note
-that for birthplaces on the equator the Vertex is always 0 Aries or 0 Libra.</span></p>
+Our program code makes sure that the Vertex (and the cusps 11, 12, 1, 2, 3 of the
+horizon house system) is always located in the western hemisphere. Note that
+for birthplaces on the equator the Vertex is always 0 Aries or 0 Libra.</span></p>
 
 <p class=Textkrper-Einzug><span lang=EN-US style='font-size:10.0pt;'>Of course, there are no problems in the calculation of the <i>Equatorial
 Ascendant </i>for any place on earth.</span></p>
@@ -6091,9 +6300,9 @@ text-indent:-18.0pt;'><span
 lang=EN-US style='font-size:10.0pt;'>3.<span
 style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 </span></span><span lang=EN-US style='font-size:10.0pt;'>We can use the exact times for rise and set of the planet to determine
-the ratio between the time the planet has already spent above (or below) the horizon
-and its diurnal (or nocturnal) arc. Times of rise and set are defined by the
-appearance or disappearance of the center of the planet’s disks.</span></p>
+the ratio between the time the planet has already spent above (or below) the
+horizon and its diurnal (or nocturnal) arc. Times of rise and set are defined
+by the appearance or disappearance of the center of the planet’s disks.</span></p>
 
 <p class=Textkrper-Einzug style='text-align:justify'><span lang=EN-US
 style='font-size:10.0pt;'>All three methods are
