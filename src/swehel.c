@@ -2767,6 +2767,9 @@ static int32 get_heliacal_day(double tjd, double *dgeo, double *datm, double *do
       if (dmag > 2) {
         daystep = 15;
       }
+      if (dmag < 0) {
+	tfac = 3;
+      }
       break;
     default:
       ndays = 300; 

@@ -598,7 +598,7 @@ static int CalcH(
  *                   W  equal, whole sign
  *                   X  axial rotation system/ Meridian houses
  *                   G  36 Gauquelin sectors
- *                   U  Krusinski-Pisa
+ *                   U  Krusinski-Pisa-Goelzer
  *             fi = geographic latitude
  *             ekl = obliquity of the ecliptic
  *             iteration_count = number of iterations in
@@ -712,7 +712,7 @@ static int CalcH(
     if (hsy == 'H') {
       for (i = 1; i <= 3; i++)
         hsp->cusp[i] = swe_degnorm(hsp->cusp[i] + 180);
-	  for (i = 11; i <= 12; i++)
+      for (i = 11; i <= 12; i++)
         hsp->cusp[i] = swe_degnorm(hsp->cusp[i] + 180);
       /* restore fi and th */
       if (fi > 0)
@@ -720,6 +720,10 @@ static int CalcH(
       else
 	fi = -90 - fi;
       th = swe_degnorm(th + 180);
+      acmc = swe_difdeg2n(hsp->ac, hsp->mc);
+      if (acmc < 0) {
+        hsp->ac = swe_degnorm(hsp->ac + 180);
+      }
     }
     break;
   case 'K': /* Koch houses */
@@ -848,6 +852,10 @@ porphyry:
       } /*  if */
 	  hsp->cusp[j] = swe_degnorm(hsp->cusp[j]);
     }
+    acmc = swe_difdeg2n(hsp->ac, hsp->mc);
+    if (acmc < 0) {
+      hsp->ac = swe_degnorm(hsp->ac + 180);
+    }
     break; }
   case 'M': {
     /* 
@@ -866,6 +874,10 @@ porphyry:
       x[1] = 0;
       swe_cotrans(x, x, ekl);
       hsp->cusp[j] = x[0];
+    }
+    acmc = swe_difdeg2n(hsp->ac, hsp->mc);
+    if (acmc < 0) {
+      hsp->ac = swe_degnorm(hsp->ac + 180);
     }
     break; }
   case 'B': {	/* Alcabitius */
@@ -1530,7 +1542,7 @@ double FAR PASCAL_CONV swe_house_pos(
       xp[0] = swe_degnorm(xp[0] + MILLIARCSEC);
       hpos = xp[0] / 30.0 + 1;
       break;
-    case 'U': /* Krusinski-Pisa */
+    case 'U': /* Krusinski-Pisa-Goelzer */
       /* Purpose: find point where planet's house circle (meridian)
        *   cuts house plane, giving exact planet's house position.
        * Input data: ramc, geolat, asc.

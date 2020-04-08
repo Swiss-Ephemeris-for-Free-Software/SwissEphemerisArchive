@@ -393,7 +393,7 @@ static char *infodate = "\n\
 \n\
         1.2.1991        three integers separated by a nondigit character for\n\
                         day month year. Dates are interpreted as Gregorian\n\
-                        after 4.10.1582 and as Julian Calender before.\n\
+                        after 4.10.1582 and as Julian Calendar before.\n\
                         Time is always set to midnight.\n\
                         If the three letters jul are appended to the date,\n\
                         the Julian calendar is used even after 1582.\n\
@@ -539,6 +539,7 @@ static char *hs_nam[] = {"undef",
 	"Ascendant", "MC", "ARMC", "Vertex"};
 static int direction = 1;
 static AS_BOOL direction_flag = FALSE;
+static int32 helflag = 0;
 static double tjd = 2415020.5;
 static int32 nstep = 1, istep;
 static int32 search_flag = 0;
@@ -669,6 +670,9 @@ int main(int argc, char *argv[])
       whicheph = SEFLG_SWIEPH;
     } else if (strcmp(argv[i], "-emos") == 0) {
       whicheph = SEFLG_MOSEPH;
+    } else if (strncmp(argv[i], "-helflag", 8) == 0) {
+      helflag = atoi(argv[i]+8);
+      fprintf(stderr, "hier %d\n", helflag);
     } else if (strcmp(argv[i], "-hel") == 0) {
       iflag |= SEFLG_HELCTR;
     } else if (strcmp(argv[i], "-bary") == 0) {
@@ -859,7 +863,6 @@ int main(int argc, char *argv[])
         printf(infocmd2);
         printf(infocmd3);
         printf(infocmd4);
-        printf(infocmd5);
         printf(infocmd5);
       }
       if (*sp == 'p' || *sp == '\0')
@@ -2413,9 +2416,10 @@ static void do_print_heliacal(double *dret, int32 event_type, char *obj_name)
 
 static int32 call_heliacal_event(double t_ut, int32 ipl, char *star, int32 whicheph, int32 special_mode, double *geopos, double *datm, double *dobs, char *serr)
 {
-  int ii, event_type = 0, retflag, helflag = whicheph;
+  int ii, event_type = 0, retflag;
   double dret[40], tsave1, tsave2;
   char obj_name[AS_MAXCH];
+  helflag |= whicheph;
   /* if invalid heliacal event type was required, set 0 for any type */
   if (search_flag < 0 || search_flag > 6)
     search_flag = 0;

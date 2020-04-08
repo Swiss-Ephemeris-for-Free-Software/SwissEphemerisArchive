@@ -380,6 +380,20 @@ extern "C" {
 #define TJD_INVALID		 	99999999.0
 #define SIMULATE_VICTORVB               1
 
+#define SE_HELIACAL_LONG_SEARCH 	128
+#define SE_HELIACAL_HIGH_PRECISION 	256
+#define SE_HELIACAL_OPTICAL_PARAMS	512
+#define SE_HELIACAL_NO_DETAILS		1024
+#define SE_HELIACAL_SEARCH_1_PERIOD	(1 << 11)  /*  2048 */
+#define SE_HELIACAL_VISLIM_DARK		(1 << 12)  /*  4096 */
+#define SE_HELIACAL_VISLIM_NOMOON	(1 << 13)  /*  8192 */
+#define SE_HELIACAL_VISLIM_PHOTOPIC	(1 << 14)  /* 16384 */
+#define SE_HELIACAL_AVKIND_VR 		(1 << 15)  /* 32768 */
+#define SE_HELIACAL_AVKIND_PTO 		(1 << 16)
+#define SE_HELIACAL_AVKIND_MIN7 		(1 << 17)
+#define SE_HELIACAL_AVKIND_MIN9 		(1 << 18)
+#define SE_HELIACAL_AVKIND (SE_HELFLAG_AVKIND_VR|SE_HELFLAG_AVKIND_PTO|SE_HELFLAG_AVKIND_MIN7|SE_HELFLAG_AVKIND_MIN9)
+
 #define SE_PHOTOPIC_FLAG		0
 #define SE_SCOTOPIC_FLAG		1
 #define SE_MIXEDOPIC_FLAG		2
@@ -660,6 +674,15 @@ ext_def (int32) swe_rise_trans(
 	       int32 epheflag, int32 rsmi,
                double *geopos, 
 	       double atpress, double attemp,
+               double *tret,
+               char *serr);
+
+ext_def (int32) swe_rise_trans_true_hor(
+               double tjd_ut, int32 ipl, char *starname, 
+	       int32 epheflag, int32 rsmi,
+               double *geopos, 
+	       double atpress, double attemp,
+	       double horhgt,
                double *tret,
                char *serr);
 

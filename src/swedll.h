@@ -266,6 +266,15 @@ DllImport int32 FAR PASCAL swe_rise_trans(
                double *tret,
                char *serr);
 
+DllImport int32 FAR PASCAL swe_rise_trans_true_hor(
+               double tjd_ut, int32 ipl, char *starname, 
+	       int32 epheflag, int32 rsmi,
+               double *geopos, 
+	       double atpress, double attemp,
+	       double horhgt,
+               double *tret,
+               char *serr);
+
 DllImport int32 FAR PASCAL swe_nod_aps(double tjd_et, int32 ipl, int32 iflag, 
                       int32  method,
                       double *xnasc, double *xndsc, 

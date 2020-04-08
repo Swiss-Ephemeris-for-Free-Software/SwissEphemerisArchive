@@ -1034,6 +1034,7 @@ void FAR PASCAL_CONV swe_close(void)
   swi_close_jpl_file();
 #endif
   swed.jpl_file_is_open = FALSE;
+  swed.jpldenum = 0;
   /* close fixed stars */
   if (swed.fixfp != NULL) {
     fclose(swed.fixfp);
@@ -2730,7 +2731,7 @@ static int app_pos_etc_plan_osc(int ipl, int ipli, int32 iflag, char *serr)
 void swi_precess_speed(double *xx, double t, int direction) 
 {
   struct epsilon *oe;
-  double fac;
+  double fac, dpre, dpre2;
   double tprec = (t - J2000) / 36525.0;
   if (direction == J2000_TO_J) {
     fac = 1;
@@ -2747,8 +2748,14 @@ void swi_precess_speed(double *xx, double t, int direction)
   swi_coortrf2(xx, xx, oe->seps, oe->ceps);
   swi_coortrf2(xx+3, xx+3, oe->seps, oe->ceps);
   swi_cartpol_sp(xx, xx);
-  xx[3] += (50.290966 + 0.0222226 * tprec) / 3600 / 365.25 * DEGTORAD * fac;
+  if (PREC_VONDRAK_2011) {
+    swi_ldp_peps(t, &dpre, NULL);
+    swi_ldp_peps(t + 1, &dpre2, NULL);
+    xx[3] += (dpre2 - dpre) * fac;
+  } else {
+    xx[3] += (50.290966 + 0.0222226 * tprec) / 3600 / 365.25 * DEGTORAD * fac;
 			/* formula from Montenbruck, German 1994, p. 18 */
+  }
   swi_polcart_sp(xx, xx);
   swi_coortrf2(xx, xx, -oe->seps, oe->ceps);
   swi_coortrf2(xx+3, xx+3, -oe->seps, oe->ceps);
@@ -3967,13 +3974,14 @@ SEI_CURR_FPOS, freord, fendian, ifno, serr);
   }
   return(OK);
 file_damage:
-  if (serr != NULL && errmsglen < AS_MAXCH)
-    sprintf(serr, serr_file_damage, fdp->fnam);
-  else 
-    sprintf(serr, serr_file_damage, "");
+  if (serr != NULL) {
+    *serr = '\0';
+    if (errmsglen < AS_MAXCH)
+      sprintf(serr, serr_file_damage, fdp->fnam);
+  }
 return_error:
   fclose(fp);
-  fp = NULL;
+  fdp->fptr = NULL;
   return(ERR);
 }
 
@@ -4069,8 +4077,6 @@ static void rot_back(int ipli)
   chcfx = pdp->segp;
   chcfy = chcfx + nco;
   chcfz = chcfx + 2 * nco;
-  refepx = pdp->refep;
-  refepy = refepx + nco;
   tdiff= (t - pdp->telem) / 365250.0;
   if (ipli == SEI_MOON) {
     dn = pdp->prot + tdiff * pdp->dprot;
@@ -4089,6 +4095,8 @@ static void rot_back(int ipli)
     x[i][2] = chcfz[i];
   }
   if (pdp->iflg & SEI_FLG_ELLIPSE) {
+    refepx = pdp->refep;
+    refepy = refepx + nco;
     omtild = pdp->peri + tdiff * pdp->dperi;
     i = (int) (omtild / TWOPI);
     omtild -= i * TWOPI;
@@ -5661,8 +5669,11 @@ int32 FAR PASCAL_CONV swe_fixstar_mag(char *star, double *mag, char *serr)
    ******************************************************/
   if (swed.fixfp == NULL) {
     if ((swed.fixfp = swi_fopen(SEI_FILE_FIXSTAR, SE_STARFILE, swed.ephepath, serr)) == NULL) {
-      retc = ERR;
-      goto return_err;
+      swed.is_old_starfile = TRUE;
+      if ((swed.fixfp = swi_fopen(SEI_FILE_FIXSTAR, SE_STARFILE_OLD, swed.ephepath, NULL)) == NULL) {
+	retc = ERR;
+	goto return_err;
+      }
     }
   }
   rewind(swed.fixfp);

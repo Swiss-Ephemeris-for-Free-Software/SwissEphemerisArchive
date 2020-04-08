@@ -154,6 +154,8 @@ extern int afl2planet(int afl);
  * returns -1 if planet has no letter.
  */
 extern int planet2afl(int p);
+extern char *planet2abbr2(int planet);
+extern char *planet2abbr3(int planet);
 
 /*************************************************************
 	exported variables

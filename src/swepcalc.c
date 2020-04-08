@@ -329,7 +329,6 @@ int calc(int  planet,  	/* planet index as defined in placalc.h,
     *alng = nut = x[2];
     *arad = x[1];
     *alat = ekl = x[0];
-    *alngspeed = 0.0;
   } else {
     *alng = x[0];
     *arad = x[2];
@@ -432,6 +431,68 @@ int planet2afl(int planet)
     return AFL_HOUSE;
   else
     return -1;
+}
+
+/*
+ * get the 2-letter abbreviation for a planet
+ * returns ?? if not defined
+ */
+char *planet2abbr2(int planet)
+{
+  switch (planet) {
+    case SUN:		return "su";
+    case MOON:		return "mo";
+    case MERCURY:	return "me";
+    case VENUS:		return "ve";
+    case MARS:		return "ma";
+    case JUPITER:	return "ju";
+    case SATURN:	return "sa";
+    case URANUS:	return "ur";
+    case NEPTUNE:	return "ne";
+    case PLUTO:		return "pl";
+    case MEAN_NODE:	return "mn";
+    case TRUE_NODE:	return "tn";
+    case CHIRON:	return "ch";
+    case LILITH:	return "li";
+    case CERES:		return "ce";
+    case PALLAS:	return "pa";
+    case JUNO:		return "jn";
+    case VESTA:		return "vs";
+    case AC:		return "ac";
+    case MC:		return "mc";
+  }  
+  return "??";
+}
+
+/*
+ * get the 3-letter abbreviation for a planet
+ * returns ??? if not defined
+ */
+char *planet2abbr3(int planet)
+{
+  switch (planet) {
+    case SUN:		return "sun";
+    case MOON:		return "mon";
+    case MERCURY:	return "mer";
+    case VENUS:		return "ven";
+    case MARS:		return "mar";
+    case JUPITER:	return "jup";
+    case SATURN:	return "sat";
+    case URANUS:	return "ura";
+    case NEPTUNE:	return "nep";
+    case PLUTO:		return "plu";
+    case MEAN_NODE:	return "mno";
+    case TRUE_NODE:	return "tno";
+    case CHIRON:	return "chi";
+    case LILITH:	return "lil";
+    case CERES:		return "cer";
+    case PALLAS:	return "pal";
+    case JUNO:		return "jun";
+    case VESTA:		return "ves";
+    case AC:		return "asc";
+    case MC:		return "mc ";
+  }  
+  return "???";
 }
 
 char *placalc_set_ephepath(char *path)
