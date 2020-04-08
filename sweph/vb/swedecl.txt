@@ -527,6 +527,18 @@ Private Declare Function swe_lun_eclipse_how_d Lib "swedll32.dll" _
         ) As Long
                         ' serr must be able to hold 256 bytes
 
+Private Declare Function swe_lun_eclipse_when_loc Lib "swedll32.dll" _
+        Alias "_swe_lun_eclipse_when_loc@32" ( _  
+          ByVal tjd_start as Double, _
+          ByVal ifl as Long, _
+          ByRef geopos as Double, _
+          ByRef tret as Double, _
+          ByRef attr as Double, _
+          ByVal backward as Long, _
+          ByVal serr as String _
+        ) As Long
+                        ' serr must be able to hold 256 bytes
+
 Private Declare Function swe_lun_eclipse_when Lib "swedll32.dll" _
         Alias "_swe_lun_eclipse_when@28" ( _  
           ByVal tjd_start as Double, _
@@ -906,6 +918,24 @@ Private Declare Function swe_time_equ Lib "swedll32.dll" _
         ) As Long
                         ' serr must be able to hold 256 bytes
 
+Private Declare Function swe_lmt_to_lat Lib "swedll32.dll" _
+        Alias "_swe_lmt_to_lat@24" ( _
+          ByVal tjd_lmt As Double, _
+          ByVal geolon As Double, _
+          ByRef tjd_lat As double, _
+          ByVal serr As String _
+        ) As Long
+                        ' serr must be able to hold 256 bytes
+
+Private Declare Function swe_lat_to_lmt Lib "swedll32.dll" _
+        Alias "_swe_lat_to_lmt@24" ( _
+          ByVal tjd_lat As Double, _
+          ByVal geolon As Double, _
+          ByRef tjd_lmt As double, _
+          ByVal serr As String _
+        ) As Long
+                        ' serr must be able to hold 256 bytes
+
 Private Declare Sub swe_version Lib "swedll32.dll" _
         Alias "_swe_version@4" ( _
           ByVal svers As String _
@@ -1086,6 +1116,10 @@ Const SEFLG_RADIANS As Long = 8192
 Const SEFLG_BARYCTR As Long = 16384
 Const SEFLG_TOPOCTR As Long = 32768
 Const SEFLG_SIDEREAL As Long = 65536
+Const SEFLG_ICRS As Long = (128 * 1024)
+Const SEFLG_DPSIDEPS_1980 As Long = (256 * 1024)
+Const SEFLG_JPLHOR As Long = (256 * 1024)
+Const SEFLG_JPLHOR_APPROX As Long = (512 * 1024)
 
 Const SE_SIDBIT_ECL_T0 As Long = 256 ' for positions referred to equinox t0 
 Const SE_SIDBIT_SSY_PLANE As Long = 256 ' for positions referred to solar system plane 
@@ -1107,9 +1141,15 @@ Const SE_ECL_PENUMBRAL As Long = 64
 Const SE_ECL_VISIBLE As Long = 128
 Const SE_ECL_MAX_VISIBLE As Long = 256
 Const SE_ECL_1ST_VISIBLE As Long = 512
+Const SE_ECL_PARTBEG_VISIBLE As Long = 512
 Const SE_ECL_2ND_VISIBLE As Long = 1024
+Const SE_ECL_TOTBEG_VISIBLE As Long = 1024
 Const SE_ECL_3RD_VISIBLE As Long = 2048
+Const SE_ECL_TOTEND_VISIBLE As Long = 2048
 Const SE_ECL_4TH_VISIBLE As Long = 4096
+Const SE_ECL_PARTEND_VISIBLE As Long = 4096
+Const SE_ECL_PENUMBBEG_VISIBLE As Long = 8192
+Const SE_ECL_PENUMBEND_VISIBLE As Long = 16384
 Const SE_ECL_ONE_TRY As Long = 32768
 
 'sidereal modes, for swe_set_sid_mode()
@@ -1134,9 +1174,18 @@ Const SE_SIDM_GALCENT_0SAG    As Long = 17
 Const SE_SIDM_J2000           As Long = 18
 Const SE_SIDM_J1900           As Long = 19
 Const SE_SIDM_B1950           As Long = 20
+Const SE_SIDM_SURYASIDDHANTA As Long = 21
+Const SE_SIDM_SURYASIDDHANTA_MSUN As Long = 22
+Const SE_SIDM_ARYABHATA       As Long = 23
+Const SE_SIDM_ARYABHATA_MSUN  As Long = 24
+Const SE_SIDM_SS_REVATI       As Long = 25
+Const SE_SIDM_SS_CITRA        As Long = 26
+Const SE_SIDM_TRUE_CITRA        As Long = 27
+Const SE_SIDM_TRUE_REVATI       As Long = 28
+
 Const SE_SIDM_USER            As Long = 255
 
-Const SE_NSIDM_PREDEF         As Long = 21
+Const SE_NSIDM_PREDEF         As Long = 29
 
 Const SE_SIDBITS              As Long = 256
 'for projection onto ecliptic of t0
@@ -1160,6 +1209,10 @@ Const SE_BIT_DISC_CENTER        As Long = 256 '/* to be added to SE_CALC_RISE/SE
 				    '/* requried */
 Const SE_BIT_NO_REFRACTION      As Long = 512 '/* to be added to SE_CALC_RISE/SET, */
 				    '/* if refraction is not to be considered */
+Const SE_BIT_CIVIL_TWILIGHT     As Long = 1024 '/* to be added to SE_CALC_RISE/SET, */
+Const SE_BIT_NAUTIC_TWILIGHT    As Long = 2048 '/* to be added to SE_CALC_RISE/SET, */
+Const SE_BIT_ASTRO_TWILIGHT     As Long = 4096 '/* to be added to SE_CALC_RISE/SET, */
+Const SE_BIT_FIXED_DISC_SIZE    As Long = 16384 '/* to be added to SE_CALC_RISE/SET, */
 
 
 

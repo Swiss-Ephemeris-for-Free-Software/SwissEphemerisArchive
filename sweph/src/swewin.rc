@@ -81,7 +81,7 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK,67,70,50,14
     CTEXT           "Swiss Ephemeris Windows Test",ABOUT_L1,29,15,125,8
     CTEXT           "Astrodienst Zurich",ABOUT_L2,29,29,125,8
-    CTEXT           "Version 1.80.00, 3-Sep-2013",ABOUT_L3,30,43,125,8
+    CTEXT           "Version 2.00.00, 6-Feb-2014",ABOUT_L3,30,43,125,8
 END
 
 
