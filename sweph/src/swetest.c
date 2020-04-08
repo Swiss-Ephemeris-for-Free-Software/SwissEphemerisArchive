@@ -926,7 +926,7 @@ int main(int argc, char *argv[])
     if (begindate == NULL) {
       printf("\nDate ?");
       sdate[0] = '\0';
-      if( !fgets(sdate, AS_MAXCH, stdin) ) goto end_main;
+      fgets(sdate, AS_MAXCH, stdin);
     } else {
       strcpy(sdate, begindate);
       begindate = ".";  /* to exit afterwards */
@@ -1980,7 +1980,7 @@ static int32 call_rise_set(double t_ut, int32 ipl, char *star, int32 whicheph, i
 
 static int32 call_lunar_eclipse(double t_ut, int32 whicheph, int32 special_mode, double *geopos, char *serr)
 {
-  int ii, eclflag, ecl_type = 0;
+  int ii, eclflag, ecl_type;
   int ihou, imin, isec, isgn;
   double dfrc, attr[30], dt;
   char s1[AS_MAXCH], sout_short[AS_MAXCH];
@@ -1998,6 +1998,7 @@ ERR) {
         do_printf(serr);
         return ERR;
       } else {
+	ecl_type = 0;
         if (eclflag & SE_ECL_TOTAL) {
           sprintf(sout, "total lunar eclipse: %f o/o \n", attr[0]);
 	  ecl_type = ECL_LUN_TOTAL;
@@ -2074,8 +2075,6 @@ ERR) {
         else
           strcat(sout, "   -         ");
 	sprintf(sout + strlen(sout), "%s\n", hms_from_tjd(tret[7])); 
-	/*{int i;
-	for (i = 0; i < 6; i++) {fprintf(stderr, "%f\n", tret[i]);}}*/
       if (special_mode & SP_MODE_HOCAL) {
 	swe_split_deg(jut, SE_SPLIT_DEG_ROUND_MIN, &ihou, &imin, &isec, &dfrc, &isgn);
 	sprintf(sout, "\"%04d %02d %02d %02d.%02d %d\",\n", jyear, jmon, jday, ihou, imin, ecl_type);
@@ -2134,8 +2133,8 @@ attr, direction_flag, serr)) == ERR) {
 	} else {
 	  swe_calc(t_ut + swe_deltat(t_ut), SE_ECL_NUT, 0, x, serr);
 	  swe_revjul(t_ut, gregflag, &jyear, &jmon, &jday, &jut);
-	  sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%.4f/%.4f/%.4f\tsaros %d/%d\t%.6f\n", 
-              jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[8], attr[0], attr[2], (int) attr[9], (int) attr[10], t_ut);
+	  sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f\tsaros %d/%d\t%.6f\n", 
+              jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[0], (int) attr[9], (int) attr[10], t_ut);
 	  /* sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%fo/o\t%.6f\n", jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[0], t_ut); */
 	  dt = (tret[3] - tret[2]) * 24 * 60;
 	  sprintf(sout + strlen(sout), "\t%d min %4.2f sec\t",
@@ -2200,8 +2199,8 @@ attr, direction_flag, serr)) == ERR) {
       swe_revjul(t_ut, gregflag, &jyear, &jmon, &jday, &jut);
       sprintf(sout_short, "%s\t%2d.%2d.%4d\t%s\t%.3f", 
          sout, jday, jmon, jyear, hms(jut,0), attr[8]);
-      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\t%.4f/%.4f/%.4f\tsaros %d/%d\t%.6f\n", 
-                jday, jmon, jyear, hms(jut,0), attr[3], attr[8], attr[0], attr[2], (int) attr[9], (int) attr[10], t_ut);
+      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\t%.4f(%.4f)\tsaros %d/%d\t%.6f\n", 
+                jday, jmon, jyear, hms(jut,0), attr[3], attr[8], attr[2], (int) attr[9], (int) attr[10], t_ut);
       /* sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\t%f o/o\t%.6f\n",
          jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[3], attr[0], t_ut); */
       sprintf(sout + strlen(sout), "\t%s ", hms_from_tjd(tret[2])); 
@@ -2418,7 +2417,7 @@ static void do_print_heliacal(double *dret, int32 event_type, char *obj_name)
 static int32 call_heliacal_event(double t_ut, int32 ipl, char *star, int32 whicheph, int32 special_mode, double *geopos, double *datm, double *dobs, char *serr)
 {
   int ii, event_type = 0, retflag;
-  double dret[40], tsave1, tsave2 = 0;
+  double dret[40], tsave1, tsave2;
   char obj_name[AS_MAXCH];
   helflag |= whicheph;
   /* if invalid heliacal event type was required, set 0 for any type */
@@ -2551,8 +2550,9 @@ static char *hms(double x, int32 iflag)
   sp = strstr(s, c);
   if (sp != NULL) {
     *sp = ':';
-    strcpy(s2, sp + strlen(ODEGREE_STRING));
-    strcpy(sp + 1, s2);
+    if (strlen(ODEGREE_STRING) > 1)
+      strcpy(s2, sp + strlen(ODEGREE_STRING));
+      strcpy(sp + 1, s2);
     *(sp + 3) = ':';
     *(sp + 8) = '\0';
   }

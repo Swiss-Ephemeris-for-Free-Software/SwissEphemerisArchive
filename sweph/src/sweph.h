@@ -63,7 +63,7 @@
  * move over from swephexp.h
  */
 
-#define SE_VERSION      "1.79.00"
+#define SE_VERSION      "1.78.00"
 
 #define J2000           2451545.0  	/* 2000 January 1.5 */
 #define B1950           2433282.42345905  	/* 1950 January 0.923 */
@@ -329,18 +329,11 @@ static const double pla_diam[NDIAM] = {1392000000.0, /* Sun */
                         };
 
 
-/* Ayanamsas 
- * For each ayanamsa, there are two values:
- * t0       epoch of ayanamsa, TDT (ET)
- * ayan_t0  ayanamsa value at epoch
- */
+/* Ayanamsas */
 struct aya_init {double t0, ayan_t0;};
 static const struct aya_init ayanamsa[] = {
     {2433282.5, 24.042044444},	/* 0: Fagan/Bradley (Default) */
-    /*{J1900, 360 - 337.53953},   * 1: Lahiri (Robert Hand) */
-    {2435553.5, 23.250182778 - 0.004660222},   /* 1: Lahiri (derived from:
-			   * Indian Astronomical Ephemeris 1989, p. 556;
-			   * the subtracted value is nutation) */
+    {J1900, 360 - 337.53953},   /* 1: Lahiri (Robert Hand) */
     {J1900, 360 - 333.58695},   /* 2: De Luce (Robert Hand) */
     {J1900, 360 - 338.98556},   /* 3: Raman (Robert Hand) */
     {J1900, 360 - 341.33904},   /* 4: Ushashashi (Robert Hand) */
@@ -363,22 +356,6 @@ static const struct aya_init ayanamsa[] = {
     {J2000, 0},	                /*18: J2000 */
     {J1900, 0},	                /*19: J1900 */
     {B1950, 0},	                /*20: B1950 */
-    {1903396.8128654, 0},	/*21: Suryasiddhanta, assuming
-                                      ingress of mean Sun into Aries at point
-				      of mean equinox of date on
-				      21.3.499, noon, Ujjain (75.7684565 E)
-                                      = 7:30:31.57 UT */
-    {1903396.8128654,-0.21463395},/*22: Suryasiddhanta, assuming
-                                      ingress of mean Sun into Aries at
-				      true position of mean Sun at same epoch */
-    {1903396.7895321, 0},	/*23: Aryabhata, same date, but UT 6:56:55.57
-                                      analogous 21 */
-    {1903396.7895321,-0.23763238},/*24: Aryabhata, analogous 22 */
-    {0, 0},                     /*25: - */
-    {0, 0},                     /*26: - */
-    {0, 0},	                /*27: - */
-    {0, 0},	                /*28: - */
-    {0, 0},	                /*29: - */
 	};
 
 #define PLAN_DATA struct plan_data

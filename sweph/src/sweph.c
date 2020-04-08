@@ -118,10 +118,6 @@ static char *ayanamsa_name[] = {
    "J2000",
    "J1900",
    "B1950",
-   "Suryasiddhanta",
-   "Suryasiddhanta, mean Sun",
-   "Aryabhata",
-   "Aryabhata, mean Sun",
 };
 static const int FAR pnoint2jpl[]   = PNOINT2JPL;
 
@@ -2551,7 +2547,7 @@ static int app_pos_etc_plan_osc(int ipl, int ipli, int32 iflag, char *serr)
   int i, j, niter, retc;
   double xx[6], dx[3], dt, dtsave_for_defl;
   double xearth[6], xsun[6], xmoon[6];
-  double xxsv[6], xxsp[3]={0}, xobs[6], xobs2[6];
+  double xxsv[6], xxsp[6], xobs[6], xobs2[6];
   double t;
   struct plan_data *pdp = &swed.pldat[ipli];
   struct plan_data *pedp = &swed.pldat[SEI_EARTH];
