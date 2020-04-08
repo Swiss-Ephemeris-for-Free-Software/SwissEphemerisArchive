@@ -2406,7 +2406,7 @@ static int32 occult_when_loc(
   double dt1 = 0, dt2 = 0, dtdiv, dtstart;
   double dadd2 = 1;
   double drad, dl;
-  AS_BOOL is_partial = FALSE;
+  //AS_BOOL is_partial = FALSE;
   int32 iflag = SEFLG_TOPOCTR | ifl;
   int32 iflaggeo = iflag & ~SEFLG_TOPOCTR;
   int32 iflagcart = iflag | SEFLG_XYZ;
@@ -2423,7 +2423,7 @@ static int32 occult_when_loc(
   t = tjd_start;
   tjd = tjd_start;
 next_try:
-  is_partial = FALSE;
+  //is_partial = FALSE;
   if (calc_planet_star(t, ipl, starname, iflaggeo, ls, serr) == ERR)
       return ERR;
   /* fixed stars with an ecliptic latitude > 7  or < -7 cannot have 
@@ -2559,7 +2559,7 @@ next_try:
   /* contacts 2 and 3 */
   if (dctr > fabs(rsminusrm)) {  /* partial, no 2nd and 3rd contact */
     tret[2] = tret[3] = 0;
-    is_partial = TRUE;
+    //is_partial = TRUE;
   } else {
     dc[1] = fabs(rsminusrm) - dctrmin;
     for (i = 0, t = tjd - twomin; i <= 2; i += 2, t = tjd + twomin) {
@@ -2615,7 +2615,7 @@ next_try:
     }
     tret[2] -= swe_deltat_ex(tret[2], ifl, serr);
     tret[3] -= swe_deltat_ex(tret[3], ifl, serr);
-    is_partial = FALSE;
+    //is_partial = FALSE;
   }
   /* contacts 1 and 4 */
   dc[1] = rsplusrm - dctrmin;
@@ -4243,10 +4243,7 @@ int32 CALL_CONV swe_rise_trans(
                double *tret,
                char *serr)
 {
-  AS_BOOL is_fixstar = FALSE;
   int32 retval = 0;
-  if (starname != NULL && *starname != '\0')
-    is_fixstar = TRUE;
   /* Simple fast algorithm for risings and settings of 
    * - planets Sun, Moon, Mercury - Pluto + Lunar Nodes and Fixed stars
    * Does not work well for geographic latitudes
@@ -5656,7 +5653,6 @@ int32 CALL_CONV swe_get_orbital_elements(
   //int32 iflJ2000 = (iflag & SEFLG_EPHMASK)|SEFLG_J2000|SEFLG_EQUATORIAL|SEFLG_XYZ|SEFLG_TRUEPOS|SEFLG_NONUT|SEFLG_SPEED;
   int32 iflJ2000 = (iflag & SEFLG_EPHMASK)|SEFLG_J2000|SEFLG_XYZ|SEFLG_TRUEPOS|SEFLG_NONUT|SEFLG_SPEED;
   int32 iflJ2000p = (iflag & SEFLG_EPHMASK)|SEFLG_J2000|SEFLG_TRUEPOS|SEFLG_NONUT|SEFLG_SPEED;
-  AS_BOOL ellipse_is_bary = FALSE;
   double Gmsm;
   int32 iflg0 = 0;
   double fac, sgn, rxy, rxyz, c2, cosnode, sinnode;
@@ -5676,12 +5672,10 @@ int32 CALL_CONV swe_get_orbital_elements(
   /* first, we need a heliocentric distance of the planet */
   if (swe_calc(tjd_et, ipl, iflJ2000p, x, serr) == ERR)
     return ERR;
-  ellipse_is_bary = FALSE;
   r =  x[2];
   if (ipl != SE_MOON) {
     if ((iflag & SEFLG_BARYCTR) && r > 6) {
       iflJ2000 |= SEFLG_BARYCTR; /* only planets beyond Jupiter */
-      ellipse_is_bary = TRUE;
     } else {
       iflJ2000 |= SEFLG_HELCTR;
     }
