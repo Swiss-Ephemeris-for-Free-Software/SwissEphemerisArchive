@@ -1,0 +1,2304 @@
+
+ SWEDLL16
+
+ Start     Length     Name                   Class
+ 0001:0000 06513H     SWEHOUSE_TEXT          CODE 16-bit
+           at offset 00000H 06513H bytes from SWEHOUSE.OBJ (s:\devlop\sweph\src\swehouse.c)
+
+ 0001:6514 02399H     SWEJPL_TEXT            CODE 16-bit
+           at offset 00000H 02399H bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+
+ 0001:88AE 03528H     SWEMMOON_TEXT          CODE 16-bit
+           at offset 00000H 03528H bytes from SWEMMOON.OBJ (s:\devlop\sweph\src\swemmoon.c)
+
+ 0001:BDD6 02956H     SWEMPLAN_TEXT          CODE 16-bit
+           at offset 00000H 02956H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+
+ 0002:0000 0F2D0H     SWEPH_TEXT             CODE 16-bit
+           at offset 00000H 0F2D0H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+
+ 0003:0000 04281H     SWEPHLIB_TEXT          CODE 16-bit
+           at offset 00000H 04281H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+
+ 0003:4282 010CAH     SWEDLLST_TEXT          CODE 16-bit
+           at offset 00000H 010CAH bytes from SWEDLLST.OBJ (s:\devlop\sweph\src\swedllst.c)
+
+ 0003:534C 0062BH     SWEDATE_TEXT           CODE 16-bit
+           at offset 00000H 0062BH bytes from SWEDATE.OBJ (s:\devlop\sweph\src\swedate.c)
+
+ 0004:0000 0B95DH     SWECL_TEXT             CODE 16-bit
+           at offset 00000H 0B95DH bytes from SWECL.OBJ (s:\devlop\sweph\src\swecl.c)
+
+ 0005:0000 04CB9H     _TEXT                  CODE 16-bit
+           at offset 00000H 000FEH bytes from e:\appl\msvc\lib\ldllcew.lib (windows\crt0.asm)
+           at offset 000FEH 0005AH bytes from e:\appl\msvc\lib\ldllcew.lib (windows\wchkstk.asm)
+           at offset 00158H 0006EH bytes from e:\appl\msvc\lib\ldllcew.lib (sprintf.c)
+           at offset 001C6H 000D4H bytes from e:\appl\msvc\lib\ldllcew.lib (fclose.c)
+           at offset 0029AH 0005AH bytes from e:\appl\msvc\lib\ldllcew.lib (fopen.c)
+           at offset 002F4H 0017FH bytes from e:\appl\msvc\lib\ldllcew.lib (fread.asm)
+           at offset 00474H 000C8H bytes from e:\appl\msvc\lib\ldllcew.lib (fmalloc.asm)
+           at offset 0053CH 00054H bytes from e:\appl\msvc\lib\ldllcew.lib (strcat.asm)
+           at offset 00590H 0003CH bytes from e:\appl\msvc\lib\ldllcew.lib (strcpy.asm)
+           at offset 005CCH 00029H bytes from e:\appl\msvc\lib\ldllcew.lib (strcmp.asm)
+           at offset 005F6H 00019H bytes from e:\appl\msvc\lib\ldllcew.lib (strlen.asm)
+           at offset 00610H 0002AH bytes from e:\appl\msvc\lib\ldllcew.lib (strncpy.asm)
+           at offset 0063AH 0003BH bytes from e:\appl\msvc\lib\ldllcew.lib (strncmp.asm)
+           at offset 00676H 00003H bytes from e:\appl\msvc\lib\ldllcew.lib (atoi.asm)
+           at offset 0067AH 00003H bytes from e:\appl\msvc\lib\ldllcew.lib (atol.asm)
+           at offset 0067EH 0005EH bytes from e:\appl\msvc\lib\ldllcew.lib (atof.c)
+           at offset 006DCH 0009CH bytes from e:\appl\msvc\lib\ldllcew.lib (getenv.c)
+           at offset 00778H 00088H bytes from e:\appl\msvc\lib\ldllcew.lib (fgets.asm)
+           at offset 00800H 00084H bytes from e:\appl\msvc\lib\ldllcew.lib (fseek.c)
+           at offset 00884H 001A6H bytes from e:\appl\msvc\lib\ldllcew.lib (ftell.c)
+           at offset 00A2AH 0004AH bytes from e:\appl\msvc\lib\ldllcew.lib (rewind.c)
+           at offset 00A74H 0003CH bytes from e:\appl\msvc\lib\ldllcew.lib (calloc.asm)
+           at offset 00AB0H 00032H bytes from e:\appl\msvc\lib\ldllcew.lib (strchr.asm)
+           at offset 00AE2H 00034H bytes from e:\appl\msvc\lib\ldllcew.lib (strrchr.asm)
+           at offset 00B16H 0005EH bytes from e:\appl\msvc\lib\ldllcew.lib (strpbrk.asm)
+           at offset 00B74H 0006BH bytes from e:\appl\msvc\lib\ldllcew.lib (strstr.asm)
+           at offset 00BE0H 00048H bytes from e:\appl\msvc\lib\ldllcew.lib (hmemset.asm)
+           at offset 00C28H 00014H bytes from e:\appl\msvc\lib\ldllcew.lib (abs.c)
+           at offset 00C3CH 0001EH bytes from e:\appl\msvc\lib\ldllcew.lib (labs.c)
+           at offset 00C5AH 00022H bytes from e:\appl\msvc\lib\ldllcew.lib (alrem.asm)
+           at offset 00C7CH 00022H bytes from e:\appl\msvc\lib\ldllcew.lib (aulrem.asm)
+           at offset 00C9EH 0009AH bytes from e:\appl\msvc\lib\ldllcew.lib (ldiv.asm)
+           at offset 00D38H 00032H bytes from e:\appl\msvc\lib\ldllcew.lib (lmul.asm)
+           at offset 00D6AH 000A0H bytes from e:\appl\msvc\lib\ldllcew.lib (lrem.asm)
+           at offset 00E0AH 0005FH bytes from e:\appl\msvc\lib\ldllcew.lib (uldiv.asm)
+           at offset 00E6AH 0000CH bytes from e:\appl\msvc\lib\ldllcew.lib (.\87csqrt.asm)
+           at offset 00E76H 0002CH bytes from e:\appl\msvc\lib\ldllcew.lib (.\87ctran.asm)
+           at offset 00EA2H 00020H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87ctrig.asm)
+           at offset 00EC2H 0002CH bytes from e:\appl\msvc\lib\ldllcew.lib (.\87ctriga.asm)
+           at offset 00EEEH 0005BH bytes from e:\appl\msvc\lib\ldllcew.lib (.\87floor.asm)
+           at offset 00F4AH 00067H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87fmod.asm)
+           at offset 00FB2H 0003DH bytes from e:\appl\msvc\lib\ldllcew.lib (.\87ftol.asm)
+           at offset 00FF0H 00031H bytes from e:\appl\msvc\lib\ldllcew.lib (.\fabs.asm)
+           at offset 01022H 00014H bytes from e:\appl\msvc\lib\ldllcew.lib (.\fltusedc.asm)
+           at offset 01036H 0002CH bytes from e:\appl\msvc\lib\ldllcew.lib (windows\stubmain.asm)
+           at offset 01062H 000E3H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\crt0dat.asm)
+           at offset 01146H 00023H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\crt0msg.asm)
+           at offset 0116AH 00097H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\stdenvp.asm)
+           at offset 01202H 0004CH bytes from e:\appl\msvc\lib\ldllcew.lib (windows\fatal.asm)
+           at offset 0124EH 000C8H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\lseek.asm)
+           at offset 01316H 0014BH bytes from e:\appl\msvc\lib\ldllcew.lib (dos\read.asm)
+           at offset 01462H 00081H bytes from e:\appl\msvc\lib\ldllcew.lib (newseg.asm)
+           at offset 014E4H 00506H bytes from e:\appl\msvc\lib\ldllcew.lib (output.asm)
+           at offset 019EAH 0000DH bytes from e:\appl\msvc\lib\ldllcew.lib (fdata.asm)
+           at offset 019F8H 00117H bytes from e:\appl\msvc\lib\ldllcew.lib (growseg.asm)
+           at offset 01B10H 000E2H bytes from e:\appl\msvc\lib\ldllcew.lib (_flsbuf.asm)
+           at offset 01BF2H 00010H bytes from e:\appl\msvc\lib\ldllcew.lib (windows\windgrp.asm)
+           at offset 01C02H 000AAH bytes from e:\appl\msvc\lib\ldllcew.lib (_filbuf.asm)
+           at offset 01CACH 00037H bytes from e:\appl\msvc\lib\ldllcew.lib (_freebuf.asm)
+           at offset 01CE4H 00140H bytes from e:\appl\msvc\lib\ldllcew.lib (_open.c)
+           at offset 01E24H 0015CH bytes from e:\appl\msvc\lib\ldllcew.lib (fflush.c)
+           at offset 01F80H 00054H bytes from e:\appl\msvc\lib\ldllcew.lib (stream.c)
+           at offset 01FD4H 00037H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\close.asm)
+           at offset 0200CH 0007CH bytes from e:\appl\msvc\lib\ldllcew.lib (searchsg.asm)
+           at offset 02088H 00056H bytes from e:\appl\msvc\lib\ldllcew.lib (atox.asm)
+           at offset 020DEH 0001CH bytes from e:\appl\msvc\lib\ldllcew.lib (itoa.asm)
+           at offset 020FAH 0005EH bytes from e:\appl\msvc\lib\ldllcew.lib (hmemcpy.asm)
+           at offset 02158H 00026H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\unlink.asm)
+           at offset 0217EH 0006AH bytes from e:\appl\msvc\lib\ldllcew.lib (ulrem.asm)
+           at offset 021E8H 00015H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87sqrt.asm)
+           at offset 021FEH 00178H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87tran.asm)
+           at offset 02376H 00104H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87trig.asm)
+           at offset 0247AH 000C6H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87triga.asm)
+           at offset 02540H 00670H bytes from e:\appl\msvc\lib\ldllcew.lib (.\cvt.c)
+           at offset 02BB0H 001B7H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87cdisp.asm)
+           at offset 02D68H 00064H bytes from e:\appl\msvc\lib\ldllcew.lib (.\cfinn.c)
+           at offset 02DCCH 00024H bytes from e:\appl\msvc\lib\ldllcew.lib (.\cfpsig.asm)
+           at offset 02DF0H 0004EH bytes from e:\appl\msvc\lib\ldllcew.lib (dos\nmsghdr.asm)
+           at offset 02E3EH 0005EH bytes from e:\appl\msvc\lib\ldllcew.lib (commit.c)
+           at offset 02E9CH 0018BH bytes from e:\appl\msvc\lib\ldllcew.lib (write.asm)
+           at offset 03028H 0002AH bytes from e:\appl\msvc\lib\ldllcew.lib (freelist.asm)
+           at offset 03052H 00006H bytes from e:\appl\msvc\lib\ldllcew.lib (crt0fp.asm)
+           at offset 03058H 0002DH bytes from e:\appl\msvc\lib\ldllcew.lib (dos\stdalloc.asm)
+           at offset 03086H 0005DH bytes from e:\appl\msvc\lib\ldllcew.lib (dos\dosret.asm)
+           at offset 030E4H 00014H bytes from e:\appl\msvc\lib\ldllcew.lib (windows\windgrpx.c)
+           at offset 030F8H 00001H bytes from e:\appl\msvc\lib\ldllcew.lib (nearstub.asm)
+           at offset 030FAH 0004BH bytes from e:\appl\msvc\lib\ldllcew.lib (_getbuf.asm)
+           at offset 03146H 002E8H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\open.asm)
+           at offset 0342EH 00034H bytes from e:\appl\msvc\lib\ldllcew.lib (initseg.asm)
+           at offset 03462H 00036H bytes from e:\appl\msvc\lib\ldllcew.lib (linkseg.asm)
+           at offset 03498H 000AEH bytes from e:\appl\msvc\lib\ldllcew.lib (_fptostr.c)
+           at offset 03546H 00063H bytes from e:\appl\msvc\lib\ldllcew.lib (xtoa.asm)
+           at offset 035AAH 00019H bytes from e:\appl\msvc\lib\ldllcew.lib (strlen.asm)
+           at offset 035C4H 0003CH bytes from e:\appl\msvc\lib\ldllcew.lib (strcpy.asm)
+           at offset 03600H 00048H bytes from e:\appl\msvc\lib\ldllcew.lib (hmemset.asm)
+           at offset 03648H 000CAH bytes from e:\appl\msvc\lib\ldllcew.lib (hmemcpy.asm)
+           at offset 03712H 000FFH bytes from e:\appl\msvc\lib\ldllcew.lib (.\87disp.asm)
+           at offset 03812H 004CDH bytes from e:\appl\msvc\lib\ldllcew.lib (.\emtrigx.asm)
+           at offset 03CE0H 00068H bytes from e:\appl\msvc\lib\ldllcew.lib (.\strgtod.asm)
+           at offset 03D48H 00085H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87exist.asm)
+           at offset 03DCEH 00055H bytes from e:\appl\msvc\lib\ldllcew.lib (.\cfout.asm)
+           at offset 03E24H 00019H bytes from e:\appl\msvc\lib\ldllcew.lib (.\matherr.asm)
+           at offset 03E3EH 00001H bytes from e:\appl\msvc\lib\ldllcew.lib (farstub.asm)
+           at offset 03E40H 00014H bytes from e:\appl\msvc\lib\ldllcew.lib (stackava.asm)
+           at offset 03E54H 00020H bytes from e:\appl\msvc\lib\ldllcew.lib (os2\hdiff.asm)
+           at offset 03E74H 00024H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\d_commit.asm)
+           at offset 03E98H 00193H bytes from e:\appl\msvc\lib\ldllcew.lib (.\x8fout.asm)
+           at offset 0402CH 00180H bytes from e:\appl\msvc\lib\ldllcew.lib (.\fastadd.asm)
+           at offset 041ACH 0010FH bytes from e:\appl\msvc\lib\ldllcew.lib (.\fastmult.asm)
+           at offset 042BCH 00268H bytes from e:\appl\msvc\lib\ldllcew.lib (.\strgtold.asm)
+           at offset 04524H 001B9H bytes from e:\appl\msvc\lib\ldllcew.lib (.\x8tmul.asm)
+           at offset 046DEH 00511H bytes from e:\appl\msvc\lib\ldllcew.lib (.\tenpow.asm)
+           at offset 04BF0H 000B9H bytes from e:\appl\msvc\lib\ldllcew.lib (.\mantold.asm)
+
+ 0005:4CC0 00A8BH     COMDAT_SEG1            CODE 16-bit
+           at offset 00000H 00037H bytes from SWEHOUSE.OBJ (s:\devlop\sweph\src\swehouse.c)
+           at offset 00038H 00033H bytes from SWEHOUSE.OBJ (s:\devlop\sweph\src\swehouse.c)
+           at offset 0006CH 00032H bytes from SWEHOUSE.OBJ (s:\devlop\sweph\src\swehouse.c)
+           at offset 0009EH 00019H bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 000B8H 00028H bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 000E0H 00025H bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 00106H 00015H bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 0011CH 0003EH bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 0015AH 00041H bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 0019CH 0002BH bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 001C8H 0001EH bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 001E6H 00026H bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 0020CH 00031H bytes from SWEMMOON.OBJ (s:\devlop\sweph\src\swemmoon.c)
+           at offset 0023EH 0002CH bytes from SWEMMOON.OBJ (s:\devlop\sweph\src\swemmoon.c)
+           at offset 0026AH 0002EH bytes from SWEMMOON.OBJ (s:\devlop\sweph\src\swemmoon.c)
+           at offset 00298H 00031H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 002CAH 00007H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 002D2H 00006H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 002D8H 00005H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 002DEH 00007H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 002E6H 00008H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 002EEH 00008H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 002F6H 00009H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00300H 00009H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 0030AH 00010H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 0031AH 00007H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00322H 0000BH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 0032EH 0000AH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00338H 00006H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 0033EH 00007H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00346H 0000AH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00350H 0000FH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00360H 0000CH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 0036CH 0002FH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 0039CH 00002H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 0039EH 0001EH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 003BCH 0001AH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 003D6H 00006H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 003DCH 00006H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 003E2H 00006H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 003E8H 00011H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 003FAH 00006H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00400H 00013H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00414H 0001EH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00432H 0001BH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 0044EH 00044H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00492H 00025H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 004B8H 00016H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 004CEH 0001DH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 004ECH 00027H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00514H 00003H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00518H 00003H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 0051CH 00004H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00520H 00003H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00524H 0000CH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00530H 00031H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00562H 00015H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00578H 00016H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0058EH 00017H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 005A6H 00038H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 005DEH 0003CH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0061AH 00016H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00630H 00006H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00636H 0001AH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00650H 0000DH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0065EH 0000DH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0066CH 00002H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0066EH 00020H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0068EH 00004H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00692H 00005H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00698H 00023H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 006BCH 00023H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 006E0H 00002H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 006E2H 00002H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 006E4H 00033H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00718H 00003H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0071CH 0002AH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00746H 00039H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00780H 0003CH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 007BCH 0001FH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 007DCH 00003H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 007E0H 0002DH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0080EH 00001H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00810H 0001CH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0082CH 0001EH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0084AH 0000DH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00858H 00010H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00868H 00020H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00888H 00012H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0089AH 00020H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008BAH 00006H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008C0H 00004H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008C4H 00005H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008CAH 00008H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008D2H 00006H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008D8H 00005H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008DEH 00008H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008E6H 00007H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008EEH 00007H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008F6H 00008H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 008FEH 00006H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00904H 0000AH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0090EH 0000AH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00918H 0000CH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00924H 0000CH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00930H 00006H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00936H 00007H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0093EH 00007H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00946H 00006H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0094CH 00007H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00954H 00005H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0095AH 00006H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00960H 0000EH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0096EH 0000CH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0097AH 00004H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 0097EH 00003H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00982H 00025H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 009A8H 00005H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009AEH 00005H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009B4H 00005H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009BAH 00011H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009CCH 00002H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009CEH 00002H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009D0H 00008H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009D8H 00009H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009E2H 0000AH bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009ECH 00009H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 009F6H 0001DH bytes from SWECL.OBJ (s:\devlop\sweph\src\swecl.c)
+           at offset 00A14H 00026H bytes from SWECL.OBJ (s:\devlop\sweph\src\swecl.c)
+           at offset 00A3AH 0001DH bytes from SWECL.OBJ (s:\devlop\sweph\src\swecl.c)
+           at offset 00A58H 00033H bytes from SWECL.OBJ (s:\devlop\sweph\src\swecl.c)
+
+ 0006:0000 00012H     SWEJPL5_DATA           FAR_DATA 16-bit
+           at offset 00000H 00012H bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+
+ 0007:0000 012E8H     SWEMMOON5_DATA         FAR_DATA 16-bit
+           at offset 00000H 012E8H bytes from SWEMMOON.OBJ (s:\devlop\sweph\src\swemmoon.c)
+
+ 0008:0000 0FEDEH     SWEMPLAN5_DATA         FAR_DATA 16-bit
+           at offset 00000H 0FEDEH bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+
+ 0009:0000 0D709H     SWEMPLAN6_DATA         FAR_DATA 16-bit
+           at offset 00000H 0D709H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+
+ 000A:0000 04B88H     SWEPH5_DATA            FAR_DATA 16-bit
+           at offset 00000H 04B88H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+
+ 000B:0000 00A5CH     SWEPHLIB5_DATA         FAR_DATA 16-bit
+           at offset 00000H 00A5CH bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+
+ 000C:0000 00010H     NULL                   BEGDATA 16-bit
+           at offset 00000H 00010H bytes from e:\appl\msvc\lib\ldllcew.lib (windows\crt0.asm)
+
+ 000C:0010 01DF0H     _DATA                  DATA 16-bit
+           at offset 00000H 00150H bytes from SWEHOUSE.OBJ (s:\devlop\sweph\src\swehouse.c)
+           at offset 00150H 0016AH bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 002BAH 00150H bytes from SWEMMOON.OBJ (s:\devlop\sweph\src\swemmoon.c)
+           at offset 0040AH 00614H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00A1EH 00182H bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00BA0H 00258H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 00DF8H 009FEH bytes from SWECL.OBJ (s:\devlop\sweph\src\swecl.c)
+           at offset 017F6H 00015H bytes from e:\appl\msvc\lib\ldllcew.lib (windows\crt0.asm)
+           at offset 0180CH 00004H bytes from e:\appl\msvc\lib\ldllcew.lib (windows\wchkstk.asm)
+           at offset 01810H 00004H bytes from e:\appl\msvc\lib\ldllcew.lib (fclose.c)
+           at offset 01814H 00004H bytes from e:\appl\msvc\lib\ldllcew.lib (fmalloc.asm)
+           at offset 01818H 00101H bytes from e:\appl\msvc\lib\ldllcew.lib (ctype.asm)
+           at offset 0191AH 00014H bytes from e:\appl\msvc\lib\ldllcew.lib (.\fltusedc.asm)
+           at offset 0192EH 00044H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\crt0dat.asm)
+           at offset 01972H 00004H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\crt0msg.asm)
+           at offset 01976H 00061H bytes from e:\appl\msvc\lib\ldllcew.lib (output.asm)
+           at offset 019D8H 0000EH bytes from e:\appl\msvc\lib\ldllcew.lib (fdata.asm)
+           at offset 019E6H 00002H bytes from e:\appl\msvc\lib\ldllcew.lib (growseg.asm)
+           at offset 019E8H 00002H bytes from e:\appl\msvc\lib\ldllcew.lib (file.asm)
+           at offset 019EAH 00022H bytes from e:\appl\msvc\lib\ldllcew.lib (cmiscdat.asm)
+           at offset 01A0CH 00018H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87sqrt.asm)
+           at offset 01A24H 000AAH bytes from e:\appl\msvc\lib\ldllcew.lib (.\87tran.asm)
+           at offset 01ACEH 00072H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87trig.asm)
+           at offset 01B40H 00078H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87triga.asm)
+           at offset 01BB8H 0000BH bytes from e:\appl\msvc\lib\ldllcew.lib (.\cvt.c)
+           at offset 01BC4H 00037H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87cdisp.asm)
+           at offset 01BFCH 00002H bytes from e:\appl\msvc\lib\ldllcew.lib (_cflush.asm)
+           at offset 01BFEH 00014H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\dosret.asm)
+           at offset 01C12H 00001H bytes from e:\appl\msvc\lib\ldllcew.lib (ncommode.asm)
+           at offset 01C14H 00002H bytes from e:\appl\msvc\lib\ldllcew.lib (seekfast.asm)
+           at offset 01C16H 00025H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87disp.asm)
+           at offset 01C3CH 0012CH bytes from e:\appl\msvc\lib\ldllcew.lib (.\emtrigx.asm)
+           at offset 01D68H 0000AH bytes from e:\appl\msvc\lib\ldllcew.lib (.\strgtod.asm)
+           at offset 01D72H 00002H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87exist.asm)
+           at offset 01D74H 00025H bytes from e:\appl\msvc\lib\ldllcew.lib (.\cfout.asm)
+           at offset 01D9AH 00009H bytes from e:\appl\msvc\lib\ldllcew.lib (.\huge.asm)
+           at offset 01DA4H 00002H bytes from e:\appl\msvc\lib\ldllcew.lib (txtmode.asm)
+           at offset 01DA6H 00049H bytes from e:\appl\msvc\lib\ldllcew.lib (.\x8fout.asm)
+
+ 000C:1E00 0000EH     CDATA                  DATA 16-bit
+           at offset 00000H 0000EH bytes from e:\appl\msvc\lib\ldllcew.lib (.\fixups.asm)
+           at offset 00000H 0000EH bytes from e:\appl\msvc\lib\ldllcew.lib (dos\crt0dat.asm)
+
+ 000C:1E0E 00000H     XIB                    DATA 16-bit
+ 000C:1E0E 0000CH     XI                     DATA 16-bit
+           at offset 00000H 00004H bytes from e:\appl\msvc\lib\ldllcew.lib (.\fltusedc.asm)
+           at offset 00004H 00004H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87exist.asm)
+           at offset 00008H 00004H bytes from e:\appl\msvc\lib\ldllcew.lib (.\matherr.asm)
+
+ 000C:1E1A 00000H     XIE                    DATA 16-bit
+ 000C:1E1A 00000H     XIFB                   DATA 16-bit
+ 000C:1E1A 00000H     XIF                    DATA 16-bit
+ 000C:1E1A 00000H     XIFE                   DATA 16-bit
+ 000C:1E1A 00000H     XPB                    DATA 16-bit
+ 000C:1E1A 00000H     XP                     DATA 16-bit
+ 000C:1E1A 00000H     XPE                    DATA 16-bit
+ 000C:1E1A 00000H     XCB                    DATA 16-bit
+ 000C:1E1A 00000H     XC                     DATA 16-bit
+ 000C:1E1A 00000H     XCE                    DATA 16-bit
+ 000C:1E1A 00000H     XCFB                   DATA 16-bit
+ 000C:1E1A 00000H     XCFCRT                 DATA 16-bit
+ 000C:1E1A 00000H     XCF                    DATA 16-bit
+ 000C:1E1A 00000H     XCFE                   DATA 16-bit
+ 000C:1E1A 00000H     XIFCB                  DATA 16-bit
+ 000C:1E1A 00000H     XIFU                   DATA 16-bit
+ 000C:1E1A 00000H     XIFL                   DATA 16-bit
+ 000C:1E1A 00000H     XIFM                   DATA 16-bit
+ 000C:1E1A 00000H     XIFCE                  DATA 16-bit
+ 000C:1E1A 000E4H     IOB                    DATA 16-bit
+           at offset 00000H 000E4H bytes from e:\appl\msvc\lib\ldllcew.lib (file.asm)
+
+ 000C:1EFE 00000H     IOBX                   DATA 16-bit
+ 000C:1EFE 0000CH     IOBE                   DATA 16-bit
+           at offset 00000H 0000CH bytes from e:\appl\msvc\lib\ldllcew.lib (file.asm)
+
+ 000C:1F0A 000E4H     IOB2                   DATA 16-bit
+           at offset 00000H 000E4H bytes from e:\appl\msvc\lib\ldllcew.lib (file.asm)
+
+ 000C:1FEE 00000H     IOB2X                  DATA 16-bit
+ 000C:1FEE 0000CH     IOB2E                  DATA 16-bit
+           at offset 00000H 0000CH bytes from e:\appl\msvc\lib\ldllcew.lib (file.asm)
+
+ 000C:1FFA 00000H     DBDATA                 DATA 16-bit
+ 000C:1FFA 01826H     CONST                  CONST 16-bit
+           at offset 00000H 0014AH bytes from SWEHOUSE.OBJ (s:\devlop\sweph\src\swehouse.c)
+           at offset 0014AH 0005CH bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 001A6H 00854H bytes from SWEMMOON.OBJ (s:\devlop\sweph\src\swemmoon.c)
+           at offset 009FAH 00252H bytes from SWEMPLAN.OBJ (s:\devlop\sweph\src\swemplan.c)
+           at offset 00C4CH 0020EH bytes from SWEPH.OBJ (s:\devlop\sweph\src\sweph.c)
+           at offset 00E5AH 0039AH bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 011F4H 00008H bytes from SWEDLLST.OBJ (s:\devlop\sweph\src\swedllst.c)
+           at offset 011FCH 000D8H bytes from SWEDATE.OBJ (s:\devlop\sweph\src\swedate.c)
+           at offset 012D4H 0054AH bytes from SWECL.OBJ (s:\devlop\sweph\src\swecl.c)
+           at offset 0181EH 00008H bytes from e:\appl\msvc\lib\ldllcew.lib (.\cvt.c)
+
+ 000C:3820 00008H     HDR                    MSG 16-bit
+           at offset 00000H 00008H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\nmsghdr.asm)
+
+ 000C:3828 00387H     MSG                    MSG 16-bit
+           at offset 00000H 000A5H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\crt0msg.asm)
+           at offset 000A5H 00033H bytes from e:\appl\msvc\lib\ldllcew.lib (.\87cdisp.asm)
+           at offset 000D8H 00280H bytes from e:\appl\msvc\lib\ldllcew.lib (.\cfpsig.asm)
+           at offset 00358H 0002FH bytes from e:\appl\msvc\lib\ldllcew.lib (crt0fp.asm)
+
+ 000C:3BAF 00002H     PAD                    MSG 16-bit
+           at offset 00000H 00002H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\crt0msg.asm)
+           at offset 00000H 00002H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\nmsghdr.asm)
+           at offset 00000H 00002H bytes from e:\appl\msvc\lib\ldllcew.lib (crt0fp.asm)
+
+ 000C:3BB1 00001H     EPAD                   MSG 16-bit
+           at offset 00000H 00001H bytes from e:\appl\msvc\lib\ldllcew.lib (dos\nmsghdr.asm)
+
+ 000C:3BB2 00542H     _BSS                   BSS 16-bit
+           at offset 00000H 0004AH bytes from SWEJPL.OBJ (s:\devlop\sweph\src\swejpl.c)
+           at offset 0004AH 000D8H bytes from SWEMMOON.OBJ (s:\devlop\sweph\src\swemmoon.c)
+           at offset 00122H 00400H bytes from SWEPHLIB.OBJ (s:\devlop\sweph\src\swephlib.c)
+           at offset 00522H 0000CH bytes from e:\appl\msvc\lib\ldllcew.lib (sprintf.c)
+           at offset 0052EH 00004H bytes from e:\appl\msvc\lib\ldllcew.lib (.\cvt.c)
+           at offset 00532H 00010H bytes from e:\appl\msvc\lib\ldllcew.lib (.\cfinn.c)
+
+ 000C:40F4 00000H     XOB                    BSS 16-bit
+ 000C:40F4 00000H     XO                     BSS 16-bit
+ 000C:40F4 00000H     XOE                    BSS 16-bit
+ 000C:40F4 00000H     XOFB                   BSS 16-bit
+ 000C:40F4 00000H     XOF                    BSS 16-bit
+ 000C:40F4 00000H     XOFE                   BSS 16-bit
+ 000C:4100 00008H     c_common               BSS 16-bit
+
+ Origin   Group
+ 000C:0   DGROUP
+
+ Address   Export                  Alias
+
+ 0004:48B7 SWE_AZALT               SWE_AZALT
+ 0003:5131 SWE_AZALT_D             SWE_AZALT_D
+ 0004:4B76 SWE_AZALT_REV           SWE_AZALT_REV
+ 0003:51A7 SWE_AZALT_REV_D         SWE_AZALT_REV_D
+ 0002:0000 SWE_CALC                SWE_CALC
+ 0003:42B4 SWE_CALC_D              SWE_CALC_D
+ 0002:057D SWE_CALC_UT             SWE_CALC_UT
+ 0003:4300 SWE_CALC_UT_D           SWE_CALC_UT_D
+ 0002:1868 SWE_CLOSE               SWE_CLOSE
+ 0003:43EA SWE_CLOSE_D             SWE_CLOSE_D
+ 0003:0672 SWE_COTRANS             SWE_COTRANS
+ 0003:46E7 SWE_COTRANS_D           SWE_COTRANS_D
+ 0003:0797 SWE_COTRANS_SP          SWE_COTRANS_SP
+ 0003:472D SWE_COTRANS_SP_D        SWE_COTRANS_SP_D
+ 0003:3B4F SWE_CS2DEGSTR           SWE_CS2DEGSTR
+ 0003:4E04 SWE_CS2DEGSTR_D         SWE_CS2DEGSTR_D
+ 0003:397F SWE_CS2LONLATSTR        SWE_CS2LONLATSTR
+ 0003:4DC5 SWE_CS2LONLATSTR_D      SWE_CS2LONLATSTR_D
+ 0003:3807 SWE_CS2TIMESTR          SWE_CS2TIMESTR
+ 0003:4D8E SWE_CS2TIMESTR_D        SWE_CS2TIMESTR_D
+ 0003:3418 SWE_CSNORM              SWE_CSNORM
+ 0003:4B50 SWE_CSNORM_D            SWE_CSNORM_D
+ 0003:36B0 SWE_CSROUNDSEC          SWE_CSROUNDSEC
+ 0003:4C97 SWE_CSROUNDSEC_D        SWE_CSROUNDSEC_D
+ 0003:3751 SWE_D2L                 SWE_D2L
+ 0003:4CC2 SWE_D2L_D               SWE_D2L_D
+ 0003:534C SWE_DATE_CONVERSION     SWE_DATE_CONVERSION
+ 0003:4831 SWE_DATE_CONVERSION_D   SWE_DATE_CONVERSION_D
+ 0003:37AF SWE_DAY_OF_WEEK         SWE_DAY_OF_WEEK
+ 0003:4D57 SWE_DAY_OF_WEEK_D       SWE_DAY_OF_WEEK_D
+ 0003:0000 SWE_DEGNORM             SWE_DEGNORM
+ 0003:47E6 SWE_DEGNORM_D           SWE_DEGNORM_D
+ 0003:019A SWE_DEG_MIDP            SWE_DEG_MIDP
+ 0003:2816 SWE_DELTAT              SWE_DELTAT
+ 0003:4584 SWE_DELTAT_D            SWE_DELTAT_D
+ 0003:351E SWE_DIFCS2N             SWE_DIFCS2N
+ 0003:4C09 SWE_DIFCS2N_D           SWE_DIFCS2N_D
+ 0003:3499 SWE_DIFCSN              SWE_DIFCSN
+ 0003:4B7B SWE_DIFCSN_D            SWE_DIFCSN_D
+ 0003:3586 SWE_DIFDEG2N            SWE_DIFDEG2N
+ 0003:4C3A SWE_DIFDEG2N_D          SWE_DIFDEG2N_D
+ 0003:34CC SWE_DIFDEGN             SWE_DIFDEGN
+ 0003:4BAC SWE_DIFDEGN_D           SWE_DIFDEGN_D
+ 0003:361B SWE_DIFRAD2N            SWE_DIFRAD2N
+ 0002:D1F1 SWE_FIXSTAR             SWE_FIXSTAR
+ 0003:434C SWE_FIXSTAR_D           SWE_FIXSTAR_D
+ 0002:E470 SWE_FIXSTAR_UT          SWE_FIXSTAR_UT
+ 0003:439B SWE_FIXSTAR_UT_D        SWE_FIXSTAR_UT_D
+ 0002:5192 SWE_GET_AYANAMSA        SWE_GET_AYANAMSA
+ 0003:44EE SWE_GET_AYANAMSA_D      SWE_GET_AYANAMSA_D
+ 0002:5307 SWE_GET_AYANAMSA_UT     SWE_GET_AYANAMSA_UT
+ 0003:4539 SWE_GET_AYANAMSA_UT_D   SWE_GET_AYANAMSA_UT_D
+ 0002:E4D7 SWE_GET_PLANET_NAME     SWE_GET_PLANET_NAME
+ 0003:446E SWE_GET_PLANET_NAME_D   SWE_GET_PLANET_NAME_D
+ 0003:2C3A SWE_GET_TID_ACC         SWE_GET_TID_ACC
+ 0003:4773 SWE_GET_TID_ACC_D       SWE_GET_TID_ACC_D
+ 0001:0000 SWE_HOUSES              SWE_HOUSES
+ 0001:11F6 SWE_HOUSES_ARMC         SWE_HOUSES_ARMC
+ 0003:4A47 SWE_HOUSES_ARMC_D       SWE_HOUSES_ARMC_D
+ 0003:496D SWE_HOUSES_D            SWE_HOUSES_D
+ 0001:015D SWE_HOUSES_EX           SWE_HOUSES_EX
+ 0003:49D7 SWE_HOUSES_EX_D         SWE_HOUSES_EX_D
+ 0001:4CBC SWE_HOUSE_POS           SWE_HOUSE_POS
+ 0003:4AB1 SWE_HOUSE_POS_D         SWE_HOUSE_POS_D
+ 0003:5428 SWE_JULDAY              SWE_JULDAY
+ 0003:487E SWE_JULDAY_D            SWE_JULDAY_D
+ 0004:512D SWE_LUN_ECLIPSE_HOW     SWE_LUN_ECLIPSE_HOW
+ 0003:4F7D SWE_LUN_ECLIPSE_HOW_D   SWE_LUN_ECLIPSE_HOW_D
+ 0004:588B SWE_LUN_ECLIPSE_WHEN    SWE_LUN_ECLIPSE_WHEN
+ 0003:4FCC SWE_LUN_ECLIPSE_WHEN_D  SWE_LUN_ECLIPSE_WHEN_D
+ 0004:8C7C SWE_NOD_APS             SWE_NOD_APS
+ 0003:527E SWE_NOD_APS_D           SWE_NOD_APS_D
+ 0004:B8DE SWE_NOD_APS_UT          SWE_NOD_APS_UT
+ 0003:52E5 SWE_NOD_APS_UT_D        SWE_NOD_APS_UT_D
+ 0004:690A SWE_PHENO               SWE_PHENO
+ 0003:501E SWE_PHENO_D             SWE_PHENO_D
+ 0004:77B9 SWE_PHENO_UT            SWE_PHENO_UT
+ 0003:506D SWE_PHENO_UT_D          SWE_PHENO_UT_D
+ 0003:00CD SWE_RADNORM             SWE_RADNORM
+ 0003:0235 SWE_RAD_MIDP            SWE_RAD_MIDP
+ 0004:4DA2 SWE_REFRAC              SWE_REFRAC
+ 0003:50BC SWE_REFRAC_D            SWE_REFRAC_D
+ 0003:56A2 SWE_REVJUL              SWE_REVJUL
+ 0003:48D5 SWE_REVJUL_D            SWE_REVJUL_D
+ 0004:7A33 SWE_RISE_TRANS          SWE_RISE_TRANS
+ 0003:51F9 SWE_RISE_TRANS_D        SWE_RISE_TRANS_D
+ 0002:1A68 SWE_SET_EPHE_PATH       SWE_SET_EPHE_PATH
+ 0003:4412 SWE_SET_EPHE_PATH_D     SWE_SET_EPHE_PATH_D
+ 0002:1BB3 SWE_SET_JPL_FILE        SWE_SET_JPL_FILE
+ 0003:4440 SWE_SET_JPL_FILE_D      SWE_SET_JPL_FILE_D
+ 0002:503D SWE_SET_SID_MODE        SWE_SET_SID_MODE
+ 0003:449C SWE_SET_SID_MODE_D      SWE_SET_SID_MODE_D
+ 0003:2C6F SWE_SET_TID_ACC         SWE_SET_TID_ACC
+ 0003:47AC SWE_SET_TID_ACC_D       SWE_SET_TID_ACC_D
+ 0002:EA74 SWE_SET_TOPO            SWE_SET_TOPO
+ 0003:4689 SWE_SET_TOPO_D          SWE_SET_TOPO_D
+ 0003:2E6D SWE_SIDTIME             SWE_SIDTIME
+ 0003:2C9E SWE_SIDTIME0            SWE_SIDTIME0
+ 0003:45CF SWE_SIDTIME0_D          SWE_SIDTIME0_D
+ 0003:463E SWE_SIDTIME_D           SWE_SIDTIME_D
+ 0004:0DB6 SWE_SOL_ECLIPSE_HOW     SWE_SOL_ECLIPSE_HOW
+ 0003:4E84 SWE_SOL_ECLIPSE_HOW_D   SWE_SOL_ECLIPSE_HOW_D
+ 0004:185D SWE_SOL_ECLIPSE_WHEN_GLOB  SWE_SOL_ECLIPSE_WHEN_GLOB
+ 0003:4F2B SWE_SOL_ECLIPSE_WHEN_GLOB_D  SWE_SOL_ECLIPSE_WHEN_GLOB_D
+ 0004:2C97 SWE_SOL_ECLIPSE_WHEN_LOC  SWE_SOL_ECLIPSE_WHEN_LOC
+ 0003:4ED3 SWE_SOL_ECLIPSE_WHEN_LOC_D  SWE_SOL_ECLIPSE_WHEN_LOC_D
+ 0004:0000 SWE_SOL_ECLIPSE_WHERE   SWE_SOL_ECLIPSE_WHERE
+ 0003:4E35 SWE_SOL_ECLIPSE_WHERE_D  SWE_SOL_ECLIPSE_WHERE_D
+ 0003:3CAE SWE_SPLIT_DEG           SWE_SPLIT_DEG
+ 0003:4CF9 SWE_SPLIT_DEG_D         SWE_SPLIT_DEG_D
+ 0002:F0DE SWE_TIME_EQU            SWE_TIME_EQU
+ 0003:492A SWE_TIME_EQU_D          SWE_TIME_EQU_D
+ 0003:429B WEP                     WEP
+ 0005:30F4 ___ExportedStub         ___ExportedStub
+
+  Address         Publics by Name
+
+ 0005:3EF6       $i8_output
+ 0005:46B0       $i8_tpwr10
+ 0005:54CE       ??_C@_00A@?$AA@
+                    ??_C@_00A@?$AA@
+
+ 0005:53A0       ??_C@_01FAJB@?$DL?$AA@
+                    ??_C@_01FAJB@?$DL?$AA@
+
+ 0005:568C       ??_C@_01KDFD@m?$AA@
+                    ??_C@_01KDFD@m?$AA@
+
+ 0005:505C       ??_C@_01KMAE@?0?$AA@
+                    ??_C@_01KMAE@?0?$AA@
+
+ 0005:568E       ??_C@_01NON@_?$AA@
+                    ??_C@_01NON@_?$AA@
+
+ 0005:532C       ??_C@_01PCFE@?2?$AA@
+                    ??_C@_01PCFE@?2?$AA@
+
+ 0005:53A2       ??_C@_01PJCK@?4?$AA@
+                    ??_C@_01PJCK@?4?$AA@
+
+ 0005:51D8       ??_C@_02CLHN@?5?7?$AA@
+                    ??_C@_02CLHN@?5?7?$AA@
+
+ 0005:51D4       ??_C@_02FNGK@?$CL?9?$AA@
+                    ??_C@_02FNGK@?$CL?9?$AA@
+
+ 0005:53D8       ??_C@_02JKAF@rb?$AA@
+                    ??_C@_02JKAF@rb?$AA@
+
+ 0005:563E       ??_C@_02MECO@?$CFd?$AA@
+                    ??_C@_02MECO@?$CFd?$AA@
+
+ 0005:51E0       ??_C@_02OJBI@tT?$AA@
+                    ??_C@_02OJBI@tT?$AA@
+
+ 0005:549C       ??_C@_02PIMC@?$AN?6?$AA@
+                    ??_C@_02PIMC@?$AN?6?$AA@
+
+ 0005:563A       ??_C@_03EMCM@?$CD?$AN?6?$AA@
+                    ??_C@_03EMCM@?$CD?$AN?6?$AA@
+
+ 0005:5580       ??_C@_03FHEP@Sun?$AA@
+                    ??_C@_03FHEP@Sun?$AA@
+
+ 0005:51DC       ??_C@_03FNDA@?$CK?5?7?$AA@
+                    ??_C@_03FNDA@?$CK?5?7?$AA@
+
+ 0005:534E       ??_C@_03HCNO@se1?$AA@
+                    ??_C@_03HCNO@se1?$AA@
+
+ 0005:4F98       ??_C@_04EEBE@Zeus?$AA@
+                    ??_C@_04EEBE@Zeus?$AA@
+
+ 0005:566E       ??_C@_04FLJ@sepl?$AA@
+                    ??_C@_04FLJ@sepl?$AA@
+
+ 0005:5668       ??_C@_04GJPN@semo?$AA@
+                    ??_C@_04GJPN@semo?$AA@
+
+ 0005:5614       ??_C@_04IDMJ@Juno?$AA@
+                    ??_C@_04IDMJ@Juno?$AA@
+
+ 0005:5598       ??_C@_04MCIE@Mars?$AA@
+                    ??_C@_04MCIE@Mars?$AA@
+
+ 0005:5352       ??_C@_04MCLM@s?4?$CFs?$AA@
+                    ??_C@_04MCLM@s?4?$CFs?$AA@
+
+ 0005:5584       ??_C@_04NALI@Moon?$AA@
+                    ??_C@_04NALI@Moon?$AA@
+
+ 0005:5674       ??_C@_04NBJH@seas?$AA@
+                    ??_C@_04NBJH@seas?$AA@
+
+ 0005:52F0       ??_C@_05DKJP@sun?3?5?$AA@
+                    ??_C@_05DKJP@sun?3?5?$AA@
+
+ 0005:509C       ??_C@_05DOPC@b1950?$AA@
+                    ??_C@_05DOPC@b1950?$AA@
+
+ 0005:557A       ??_C@_05ECIL@?$CFs?0?$CFs?$AA@
+                    ??_C@_05ECIL@?$CFs?0?$CFs?$AA@
+
+ 0005:55F0       ??_C@_05FMCF@Earth?$AA@
+                    ??_C@_05FMCF@Earth?$AA@
+
+ 0005:4FF8       ??_C@_05HANN@Adams?$AA@
+                    ??_C@_05HANN@Adams?$AA@
+
+ 0005:50A2       ??_C@_05HDNI@j1900?$AA@
+                    ??_C@_05HDNI@j1900?$AA@
+
+ 0005:5606       ??_C@_05HHMA@Ceres?$AA@
+                    ??_C@_05HHMA@Ceres?$AA@
+
+ 0005:561A       ??_C@_05IHGO@Vesta?$AA@
+                    ??_C@_05IHGO@Vesta?$AA@
+
+ 0005:50BA       ??_C@_05KGH@jdate?$AA@
+                    ??_C@_05KGH@jdate?$AA@
+
+ 0005:5592       ??_C@_05MGAJ@Venus?$AA@
+                    ??_C@_05MGAJ@Venus?$AA@
+
+ 0005:4F92       ??_C@_05MONA@Hades?$AA@
+                    ??_C@_05MONA@Hades?$AA@
+
+ 0005:5096       ??_C@_05NOIN@j2000?$AA@
+                    ??_C@_05NOIN@j2000?$AA@
+
+ 0005:55BE       ??_C@_05PMO@Pluto?$AA@
+                    ??_C@_05PMO@Pluto?$AA@
+
+ 0005:55AE       ??_C@_06CGFF@Uranus?$AA@
+                    ??_C@_06CGFF@Uranus?$AA@
+
+ 0005:4F8A       ??_C@_06IEOI@Cupido?$AA@
+                    ??_C@_06IEOI@Cupido?$AA@
+
+ 0005:55A6       ??_C@_06IHCG@Saturn?$AA@
+                    ??_C@_06IHCG@Saturn?$AA@
+
+ 0005:55F6       ??_C@_06JOBM@Chiron?$AA@
+                    ??_C@_06JOBM@Chiron?$AA@
+
+ 0005:560C       ??_C@_06JOL@Pallas?$AA@
+                    ??_C@_06JOL@Pallas?$AA@
+
+ 0005:4F9E       ??_C@_06KLEC@Kronos?$AA@
+                    ??_C@_06KLEC@Kronos?$AA@
+
+ 0005:4FDA       ??_C@_06MDBG@Nibiru?$AA@
+                    ??_C@_06MDBG@Nibiru?$AA@
+
+ 0005:4FFE       ??_C@_06OKAA@Lowell?$AA@
+                    ??_C@_06OKAA@Lowell?$AA@
+
+ 0005:55FE       ??_C@_06PHBB@Pholus?$AA@
+                    ??_C@_06PHBB@Pholus?$AA@
+
+ 0005:5690       ??_C@_07IDOH@?$CF02d?4?$CFs?$AA@
+                    ??_C@_07IDOH@?$CF02d?4?$CFs?$AA@
+
+ 0005:559E       ??_C@_07KBKJ@Jupiter?$AA@
+                    ??_C@_07KBKJ@Jupiter?$AA@
+
+ 0005:55B6       ??_C@_07KOHO@Neptune?$AA@
+                    ??_C@_07KOHO@Neptune?$AA@
+
+ 0005:4FAE       ??_C@_07MHJJ@Admetos?$AA@
+                    ??_C@_07MHJJ@Admetos?$AA@
+
+ 0005:4FA6       ??_C@_07MIEP@Apollon?$AA@
+                    ??_C@_07MIEP@Apollon?$AA@
+
+ 0005:558A       ??_C@_07OANG@Mercury?$AA@
+                    ??_C@_07OANG@Mercury?$AA@
+
+ 0005:4FB6       ??_C@_08GAEG@Vulkanus?$AA@
+                    ??_C@_08GAEG@Vulkanus?$AA@
+
+ 0005:5698       ??_C@_08ION@?5?5?5?5?5?5?5?5?$AA@
+                    ??_C@_08ION@?5?5?5?5?5?5?5?5?$AA@
+
+ 0005:56AC       ??_C@_08LGIM@?5?5?5?5?5?8?5?5?$AA@
+                    ??_C@_08LGIM@?5?5?5?5?5?8?5?5?$AA@
+
+ 0005:4FC0       ??_C@_08NPEI@Poseidon?$AA@
+                    ??_C@_08NPEI@Poseidon?$AA@
+
+ 0005:4FEE       ??_C@_09BKKJ@Leverrier?$AA@
+                    ??_C@_09BKKJ@Leverrier?$AA@
+
+ 0005:55CE       ??_C@_09GBEJ@true?5Node?$AA@
+                    ??_C@_09GBEJ@true?5Node?$AA@
+
+ 0005:5006       ??_C@_09KMGD@Pickering?$AA@
+                    ??_C@_09KMGD@Pickering?$AA@
+
+ 0005:55C4       ??_C@_09KPAP@mean?5Node?$AA@
+                    ??_C@_09KPAP@mean?5Node?$AA@
+
+ 0005:56A2       ??_C@_09PPIJ@?5?5?5?5?5?5?8?5?5?$AA@
+                    ??_C@_09PPIJ@?5?5?5?5?5?5?8?5?5?$AA@
+
+ 0005:4FCA       ??_C@_0BA@BLMO@Isis?9Transpluto?$AA@
+                    ??_C@_0BA@BLMO@Isis?9Transpluto?$AA@
+
+ 0005:5518       ??_C@_0BA@MABA@star?5name?5empty?$AA@
+                    ??_C@_0BA@MABA@star?5name?5empty?$AA@
+
+ 0005:567A       ??_C@_0BB@GCIE@ast?$CFd?$CFsse?$CF05d?4?$CFs?$AA@
+                    ??_C@_0BB@GCIE@ast?$CFd?$CFsse?$CF05d?4?$CFs?$AA@
+
+ 0005:50A8       ??_C@_0BB@PJME@?$CFs?5invalid?5epoch?$AA@
+                    ??_C@_0BB@PJME@?$CFs?5invalid?5epoch?$AA@
+
+ 0005:5548       ??_C@_0BC@CPEH@star?5?$CFs?5not?5found?$AA@
+                    ??_C@_0BC@CPEH@star?5?$CFs?5not?5found?$AA@
+
+ 0005:50C0       ??_C@_0BD@NLLK@?$CFs?5invalid?5equinox?$AA@
+                    ??_C@_0BD@NLLK@?$CFs?5invalid?5equinox?$AA@
+
+ 0005:5222       ??_C@_0BF@LBPN@?5?6trying?5Swiss?5Eph?$DL?5?$AA@
+                    ??_C@_0BF@LBPN@?5?6trying?5Swiss?5Eph?$DL?5?$AA@
+
+ 0005:4DC6       ??_C@_0BF@NNKF@fsizer?5does?5not?5work?$AA@
+                    ??_C@_0BF@NNKF@fsizer?5does?5not?5work?$AA@
+
+ 0005:5238       ??_C@_0BG@KAEI@?5?6using?5Moshier?5Eph?$DL?5?$AA@
+                    ??_C@_0BG@KAEI@?5?6using?5Moshier?5Eph?$DL?5?$AA@
+
+ 0005:52DA       ??_C@_0BG@KLGI@?6using?5Moshier?5eph?4?$DL?5?$AA@
+                    ??_C@_0BG@KLGI@?6using?5Moshier?5eph?4?$DL?5?$AA@
+
+ 0005:5178       ??_C@_0BG@LLPD@?$CFs?5node?5value?5invalid?$AA@
+                    ??_C@_0BG@LLPD@?$CFs?5node?5value?5invalid?$AA@
+
+ 0005:524E       ??_C@_0BH@PJGA@?5?6using?5Moshier?5eph?4?$DL?5?$AA@
+                    ??_C@_0BH@PJGA@?5?6using?5Moshier?5eph?4?$DL?5?$AA@
+
+ 0005:4D5E       ??_C@_0BJ@PPEN@unknown?5numde?5value?5?$CFld?$DL?$AA@
+                    ??_C@_0BJ@PPEN@unknown?5numde?5value?5?$CFld?$DL?$AA@
+
+ 0005:52F6       ??_C@_0BK@FJH@illegal?5planet?5number?5?$CFd?4?$AA@
+                    ??_C@_0BK@FJH@illegal?5planet?5number?5?$CFd?4?$AA@
+
+ 0005:507C       ??_C@_0BK@OKGE@?$CFs?5nine?5elements?5required?$AA@
+                    ??_C@_0BK@OKGE@?$CFs?5nine?5elements?5required?$AA@
+
+ 0005:50F2       ??_C@_0BL@CMJH@?$CFs?5semi?9axis?5value?5invalid?$AA@
+                    ??_C@_0BL@CMJH@?$CFs?5semi?9axis?5value?5invalid?$AA@
+
+ 0005:54D0       ??_C@_0BM@KLBH@Ephemeris?5file?5is?5damaged?4?5?$AA@
+                    ??_C@_0BM@KLBH@Ephemeris?5file?5is?5damaged?4?5?$AA@
+
+ 0005:56B6       ??_C@_0BN@FHEF@no?5solar?5eclipse?5at?5tjd?5?$DN?5?$CFf?$AA@
+                    ??_C@_0BN@FHEF@no?5solar?5eclipse?5at?5tjd?5?$DN?5?$CFf?$AA@
+
+ 0005:518E       ??_C@_0BN@FJAH@?$CFs?5inclination?5value?5invalid?$AA@
+                    ??_C@_0BN@FJAH@?$CFs?5inclination?5value?5invalid?$AA@
+
+ 0005:56FA       ??_C@_0BN@IIFB@no?5lunar?5eclipse?5at?5tjd?5?$DN?5?$CFf?$AA@
+                    ??_C@_0BN@IIFB@no?5lunar?5eclipse?5at?5tjd?5?$DN?5?$CFf?$AA@
+
+ 0005:4E88       ??_C@_0BO@BIAC@Read?5error?5in?5JPL?5eph?4?5at?5?$CFf?6?$AA@
+                    ??_C@_0BO@BIAC@Read?5error?5in?5JPL?5eph?4?5at?5?$CFf?6?$AA@
+
+ 0005:505E       ??_C@_0BO@DGH@error?5in?5file?5?$CFs?0?5line?5?$CF7?40f?3?$AA@
+                    ??_C@_0BO@DGH@error?5in?5file?5?$CFs?0?5line?5?$CF7?40f?3?$AA@
+
+ 0005:50D4       ??_C@_0BO@DLDB@?$CFs?5mean?5anomaly?5value?5invalid?$AA@
+                    ??_C@_0BO@DLDB@?$CFs?5mean?5anomaly?5value?5invalid?$AA@
+
+ 0005:54EC       ??_C@_0BO@PPPE@Ephemeris?5file?5?$CFs?5is?5damaged?4?$AA@
+                    ??_C@_0BO@PPPE@Ephemeris?5file?5?$CFs?5is?5damaged?4?$AA@
+
+ 0005:547C       ??_C@_0BP@PABP@Ephemeris?5file?5?$CFs?5is?5damaged?4?5?$AA@
+                    ??_C@_0BP@PABP@Ephemeris?5file?5?$CFs?5is?5damaged?4?5?$AA@
+
+ 0005:532E       ??_C@_0CA@CDED@?5?6using?5Moshier?5eph?4?5for?5moon?$DL?5?$AA@
+                    ??_C@_0CA@CDED@?5?6using?5Moshier?5eph?4?5for?5moon?$DL?5?$AA@
+
+ 0005:555A       ??_C@_0CA@EKKE@data?5of?5star?5?8?$CFs?0?$CFs?8?5incomplete?$AA@
+                    ??_C@_0CA@EKKE@data?5of?5star?5?8?$CFs?0?$CFs?8?5incomplete?$AA@
+
+ 0005:5528       ??_C@_0CA@OJNE@star?5file?5?$CFs?5damaged?5at?5line?5?$CFd?$AA@
+                    ??_C@_0CA@OJNE@star?5file?5?$CFs?5damaged?5at?5line?5?$CFd?$AA@
+
+ 0005:537C       ??_C@_0CD@GDCP@jd?5?$CFf?5?$DO?5Swiss?5Eph?4?5upper?5limit?5?$CF@
+                    ??_C@_0CD@GDCP@jd?5?$CFf?5?$DO?5Swiss?5Eph?4?5upper?5limit?5?$CF@
+
+ 0005:5358       ??_C@_0CD@KGKH@jd?5?$CFf?5?$DM?5Swiss?5Eph?4?5lower?5limit?5?$CF@
+                    ??_C@_0CD@KGKH@jd?5?$CFf?5?$DM?5Swiss?5Eph?4?5lower?5limit?5?$CF@
+
+ 0005:5152       ??_C@_0CF@CCCK@?$CFs?5perihelion?5argument?5value?5inv@
+                    ??_C@_0CF@CCCK@?$CFs?5perihelion?5argument?5value?5inv@
+
+ 0005:5642       ??_C@_0CF@JBNL@geographic?5position?5has?5not?5been@
+                    ??_C@_0CF@JBNL@geographic?5position?5has?5not?5been@
+
+ 0005:4DA0       ??_C@_0CF@PKDL@No?5librations?5on?5the?5ephemeris?5f@
+                    ??_C@_0CF@PKDL@No?5librations?5on?5the?5ephemeris?5f@
+
+ 0005:56D4       ??_C@_0CG@JAPC@central?5partial?5eclipses?5do?5not?5@
+                    ??_C@_0CG@JAPC@central?5partial?5eclipses?5do?5not?5@
+
+ 0005:4EA6       ??_C@_0CG@JJEP@error?5in?5malloc?$CI?$CJ?5with?5JPL?5ephem@
+                    ??_C@_0CG@JJEP@error?5in?5malloc?$CI?$CJ?5with?5JPL?5ephem@
+
+ 0005:51AC       ??_C@_0CH@EGOF@?$CFs?5elements?5for?5planet?5?$CF7?40f?5not@
+                    ??_C@_0CH@EGOF@?$CFs?5elements?5for?5planet?5?$CF7?40f?5not@
+
+ 0005:4D78       ??_C@_0CI@EJCK@No?5nutations?5on?5the?5JPL?5ephemeri@
+                    ??_C@_0CI@EJCK@No?5nutations?5on?5the?5JPL?5ephemeri@
+
+ 0005:53DC       ??_C@_0CK@HEEE@SwissEph?5file?5?8?$CFs?8?5not?5found?5in?5@
+                    ??_C@_0CK@HEEE@SwissEph?5file?5?8?$CFs?8?5not?5found?5in?5@
+
+ 0005:4E5C       ??_C@_0CL@DBJP@jd?5?$CFf?5outside?5JPL?5eph?4?5range?5?$CF?42@
+                    ??_C@_0CL@DBJP@jd?5?$CFf?5outside?5JPL?5eph?4?5range?5?$CF?42@
+
+ 0005:4EFE       ??_C@_0CM@BPLK@jd?5?$CFf?5outside?5mean?5node?5range?5?$CF?4@
+                    ??_C@_0CM@BPLK@jd?5?$CFf?5outside?5mean?5node?5range?5?$CF?4@
+
+ 0005:54A0       ??_C@_0CN@DKAL@Ephemeris?5file?5name?5?8?$CFs?8?5wrong?$DL?5@
+                    ??_C@_0CN@DKAL@Ephemeris?5file?5name?5?8?$CFs?8?5wrong?$DL?5@
+
+ 0005:4F2A       ??_C@_0CO@HKCO@jd?5?$CFf?5outside?5mean?5apogee?5range?5@
+                    ??_C@_0CO@HKCO@jd?5?$CFf?5outside?5mean?5apogee?5range?5@
+
+ 0005:502C       ??_C@_0CP@DCOJ@error?5no?5elements?5for?5fictitious@
+                    ??_C@_0CP@DCOJ@error?5no?5elements?5for?5fictitious@
+
+ 0005:4ECC       ??_C@_0DB@LIEG@jd?5?$CFf?5outside?5Moshier?8s?5Moon?5ran@
+                    ??_C@_0DB@LIEG@jd?5?$CFf?5outside?5Moshier?8s?5Moon?5ran@
+
+ 0005:51F0       ??_C@_0DB@PGKD@barycentric?5Moshier?5positions?5ar@
+                    ??_C@_0DB@PGKD@barycentric?5Moshier?5positions?5ar@
+
+ 0005:4F58       ??_C@_0DB@PMMG@jd?5?$CFf?5outside?5Moshier?5planet?5ran@
+                    ??_C@_0DB@PMMG@jd?5?$CFf?5outside?5Moshier?5planet?5ran@
+
+ 0005:4D2C       ??_C@_0DC@DBAG@Otto?5Ludwig?5procedure?5within?5cir@
+                    ??_C@_0DC@DBAG@Otto?5Ludwig?5procedure?5within?5cir@
+
+ 0005:4CF8       ??_C@_0DD@MPNP@no?5Koch?5house?5position?0?5because?5@
+                    ??_C@_0DD@MPNP@no?5Koch?5house?5position?0?5because?5@
+
+ 0005:53A4       ??_C@_0DD@NJED@error?3?5file?5path?5and?5name?5must?5b@
+                    ??_C@_0DD@NJED@error?3?5file?5path?5and?5name?5must?5b@
+
+ 0005:5718       ??_C@_0DD@OJJE@nodes?1apsides?5for?5planet?5?$CF5?40f?5a@
+                    ??_C@_0DD@OJJE@nodes?1apsides?5for?5planet?5?$CF5?40f?5a@
+
+ 0005:4CC0       ??_C@_0DH@OJOE@no?5Koch?5house?5position?0?5because?5@
+                    ??_C@_0DH@OJOE@no?5Koch?5house?5position?0?5because?5@
+
+ 0005:5266       ??_C@_0DI@ECII@Chiron?8s?5ephemeris?5is?5restricted@
+                    ??_C@_0DI@ECII@Chiron?8s?5ephemeris?5is?5restricted@
+
+ 0005:5406       ??_C@_0DJ@ONGF@error?5in?5ephemeris?5file?3?5?$CFd?5coef@
+                    ??_C@_0DJ@ONGF@error?5in?5ephemeris?5file?3?5?$CFd?5coef@
+
+ 0005:5440       ??_C@_0DM@BJAP@error?5in?5ephemeris?5file?5?$CFs?3?5?$CFd?5c@
+                    ??_C@_0DM@BJAP@error?5in?5ephemeris?5file?5?$CFs?3?5?$CFd?5c@
+
+ 0005:529E       ??_C@_0DM@HCFP@Pholus?8s?5ephemeris?5is?5restricted@
+                    ??_C@_0DM@HCFP@Pholus?8s?5ephemeris?5is?5restricted@
+
+ 0005:4DDC       ??_C@_0DO@EGFF@JPL?5ephemeris?5file?5is?5mutilated?$DL@
+                    ??_C@_0DO@EGFF@JPL?5ephemeris?5file?5is?5mutilated?$DL@
+
+ 0005:4E1A       ??_C@_0EB@IBDF@JPL?5ephemeris?5file?5?$CFs?5is?5mutilat@
+                    ??_C@_0EB@IBDF@JPL?5ephemeris?5file?5?$CFs?5is?5mutilat@
+
+ 0005:510E       ??_C@_0EE@KFOG@?$CFs?5eccentricity?5invalid?5?$CIno?5para@
+                    ??_C@_0EE@KFOG@?$CFs?5eccentricity?5invalid?5?$CIno?5para@
+
+ 0005:4FE2       ??_C@_0L@DNCF@Harrington?$AA@
+                    ??_C@_0L@DNCF@Harrington?$AA@
+
+ 0005:5020       ??_C@_0M@FLOM@seorbel?4txt?$AA@
+                    ??_C@_0M@FLOM@seorbel?4txt?$AA@
+
+ 0005:55E4       ??_C@_0M@INKK@osc?4?5Apogee?$AA@
+                    ??_C@_0M@INKK@osc?4?5Apogee?$AA@
+
+ 0005:55D8       ??_C@_0M@LCJ@mean?5Apogee?$AA@
+                    ??_C@_0M@LCJ@mean?5Apogee?$AA@
+
+ 0005:562E       ??_C@_0M@LEGN@seasnam?4txt?$AA@
+                    ??_C@_0M@LEGN@seasnam?4txt?$AA@
+
+ 0005:51E4       ??_C@_0M@LNLC@0123456789?4?$AA@
+                    ??_C@_0M@LNLC@0123456789?4?$AA@
+
+ 0005:531E       ??_C@_0N@EOD@?2sweph?2ephe?2?$AA@
+                    ??_C@_0N@EOD@?2sweph?2ephe?2?$AA@
+
+ 0005:5310       ??_C@_0N@FBEL@SE_EPHE_PATH?$AA@
+                    ??_C@_0N@FBEL@SE_EPHE_PATH?$AA@
+
+ 0005:550A       ??_C@_0N@JAAA@fixstars?4cat?$AA@
+                    ??_C@_0N@JAAA@fixstars?4cat?$AA@
+
+ 0005:5620       ??_C@_0O@FFED@?$CFd?3?5not?5found?$AA@
+                    ??_C@_0O@FFED@?$CFd?3?5not?5found?$AA@
+
+ 0005:5010       ??_C@_0P@FOPH@name?5not?5found?$AA@
+                    ??_C@_0P@FOPH@name?5not?5found?$AA@
+
+ 0000:0000  Imp  DOS3CALL             (KERNEL.102)
+ 0000:0000  Imp  FATALAPPEXIT         (KERNEL.137)
+ 0000:0000  Imp  FATALEXIT            (KERNEL.1)
+ 0000:FE32  Abs  FIARQQ
+ 0000:0E32  Abs  FICRQQ
+ 0000:5C32  Abs  FIDRQQ
+ 0000:1632  Abs  FIERQQ
+ 0000:0632  Abs  FISRQQ
+ 0000:A23D  Abs  FIWRQQ
+ 0000:4000  Abs  FJARQQ
+ 0000:C000  Abs  FJCRQQ
+ 0000:8000  Abs  FJSRQQ
+ 0000:0000  Imp  GETDOSENVIRONMENT    (KERNEL.131)
+ 0000:0000  Imp  GETMODULEUSAGE       (KERNEL.48)
+ 0000:0000  Imp  GETVERSION           (KERNEL.3)
+ 0000:0000  Imp  GLOBALALLOC          (KERNEL.15)
+ 0000:0000  Imp  GLOBALFREE           (KERNEL.17)
+ 0000:0000  Imp  GLOBALLOCK           (KERNEL.18)
+ 0000:0000  Imp  GLOBALREALLOC        (KERNEL.16)
+ 0000:0000  Imp  GLOBALSIZE           (KERNEL.20)
+ 0000:0000  Imp  GLOBALUNLOCK         (KERNEL.19)
+ 0000:0000  Imp  INITTASK             (KERNEL.91)
+ 0003:4282       LIBMAIN
+ 0000:0000  Imp  LOCALINIT            (KERNEL.4)
+ 0000:0000  Imp  LOCKSEGMENT          (KERNEL.23)
+ 0000:0008  Abs  pAtomTable
+ 0000:0006  Abs  pLocalHeap
+ 0000:000E  Abs  pStackBot
+ 0000:000C  Abs  pStackMin
+ 0000:000A  Abs  pStackTop
+ 000C:0004       rsrvptrs
+ 000A:0000       SWED
+ 0004:48B7       SWE_AZALT
+ 0003:5131       SWE_AZALT_D
+ 0004:4B76       SWE_AZALT_REV
+ 0003:51A7       SWE_AZALT_REV_D
+ 0002:0000       SWE_CALC
+ 0003:42B4       SWE_CALC_D
+ 0002:057D       SWE_CALC_UT
+ 0003:4300       SWE_CALC_UT_D
+ 0002:1868       SWE_CLOSE
+ 0003:43EA       SWE_CLOSE_D
+ 0003:0672       SWE_COTRANS
+ 0003:46E7       SWE_COTRANS_D
+ 0003:0797       SWE_COTRANS_SP
+ 0003:472D       SWE_COTRANS_SP_D
+ 0003:3B4F       SWE_CS2DEGSTR
+ 0003:4E04       SWE_CS2DEGSTR_D
+ 0003:397F       SWE_CS2LONLATSTR
+ 0003:4DC5       SWE_CS2LONLATSTR_D
+ 0003:3807       SWE_CS2TIMESTR
+ 0003:4D8E       SWE_CS2TIMESTR_D
+ 0003:3418       SWE_CSNORM
+ 0003:4B50       SWE_CSNORM_D
+ 0003:36B0       SWE_CSROUNDSEC
+ 0003:4C97       SWE_CSROUNDSEC_D
+ 0003:3751       SWE_D2L
+ 0003:4CC2       SWE_D2L_D
+ 0003:534C       SWE_DATE_CONVERSION
+ 0003:4831       SWE_DATE_CONVERSION_D
+ 0003:37AF       SWE_DAY_OF_WEEK
+ 0003:4D57       SWE_DAY_OF_WEEK_D
+ 0003:0000       SWE_DEGNORM
+ 0003:47E6       SWE_DEGNORM_D
+ 0003:019A       SWE_DEG_MIDP
+ 0003:2816       SWE_DELTAT
+ 0003:4584       SWE_DELTAT_D
+ 0003:351E       SWE_DIFCS2N
+ 0003:4C09       SWE_DIFCS2N_D
+ 0003:3499       SWE_DIFCSN
+ 0003:4B7B       SWE_DIFCSN_D
+ 0003:3586       SWE_DIFDEG2N
+ 0003:4C3A       SWE_DIFDEG2N_D
+ 0003:34CC       SWE_DIFDEGN
+ 0003:4BAC       SWE_DIFDEGN_D
+ 0003:361B       SWE_DIFRAD2N
+ 0002:D1F1       SWE_FIXSTAR
+ 0003:434C       SWE_FIXSTAR_D
+ 0002:E470       SWE_FIXSTAR_UT
+ 0003:439B       SWE_FIXSTAR_UT_D
+ 0002:5192       SWE_GET_AYANAMSA
+ 0003:44EE       SWE_GET_AYANAMSA_D
+ 0002:5307       SWE_GET_AYANAMSA_UT
+ 0003:4539       SWE_GET_AYANAMSA_UT_D
+ 0002:E4D7       SWE_GET_PLANET_NAME
+ 0003:446E       SWE_GET_PLANET_NAME_D
+ 0003:2C3A       SWE_GET_TID_ACC
+ 0003:4773       SWE_GET_TID_ACC_D
+ 0001:0000       SWE_HOUSES
+ 0001:11F6       SWE_HOUSES_ARMC
+ 0003:4A47       SWE_HOUSES_ARMC_D
+ 0003:496D       SWE_HOUSES_D
+ 0001:015D       SWE_HOUSES_EX
+ 0003:49D7       SWE_HOUSES_EX_D
+ 0001:4CBC       SWE_HOUSE_POS
+ 0003:4AB1       SWE_HOUSE_POS_D
+ 0003:5428       SWE_JULDAY
+ 0003:487E       SWE_JULDAY_D
+ 0004:512D       SWE_LUN_ECLIPSE_HOW
+ 0003:4F7D       SWE_LUN_ECLIPSE_HOW_D
+ 0004:588B       SWE_LUN_ECLIPSE_WHEN
+ 0003:4FCC       SWE_LUN_ECLIPSE_WHEN_D
+ 0004:8C7C       SWE_NOD_APS
+ 0003:527E       SWE_NOD_APS_D
+ 0004:B8DE       SWE_NOD_APS_UT
+ 0003:52E5       SWE_NOD_APS_UT_D
+ 0004:690A       SWE_PHENO
+ 0003:501E       SWE_PHENO_D
+ 0004:77B9       SWE_PHENO_UT
+ 0003:506D       SWE_PHENO_UT_D
+ 0003:00CD       SWE_RADNORM
+ 0003:0235       SWE_RAD_MIDP
+ 0004:4DA2       SWE_REFRAC
+ 0003:50BC       SWE_REFRAC_D
+ 0003:56A2       SWE_REVJUL
+ 0003:48D5       SWE_REVJUL_D
+ 0004:7A33       SWE_RISE_TRANS
+ 0003:51F9       SWE_RISE_TRANS_D
+ 0002:1A68       SWE_SET_EPHE_PATH
+ 0003:4412       SWE_SET_EPHE_PATH_D
+ 0002:1BB3       SWE_SET_JPL_FILE
+ 0003:4440       SWE_SET_JPL_FILE_D
+ 0002:503D       SWE_SET_SID_MODE
+ 0003:449C       SWE_SET_SID_MODE_D
+ 0003:2C6F       SWE_SET_TID_ACC
+ 0003:47AC       SWE_SET_TID_ACC_D
+ 0002:EA74       SWE_SET_TOPO
+ 0003:4689       SWE_SET_TOPO_D
+ 0003:2E6D       SWE_SIDTIME
+ 0003:2C9E       SWE_SIDTIME0
+ 0003:45CF       SWE_SIDTIME0_D
+ 0003:463E       SWE_SIDTIME_D
+ 0004:0DB6       SWE_SOL_ECLIPSE_HOW
+ 0003:4E84       SWE_SOL_ECLIPSE_HOW_D
+ 0004:185D       SWE_SOL_ECLIPSE_WHEN_GLOB
+ 0003:4F2B       SWE_SOL_ECLIPSE_WHEN_GLOB_D
+ 0004:2C97       SWE_SOL_ECLIPSE_WHEN_LOC
+ 0003:4ED3       SWE_SOL_ECLIPSE_WHEN_LOC_D
+ 0004:0000       SWE_SOL_ECLIPSE_WHERE
+ 0003:4E35       SWE_SOL_ECLIPSE_WHERE_D
+ 0003:3CAE       SWE_SPLIT_DEG
+ 0003:4CF9       SWE_SPLIT_DEG_D
+ 0002:F0DE       SWE_TIME_EQU
+ 0003:492A       SWE_TIME_EQU_D
+ 0002:666A       SWI_ABERR_LIGHT
+ 0003:0327       SWI_ANGNORM
+ 0003:0A99       SWI_CARTPOL
+ 0003:0D9E       SWI_CARTPOL_SP
+ 0002:CE30       SWI_CHECK_ECLIPTIC
+ 0002:CF1D       SWI_CHECK_NUTATION
+ 0001:8372       SWI_CLOSE_JPL_FILE
+ 0003:0913       SWI_COORTRF
+ 0003:09F9       SWI_COORTRF2
+ 0003:32D5       SWI_CRC32
+ 0003:03BC       SWI_CROSS_PROD
+ 0003:317B       SWI_CUTSTR
+ 0002:6A44       SWI_DEFLECT_LIGHT
+ 0003:1483       SWI_DOT_PROD_UNIT
+ 0003:0451       SWI_ECHEB
+ 0003:051E       SWI_EDCHEB
+ 0003:15FE       SWI_EPSILN
+ 0003:410B       SWI_FK4_FK5
+ 0003:41C6       SWI_FK5_FK4
+ 0002:3CBB       SWI_FOPEN
+ 0002:EAE7       SWI_FORCE_APP_POS_ETC
+ 0003:2F78       SWI_GEN_FILENAME
+ 0001:D102       SWI_GET_FICT_NAME
+ 0001:861C       SWI_GET_JPL_DENUM
+ 0002:EB96       SWI_GET_OBSERVER
+ 0001:8643       SWI_IERS_FK5
+ 0003:3F0F       SWI_KEPLER
+ 0001:B29C       SWI_MEAN_APOG
+ 0001:B9FC       SWI_MEAN_LUNAR_ELEMENTS
+ 0001:B133       SWI_MEAN_NODE
+ 0003:029F       SWI_MOD2PI
+ 0001:8938       SWI_MOSHMOON
+ 0001:88AE       SWI_MOSHMOON2
+ 0001:C3F8       SWI_MOSHPLAN
+ 0001:BDD6       SWI_MOSHPLAN2
+ 0002:6375       SWI_NUTATE
+ 0003:205A       SWI_NUTATION
+ 0001:8440       SWI_OPEN_JPL_FILE
+ 0001:D17D       SWI_OSC_EL_PLAN
+ 0002:C6FD       SWI_PLAN_FOR_OSC_ELEM
+ 0001:68EA       SWI_PLEPH
+ 0003:0C7A       SWI_POLCART
+ 0003:11B7       SWI_POLCART_SP
+ 0003:172B       SWI_PRECESS
+ 0002:61B5       SWI_PRECESS_SPEED
+ 0003:3274       SWI_RIGHT_TRIM
+ 0002:5370       SWI_TROP_RA2SID_LON
+ 0002:5501       SWI_TROP_RA2SID_LON_SOSY
+ 0003:429B       WEP
+ 0005:0C38       _abs
+ 0005:0ED8       _acos
+ 000C:1815       _aseghi
+ 000C:1813       _aseglo
+ 0005:0ED2       _asin
+ 0005:0EDD       _atan
+ 0005:0EE2       _atan2
+ 0005:068E       _atof
+ 0005:0686       _atoi
+ 0005:068A       _atol
+ 0005:0EB8       _cos
+ 000C:3BB2       _edata
+ 000C:4108       _end
+ 000C:194C       _errno
+ 0005:0E97       _exp
+ 0005:1000       _fabs
+ 0005:01D6       _fclose
+ 0005:1E34       _fflush
+ 0005:220E       _fFYTOX
+ 0005:0788       _fgets
+ 0005:0F33       _floor
+ 0005:0F97       _fmod
+ 0005:02E4       _fopen
+ 0005:0304       _fread
+ 0005:0810       _fseek
+ 0005:0894       _ftell
+ 0005:06EC       _getenv
+ 0005:0C4C       _labs
+ 0005:0E8C       _log
+ 0005:0E92       _log10
+ 0005:210A       _memcpy
+ 0005:0BF0       _memset
+ 0005:0E86       _pow
+ 0005:2168       _remove
+ 0005:0A3A       _rewind
+ 0005:0EB2       _sin
+ 0005:3822       _Soft_fFCOS
+ 0005:3839       _Soft_fFSIN
+ 0005:393B       _Soft_fFTAN
+ 0005:0168       _sprintf
+ 0005:0E7A       _sqrt
+ 000C:1806       _STKHQQ
+ 0005:054C       _strcat
+ 0005:0AC0       _strchr
+ 0005:05DC       _strcmp
+ 0005:05A0       _strcpy
+ 0005:0606       _strlen
+ 0005:064A       _strncmp
+ 0005:0620       _strncpy
+ 0005:0B26       _strpbrk
+ 0005:0AF2       _strrchr
+ 0005:0B84       _strstr
+ 0005:0EBD       _tan
+ 000C:1D82       __80x87
+ 000C:181C       __aaltstkovr
+ 0000:9876  Abs  __acrtmsg
+ 0000:9876  Abs  __acrtused
+ 000C:1B68       __acsjmptab
+ 0000:D6D6  Abs  __aDBdoswp
+ 000C:1982       __adbgmsg
+ 0000:D6D6  Abs  __aDBused
+ 0005:3E64       __aFahdiff
+ 0005:012E       __aFchkstk
+ 0005:0EEE       __aFCIacos
+ 0005:0EE8       __aFCIasin
+ 0005:0EF3       __aFCIatan
+ 0005:0EF8       __aFCIatan2
+ 0005:0EC8       __aFCIcos
+ 0005:0EAD       __aFCIexp
+ 0005:0EFE       __aFCIfloor
+ 0005:0F5A       __aFCIfmod
+ 0005:0EA2       __aFCIlog
+ 0005:0EA8       __aFCIlog10
+ 0005:0E9C       __aFCIpow
+ 0005:0EC2       __aFCIsin
+ 0005:0E80       __aFCIsqrt
+ 0005:0ECD       __aFCItan
+ 0005:0C6A       __aFFalrem
+ 0005:0C8C       __aFFaulrem
+ 0005:0FC2       __aFftol
+ 0005:0CAE       __aFldiv
+ 0005:0D48       __aFlmul
+ 0005:0D7A       __aFlrem
+ 0005:0E1A       __aFuldiv
+ 0005:0D48       __aFulmul
+ 0005:218E       __aFulrem
+ 0000:0000  Imp  __AHINCR             (KERNEL.114)
+ 0000:0000  Imp  __AHSHIFT            (KERNEL.113)
+ 000C:193E       __aintdiv
+ 000C:19F6       __amblksiz
+ 0005:121C       __amsg_exit
+ 0005:010E       __aNchkstk
+ 000C:1A1A       __asizeC
+ 000C:1A1B       __asizeD
+ 000C:1B50       __asnjmptab
+ 0005:0054       __astart
+ 000C:1B98       __atn2jmptab
+ 000C:1B80       __atnjmptab
+ 0005:2098       __catox
+ 0005:10BA       __cexit
+ 0005:2B1E       __cfltcvt
+ 000C:19FA       __cfltcvt_tab
+ 000C:1C0C       __cflush
+ 0005:26DA       __cftoe
+ 0005:28A6       __cftof
+ 0005:2A3E       __cftog
+ 000C:197F       __child
+ 0005:012E       __chkstk
+ 0005:1072       __cinit
+ 0005:1212       __cintDIV
+ 0005:2BF0       __cintrindisp1
+ 0005:2BC0       __cintrindisp2
+ 0005:1FE4       __close
+ 0005:3556       __cltoasub
+ 0005:2E4E       __commit
+ 000C:1C22       __commode
+ 000C:1B08       __cosjmptab
+ 000C:1B38       __cotanjmptab
+ 000C:1C3A       __cpower
+ 000C:1957       __cpumode
+ 0005:25C6       __cropzeros
+ 0005:1119       __ctermsub
+ 0005:2C36       __ctrandisp1
+ 0005:2C1C       __ctrandisp2
+ 000C:1828       __ctype
+ 000C:1828       __ctype_
+ 0005:342D       __cXENIXtoDOSmode
+ 0005:3563       __cxtoa
+ 0005:10CB       __c_exit
+ 000C:1812       __dllinit
+ 000C:1958       __doserrno
+ 0005:3096       __dosret0
+ 0005:30B5       __dosretax
+ 0005:30A3       __dosreturn
+ 0005:3E84       __dos_commit
+ 000C:3BB2       __edata
+ 000C:4108       __end
+ 000C:1976       __environ
+ 000C:1981       __exitflag
+ 000C:1AC6       __expjmptab
+ 000C:1942       __fac
+ 0005:3E4E       __farstub
+ 0005:2682       __fassign
+ 0005:4042       __FASTLDADD
+ 0005:41C9       __FASTLDMULT
+ 0005:0A84       __fcalloc
+ 0005:24A5       __fFATN2
+ 0005:238C       __fFCOS
+ 0005:221A       __fFEXP
+ 0005:2342       __ffexpm1
+ 0005:22C7       __fFLN
+ 0005:0484       __ffree
+ 0005:239C       __fFSIN
+ 0005:1156       __FF_MSGBANNER
+ 000C:19E8       __fheap
+ 0005:1C12       __filbuf
+ 0005:1AFF       __findlast
+ 0005:1B20       __flsbuf
+ 0005:2D78       __fltin
+ 0005:3DDE       __fltout
+ 0000:9876  Abs  __fltused
+ 0005:1E90       __flush
+ 0005:1F10       __flushall
+ 0005:04A5       __fmalloc
+ 0005:3658       __fmemmove
+ 0005:3610       __fmemset
+ 000C:1DB4       __fmode
+ 0005:2550       __forcdecpt
+ 000C:1E02       __fpinit
+ 0000:0000  Imp  __fpmath             (WIN87EM.1)
+ 0005:2DDC       __fpsignal
+ 0000:9876  Abs  __fptaskdata
+ 0005:34A8       __fptostr
+ 0005:3062       __fptrap
+ 0005:1CBC       __freebuf
+ 0005:19FA       __freefarheap
+ 0005:3038       __freelist
+ 0005:02AA       __fsopen
+ 0005:35D4       __fstrcpy
+ 0005:35BA       __fstrlen
+ 0005:0FC2       __ftol
+ 0005:310A       __getbuf
+ 0005:1C02       __GetDGROUP
+ 0005:1F90       __getstream
+ 0005:1A08       __growseg
+ 000C:1808       __hModule
+ 000C:1DAA       __HUGE
+ 0005:1A99       __incseg
+ 000C:1C26       __indefinite
+ 000C:1A34       __infinity
+ 0005:3D58       __Init80x87
+ 0005:343E       __initseg
+ 000C:1E1A       __iob
+ 000C:1F0A       __iob2
+ 000C:1DB4       __iomode
+ 0005:20EE       __itoa
+ 000C:19F8       __lastiob
+ 0005:4A7B       __LD12MULT
+ 0005:49A6       __LD12MULTTENPOWER
+ 0005:3472       __linkseg
+ 000C:1AAE       __lnjmptab
+ 000C:1A3E       __logemax
+ 000C:1A96       __logjmptab
+ 000C:180E       __lpszCmdLine
+ 0005:125E       __lseek
+ 000C:1C24       __lseekchk
+ 0005:4C00       __MANTOLD12
+ 0005:30C7       __maperror
+ 0005:3E34       __matherr
+ 000C:1DB2       __matherr_flag
+ 000C:4100       __mbac
+ 0005:3068       __myalloc
+ 0005:3108       __nearstub
+ 0005:1472       __newseg
+ 000C:195A       __nfile
+ 0005:2E00       __NMSG_TEXT
+ 0005:2E37       __NMSG_WRITE
+ 0005:00F6       __nomain
+ 0005:316E       __open
+ 0005:1CF4       __openfile
+ 000C:1958       __oserr
+ 000C:195C       __osfile
+ 000C:1953       __osmajor
+ 000C:1952       __osminor
+ 000C:1956       __osmode
+ 000C:1952       __osver
+ 000C:1954       __osversion
+ 0005:1504       __output
+ 000C:197A       __pgmptr
+ 000C:1C30       __piby2
+ 000C:1824       __pnhFarHeap
+ 0005:264A       __positive
+ 0005:1326       __read
+ 0005:37EA       __rtbignan
+ 0005:3819       __rtchsifneg
+ 0005:3810       __rtifprojnpop
+ 0005:37F1       __rtifprojpop
+ 0005:37FB       __rtindfnpop
+ 0005:37F8       __rtindfpop
+ 0005:2327       __rtinfnpop
+ 0005:22BA       __rtinfnpopse
+ 0005:2324       __rtinfpop
+ 0005:22B7       __rtinfpopse
+ 0005:37CD       __rtnospop
+ 0005:37D1       __rtnospopde
+ 0005:37E3       __rtonenpop
+ 0005:37E0       __rtonepop
+ 0005:251A       __rtpiby2
+ 0005:37D0       __rttosnpop
+ 0005:3809       __rttosnpopde
+ 0005:37CA       __rttospop
+ 0005:37C7       __rttospopde
+ 0005:37D9       __rtzeronpop
+ 0005:37D6       __rtzeropop
+ 0005:201C       __searchseg
+ 0005:117A       __setenvp
+ 000C:1A18       __sigintoff
+ 000C:1A16       __sigintseg
+ 000C:1AF0       __sinjmptab
+ 0000:0001  Abs  __sizec
+ 0000:0001  Abs  __sized
+ 0005:3156       __sopen
+ 000C:1A1C       __sqrtjmptab
+ 0005:3E50       __stackavail
+ 0005:3CF0       __STRINGTOD
+ 0005:42CC       __STRINGTOLD
+ 0005:1046       __stubmain
+ 000C:1B20       __tanjmptab
+ 0005:3722       __trandisp1
+ 0005:3764       __trandisp2
+ 000C:194E       __umaskval
+ 0005:2168       __unlink
+ 000C:180A       __wDataSeg
+ 0005:0010       __wflags
+ 000C:180C       __wHeapSize
+ 0000:0000  Imp  __WINFLAGS           (KERNEL.178)
+ 000C:1951       __winmajor
+ 000C:1950       __winminor
+ 000C:1950       __winver
+ 0005:2EAC       __write
+ 000C:1A66       __ytoxjmptab
+ 000C:1819       ___aDBrterr
+ 000C:1817       ___aDBswpflg
+ 000C:1970       ___argc
+ 000C:1972       ___argv
+ 0005:30F4       ___ExportedStub
+
+  Address         Publics by Value
+
+ 0000:0000  Imp  LOCKSEGMENT          (KERNEL.23)
+ 0000:0000  Imp  GLOBALALLOC          (KERNEL.15)
+ 0000:0000  Imp  FATALAPPEXIT         (KERNEL.137)
+ 0000:0000  Imp  GLOBALUNLOCK         (KERNEL.19)
+ 0000:0000  Imp  DOS3CALL             (KERNEL.102)
+ 0000:0000  Imp  LOCALINIT            (KERNEL.4)
+ 0000:0000  Imp  GLOBALSIZE           (KERNEL.20)
+ 0000:0000  Imp  GLOBALLOCK           (KERNEL.18)
+ 0000:0000  Imp  __fpmath             (WIN87EM.1)
+ 0000:0000  Imp  GETMODULEUSAGE       (KERNEL.48)
+ 0000:0000  Imp  GETVERSION           (KERNEL.3)
+ 0000:0000  Imp  INITTASK             (KERNEL.91)
+ 0000:0000  Imp  FATALEXIT            (KERNEL.1)
+ 0000:0000  Imp  __AHINCR             (KERNEL.114)
+ 0000:0000  Imp  __WINFLAGS           (KERNEL.178)
+ 0000:0000  Imp  GETDOSENVIRONMENT    (KERNEL.131)
+ 0000:0000  Imp  GLOBALREALLOC        (KERNEL.16)
+ 0000:0000  Imp  GLOBALFREE           (KERNEL.17)
+ 0000:0000  Imp  __AHSHIFT            (KERNEL.113)
+ 0000:0001  Abs  __sizec
+ 0000:0001  Abs  __sized
+ 0000:0006  Abs  pLocalHeap
+ 0000:0008  Abs  pAtomTable
+ 0000:000A  Abs  pStackTop
+ 0000:000C  Abs  pStackMin
+ 0000:000E  Abs  pStackBot
+ 0000:0632  Abs  FISRQQ
+ 0000:0E32  Abs  FICRQQ
+ 0000:1632  Abs  FIERQQ
+ 0000:9876  Abs  __fptaskdata
+ 0000:9876  Abs  __acrtmsg
+ 0000:9876  Abs  __fltused
+ 0000:9876  Abs  __acrtused
+ 0000:D6D6  Abs  __aDBdoswp
+ 0000:D6D6  Abs  __aDBused
+ 0001:0000       SWE_HOUSES
+ 0001:015D       SWE_HOUSES_EX
+ 0001:11F6       SWE_HOUSES_ARMC
+ 0001:4CBC       SWE_HOUSE_POS
+ 0001:68EA       SWI_PLEPH
+ 0001:8372       SWI_CLOSE_JPL_FILE
+ 0001:8440       SWI_OPEN_JPL_FILE
+ 0001:861C       SWI_GET_JPL_DENUM
+ 0001:8643       SWI_IERS_FK5
+ 0001:88AE       SWI_MOSHMOON2
+ 0001:8938       SWI_MOSHMOON
+ 0001:B133       SWI_MEAN_NODE
+ 0001:B29C       SWI_MEAN_APOG
+ 0001:B9FC       SWI_MEAN_LUNAR_ELEMENTS
+ 0001:BDD6       SWI_MOSHPLAN2
+ 0001:C3F8       SWI_MOSHPLAN
+ 0001:D102       SWI_GET_FICT_NAME
+ 0001:D17D       SWI_OSC_EL_PLAN
+ 0002:0000       SWE_CALC
+ 0002:057D       SWE_CALC_UT
+ 0002:1868       SWE_CLOSE
+ 0002:1A68       SWE_SET_EPHE_PATH
+ 0002:1BB3       SWE_SET_JPL_FILE
+ 0002:3CBB       SWI_FOPEN
+ 0002:503D       SWE_SET_SID_MODE
+ 0002:5192       SWE_GET_AYANAMSA
+ 0002:5307       SWE_GET_AYANAMSA_UT
+ 0002:5370       SWI_TROP_RA2SID_LON
+ 0002:5501       SWI_TROP_RA2SID_LON_SOSY
+ 0002:61B5       SWI_PRECESS_SPEED
+ 0002:6375       SWI_NUTATE
+ 0002:666A       SWI_ABERR_LIGHT
+ 0002:6A44       SWI_DEFLECT_LIGHT
+ 0002:C6FD       SWI_PLAN_FOR_OSC_ELEM
+ 0002:CE30       SWI_CHECK_ECLIPTIC
+ 0002:CF1D       SWI_CHECK_NUTATION
+ 0002:D1F1       SWE_FIXSTAR
+ 0002:E470       SWE_FIXSTAR_UT
+ 0002:E4D7       SWE_GET_PLANET_NAME
+ 0002:EA74       SWE_SET_TOPO
+ 0002:EAE7       SWI_FORCE_APP_POS_ETC
+ 0002:EB96       SWI_GET_OBSERVER
+ 0002:F0DE       SWE_TIME_EQU
+ 0003:0000       SWE_DEGNORM
+ 0003:00CD       SWE_RADNORM
+ 0003:019A       SWE_DEG_MIDP
+ 0003:0235       SWE_RAD_MIDP
+ 0003:029F       SWI_MOD2PI
+ 0003:0327       SWI_ANGNORM
+ 0003:03BC       SWI_CROSS_PROD
+ 0003:0451       SWI_ECHEB
+ 0003:051E       SWI_EDCHEB
+ 0003:0672       SWE_COTRANS
+ 0003:0797       SWE_COTRANS_SP
+ 0003:0913       SWI_COORTRF
+ 0003:09F9       SWI_COORTRF2
+ 0003:0A99       SWI_CARTPOL
+ 0003:0C7A       SWI_POLCART
+ 0003:0D9E       SWI_CARTPOL_SP
+ 0003:11B7       SWI_POLCART_SP
+ 0003:1483       SWI_DOT_PROD_UNIT
+ 0003:15FE       SWI_EPSILN
+ 0003:172B       SWI_PRECESS
+ 0003:205A       SWI_NUTATION
+ 0003:2816       SWE_DELTAT
+ 0003:2C3A       SWE_GET_TID_ACC
+ 0003:2C6F       SWE_SET_TID_ACC
+ 0003:2C9E       SWE_SIDTIME0
+ 0003:2E6D       SWE_SIDTIME
+ 0003:2F78       SWI_GEN_FILENAME
+ 0003:317B       SWI_CUTSTR
+ 0003:3274       SWI_RIGHT_TRIM
+ 0003:32D5       SWI_CRC32
+ 0003:3418       SWE_CSNORM
+ 0003:3499       SWE_DIFCSN
+ 0003:34CC       SWE_DIFDEGN
+ 0003:351E       SWE_DIFCS2N
+ 0003:3586       SWE_DIFDEG2N
+ 0003:361B       SWE_DIFRAD2N
+ 0003:36B0       SWE_CSROUNDSEC
+ 0003:3751       SWE_D2L
+ 0003:37AF       SWE_DAY_OF_WEEK
+ 0003:3807       SWE_CS2TIMESTR
+ 0003:397F       SWE_CS2LONLATSTR
+ 0003:3B4F       SWE_CS2DEGSTR
+ 0003:3CAE       SWE_SPLIT_DEG
+ 0003:3F0F       SWI_KEPLER
+ 0003:410B       SWI_FK4_FK5
+ 0003:41C6       SWI_FK5_FK4
+ 0003:4282       LIBMAIN
+ 0003:429B       WEP
+ 0003:42B4       SWE_CALC_D
+ 0003:4300       SWE_CALC_UT_D
+ 0003:434C       SWE_FIXSTAR_D
+ 0003:439B       SWE_FIXSTAR_UT_D
+ 0003:43EA       SWE_CLOSE_D
+ 0003:4412       SWE_SET_EPHE_PATH_D
+ 0003:4440       SWE_SET_JPL_FILE_D
+ 0003:446E       SWE_GET_PLANET_NAME_D
+ 0003:449C       SWE_SET_SID_MODE_D
+ 0003:44EE       SWE_GET_AYANAMSA_D
+ 0003:4539       SWE_GET_AYANAMSA_UT_D
+ 0003:4584       SWE_DELTAT_D
+ 0003:45CF       SWE_SIDTIME0_D
+ 0003:463E       SWE_SIDTIME_D
+ 0003:4689       SWE_SET_TOPO_D
+ 0003:46E7       SWE_COTRANS_D
+ 0003:472D       SWE_COTRANS_SP_D
+ 0003:4773       SWE_GET_TID_ACC_D
+ 0003:47AC       SWE_SET_TID_ACC_D
+ 0003:47E6       SWE_DEGNORM_D
+ 0003:4831       SWE_DATE_CONVERSION_D
+ 0003:487E       SWE_JULDAY_D
+ 0003:48D5       SWE_REVJUL_D
+ 0003:492A       SWE_TIME_EQU_D
+ 0003:496D       SWE_HOUSES_D
+ 0003:49D7       SWE_HOUSES_EX_D
+ 0003:4A47       SWE_HOUSES_ARMC_D
+ 0003:4AB1       SWE_HOUSE_POS_D
+ 0003:4B50       SWE_CSNORM_D
+ 0003:4B7B       SWE_DIFCSN_D
+ 0003:4BAC       SWE_DIFDEGN_D
+ 0003:4C09       SWE_DIFCS2N_D
+ 0003:4C3A       SWE_DIFDEG2N_D
+ 0003:4C97       SWE_CSROUNDSEC_D
+ 0003:4CC2       SWE_D2L_D
+ 0003:4CF9       SWE_SPLIT_DEG_D
+ 0003:4D57       SWE_DAY_OF_WEEK_D
+ 0003:4D8E       SWE_CS2TIMESTR_D
+ 0003:4DC5       SWE_CS2LONLATSTR_D
+ 0003:4E04       SWE_CS2DEGSTR_D
+ 0003:4E35       SWE_SOL_ECLIPSE_WHERE_D
+ 0003:4E84       SWE_SOL_ECLIPSE_HOW_D
+ 0003:4ED3       SWE_SOL_ECLIPSE_WHEN_LOC_D
+ 0003:4F2B       SWE_SOL_ECLIPSE_WHEN_GLOB_D
+ 0003:4F7D       SWE_LUN_ECLIPSE_HOW_D
+ 0003:4FCC       SWE_LUN_ECLIPSE_WHEN_D
+ 0003:501E       SWE_PHENO_D
+ 0003:506D       SWE_PHENO_UT_D
+ 0003:50BC       SWE_REFRAC_D
+ 0003:5131       SWE_AZALT_D
+ 0003:51A7       SWE_AZALT_REV_D
+ 0003:51F9       SWE_RISE_TRANS_D
+ 0003:527E       SWE_NOD_APS_D
+ 0003:52E5       SWE_NOD_APS_UT_D
+ 0003:534C       SWE_DATE_CONVERSION
+ 0003:5428       SWE_JULDAY
+ 0003:56A2       SWE_REVJUL
+ 0004:0000       SWE_SOL_ECLIPSE_WHERE
+ 0004:0DB6       SWE_SOL_ECLIPSE_HOW
+ 0004:185D       SWE_SOL_ECLIPSE_WHEN_GLOB
+ 0004:2C97       SWE_SOL_ECLIPSE_WHEN_LOC
+ 0004:48B7       SWE_AZALT
+ 0004:4B76       SWE_AZALT_REV
+ 0004:4DA2       SWE_REFRAC
+ 0004:512D       SWE_LUN_ECLIPSE_HOW
+ 0004:588B       SWE_LUN_ECLIPSE_WHEN
+ 0004:690A       SWE_PHENO
+ 0004:77B9       SWE_PHENO_UT
+ 0004:7A33       SWE_RISE_TRANS
+ 0004:8C7C       SWE_NOD_APS
+ 0004:B8DE       SWE_NOD_APS_UT
+ 0005:0010       __wflags
+ 0005:0054       __astart
+ 0005:00F6       __nomain
+ 0005:010E       __aNchkstk
+ 0005:012E       __aFchkstk
+ 0005:012E       __chkstk
+ 0005:0168       _sprintf
+ 0005:01D6       _fclose
+ 0005:02AA       __fsopen
+ 0005:02E4       _fopen
+ 0005:0304       _fread
+ 0005:0484       __ffree
+ 0005:04A5       __fmalloc
+ 0005:054C       _strcat
+ 0005:05A0       _strcpy
+ 0005:05DC       _strcmp
+ 0005:0606       _strlen
+ 0005:0620       _strncpy
+ 0005:064A       _strncmp
+ 0005:0686       _atoi
+ 0005:068A       _atol
+ 0005:068E       _atof
+ 0005:06EC       _getenv
+ 0005:0788       _fgets
+ 0005:0810       _fseek
+ 0005:0894       _ftell
+ 0005:0A3A       _rewind
+ 0005:0A84       __fcalloc
+ 0005:0AC0       _strchr
+ 0005:0AF2       _strrchr
+ 0005:0B26       _strpbrk
+ 0005:0B84       _strstr
+ 0005:0BF0       _memset
+ 0005:0C38       _abs
+ 0005:0C4C       _labs
+ 0005:0C6A       __aFFalrem
+ 0005:0C8C       __aFFaulrem
+ 0005:0CAE       __aFldiv
+ 0005:0D48       __aFulmul
+ 0005:0D48       __aFlmul
+ 0005:0D7A       __aFlrem
+ 0005:0E1A       __aFuldiv
+ 0005:0E7A       _sqrt
+ 0005:0E80       __aFCIsqrt
+ 0005:0E86       _pow
+ 0005:0E8C       _log
+ 0005:0E92       _log10
+ 0005:0E97       _exp
+ 0005:0E9C       __aFCIpow
+ 0005:0EA2       __aFCIlog
+ 0005:0EA8       __aFCIlog10
+ 0005:0EAD       __aFCIexp
+ 0005:0EB2       _sin
+ 0005:0EB8       _cos
+ 0005:0EBD       _tan
+ 0005:0EC2       __aFCIsin
+ 0005:0EC8       __aFCIcos
+ 0005:0ECD       __aFCItan
+ 0005:0ED2       _asin
+ 0005:0ED8       _acos
+ 0005:0EDD       _atan
+ 0005:0EE2       _atan2
+ 0005:0EE8       __aFCIasin
+ 0005:0EEE       __aFCIacos
+ 0005:0EF3       __aFCIatan
+ 0005:0EF8       __aFCIatan2
+ 0005:0EFE       __aFCIfloor
+ 0005:0F33       _floor
+ 0005:0F5A       __aFCIfmod
+ 0005:0F97       _fmod
+ 0005:0FC2       __ftol
+ 0005:0FC2       __aFftol
+ 0005:1000       _fabs
+ 0005:1046       __stubmain
+ 0005:1072       __cinit
+ 0005:10BA       __cexit
+ 0005:10CB       __c_exit
+ 0005:1119       __ctermsub
+ 0005:1156       __FF_MSGBANNER
+ 0005:117A       __setenvp
+ 0005:1212       __cintDIV
+ 0005:121C       __amsg_exit
+ 0005:125E       __lseek
+ 0005:1326       __read
+ 0005:1472       __newseg
+ 0005:1504       __output
+ 0005:19FA       __freefarheap
+ 0005:1A08       __growseg
+ 0005:1A99       __incseg
+ 0005:1AFF       __findlast
+ 0005:1B20       __flsbuf
+ 0005:1C02       __GetDGROUP
+ 0005:1C12       __filbuf
+ 0005:1CBC       __freebuf
+ 0005:1CF4       __openfile
+ 0005:1E34       _fflush
+ 0005:1E90       __flush
+ 0005:1F10       __flushall
+ 0005:1F90       __getstream
+ 0005:1FE4       __close
+ 0005:201C       __searchseg
+ 0005:2098       __catox
+ 0005:20EE       __itoa
+ 0005:210A       _memcpy
+ 0005:2168       _remove
+ 0005:2168       __unlink
+ 0005:218E       __aFulrem
+ 0005:220E       _fFYTOX
+ 0005:221A       __fFEXP
+ 0005:22B7       __rtinfpopse
+ 0005:22BA       __rtinfnpopse
+ 0005:22C7       __fFLN
+ 0005:2324       __rtinfpop
+ 0005:2327       __rtinfnpop
+ 0005:2342       __ffexpm1
+ 0005:238C       __fFCOS
+ 0005:239C       __fFSIN
+ 0005:24A5       __fFATN2
+ 0005:251A       __rtpiby2
+ 0005:2550       __forcdecpt
+ 0005:25C6       __cropzeros
+ 0005:264A       __positive
+ 0005:2682       __fassign
+ 0005:26DA       __cftoe
+ 0005:28A6       __cftof
+ 0005:2A3E       __cftog
+ 0005:2B1E       __cfltcvt
+ 0005:2BC0       __cintrindisp2
+ 0005:2BF0       __cintrindisp1
+ 0005:2C1C       __ctrandisp2
+ 0005:2C36       __ctrandisp1
+ 0005:2D78       __fltin
+ 0005:2DDC       __fpsignal
+ 0005:2E00       __NMSG_TEXT
+ 0005:2E37       __NMSG_WRITE
+ 0005:2E4E       __commit
+ 0005:2EAC       __write
+ 0005:3038       __freelist
+ 0005:3062       __fptrap
+ 0005:3068       __myalloc
+ 0005:3096       __dosret0
+ 0005:30A3       __dosreturn
+ 0005:30B5       __dosretax
+ 0005:30C7       __maperror
+ 0005:30F4       ___ExportedStub
+ 0005:3108       __nearstub
+ 0005:310A       __getbuf
+ 0005:3156       __sopen
+ 0005:316E       __open
+ 0005:342D       __cXENIXtoDOSmode
+ 0005:343E       __initseg
+ 0005:3472       __linkseg
+ 0005:34A8       __fptostr
+ 0005:3556       __cltoasub
+ 0005:3563       __cxtoa
+ 0005:35BA       __fstrlen
+ 0005:35D4       __fstrcpy
+ 0005:3610       __fmemset
+ 0005:3658       __fmemmove
+ 0005:3722       __trandisp1
+ 0005:3764       __trandisp2
+ 0005:37C7       __rttospopde
+ 0005:37CA       __rttospop
+ 0005:37CD       __rtnospop
+ 0005:37D0       __rttosnpop
+ 0005:37D1       __rtnospopde
+ 0005:37D6       __rtzeropop
+ 0005:37D9       __rtzeronpop
+ 0005:37E0       __rtonepop
+ 0005:37E3       __rtonenpop
+ 0005:37EA       __rtbignan
+ 0005:37F1       __rtifprojpop
+ 0005:37F8       __rtindfpop
+ 0005:37FB       __rtindfnpop
+ 0005:3809       __rttosnpopde
+ 0005:3810       __rtifprojnpop
+ 0005:3819       __rtchsifneg
+ 0005:3822       _Soft_fFCOS
+ 0005:3839       _Soft_fFSIN
+ 0005:393B       _Soft_fFTAN
+ 0005:3CF0       __STRINGTOD
+ 0005:3D58       __Init80x87
+ 0005:3DDE       __fltout
+ 0005:3E34       __matherr
+ 0005:3E4E       __farstub
+ 0005:3E50       __stackavail
+ 0005:3E64       __aFahdiff
+ 0005:3E84       __dos_commit
+ 0005:3EF6       $i8_output
+ 0005:4042       __FASTLDADD
+ 0005:41C9       __FASTLDMULT
+ 0005:42CC       __STRINGTOLD
+ 0005:46B0       $i8_tpwr10
+ 0005:49A6       __LD12MULTTENPOWER
+ 0005:4A7B       __LD12MULT
+ 0005:4C00       __MANTOLD12
+ 0005:4CC0       ??_C@_0DH@OJOE@no?5Koch?5house?5position?0?5because?5@
+                    ??_C@_0DH@OJOE@no?5Koch?5house?5position?0?5because?5@
+
+ 0005:4CF8       ??_C@_0DD@MPNP@no?5Koch?5house?5position?0?5because?5@
+                    ??_C@_0DD@MPNP@no?5Koch?5house?5position?0?5because?5@
+
+ 0005:4D2C       ??_C@_0DC@DBAG@Otto?5Ludwig?5procedure?5within?5cir@
+                    ??_C@_0DC@DBAG@Otto?5Ludwig?5procedure?5within?5cir@
+
+ 0005:4D5E       ??_C@_0BJ@PPEN@unknown?5numde?5value?5?$CFld?$DL?$AA@
+                    ??_C@_0BJ@PPEN@unknown?5numde?5value?5?$CFld?$DL?$AA@
+
+ 0005:4D78       ??_C@_0CI@EJCK@No?5nutations?5on?5the?5JPL?5ephemeri@
+                    ??_C@_0CI@EJCK@No?5nutations?5on?5the?5JPL?5ephemeri@
+
+ 0005:4DA0       ??_C@_0CF@PKDL@No?5librations?5on?5the?5ephemeris?5f@
+                    ??_C@_0CF@PKDL@No?5librations?5on?5the?5ephemeris?5f@
+
+ 0005:4DC6       ??_C@_0BF@NNKF@fsizer?5does?5not?5work?$AA@
+                    ??_C@_0BF@NNKF@fsizer?5does?5not?5work?$AA@
+
+ 0005:4DDC       ??_C@_0DO@EGFF@JPL?5ephemeris?5file?5is?5mutilated?$DL@
+                    ??_C@_0DO@EGFF@JPL?5ephemeris?5file?5is?5mutilated?$DL@
+
+ 0005:4E1A       ??_C@_0EB@IBDF@JPL?5ephemeris?5file?5?$CFs?5is?5mutilat@
+                    ??_C@_0EB@IBDF@JPL?5ephemeris?5file?5?$CFs?5is?5mutilat@
+
+ 0005:4E5C       ??_C@_0CL@DBJP@jd?5?$CFf?5outside?5JPL?5eph?4?5range?5?$CF?42@
+                    ??_C@_0CL@DBJP@jd?5?$CFf?5outside?5JPL?5eph?4?5range?5?$CF?42@
+
+ 0005:4E88       ??_C@_0BO@BIAC@Read?5error?5in?5JPL?5eph?4?5at?5?$CFf?6?$AA@
+                    ??_C@_0BO@BIAC@Read?5error?5in?5JPL?5eph?4?5at?5?$CFf?6?$AA@
+
+ 0005:4EA6       ??_C@_0CG@JJEP@error?5in?5malloc?$CI?$CJ?5with?5JPL?5ephem@
+                    ??_C@_0CG@JJEP@error?5in?5malloc?$CI?$CJ?5with?5JPL?5ephem@
+
+ 0005:4ECC       ??_C@_0DB@LIEG@jd?5?$CFf?5outside?5Moshier?8s?5Moon?5ran@
+                    ??_C@_0DB@LIEG@jd?5?$CFf?5outside?5Moshier?8s?5Moon?5ran@
+
+ 0005:4EFE       ??_C@_0CM@BPLK@jd?5?$CFf?5outside?5mean?5node?5range?5?$CF?4@
+                    ??_C@_0CM@BPLK@jd?5?$CFf?5outside?5mean?5node?5range?5?$CF?4@
+
+ 0005:4F2A       ??_C@_0CO@HKCO@jd?5?$CFf?5outside?5mean?5apogee?5range?5@
+                    ??_C@_0CO@HKCO@jd?5?$CFf?5outside?5mean?5apogee?5range?5@
+
+ 0005:4F58       ??_C@_0DB@PMMG@jd?5?$CFf?5outside?5Moshier?5planet?5ran@
+                    ??_C@_0DB@PMMG@jd?5?$CFf?5outside?5Moshier?5planet?5ran@
+
+ 0005:4F8A       ??_C@_06IEOI@Cupido?$AA@
+                    ??_C@_06IEOI@Cupido?$AA@
+
+ 0005:4F92       ??_C@_05MONA@Hades?$AA@
+                    ??_C@_05MONA@Hades?$AA@
+
+ 0005:4F98       ??_C@_04EEBE@Zeus?$AA@
+                    ??_C@_04EEBE@Zeus?$AA@
+
+ 0005:4F9E       ??_C@_06KLEC@Kronos?$AA@
+                    ??_C@_06KLEC@Kronos?$AA@
+
+ 0005:4FA6       ??_C@_07MIEP@Apollon?$AA@
+                    ??_C@_07MIEP@Apollon?$AA@
+
+ 0005:4FAE       ??_C@_07MHJJ@Admetos?$AA@
+                    ??_C@_07MHJJ@Admetos?$AA@
+
+ 0005:4FB6       ??_C@_08GAEG@Vulkanus?$AA@
+                    ??_C@_08GAEG@Vulkanus?$AA@
+
+ 0005:4FC0       ??_C@_08NPEI@Poseidon?$AA@
+                    ??_C@_08NPEI@Poseidon?$AA@
+
+ 0005:4FCA       ??_C@_0BA@BLMO@Isis?9Transpluto?$AA@
+                    ??_C@_0BA@BLMO@Isis?9Transpluto?$AA@
+
+ 0005:4FDA       ??_C@_06MDBG@Nibiru?$AA@
+                    ??_C@_06MDBG@Nibiru?$AA@
+
+ 0005:4FE2       ??_C@_0L@DNCF@Harrington?$AA@
+                    ??_C@_0L@DNCF@Harrington?$AA@
+
+ 0005:4FEE       ??_C@_09BKKJ@Leverrier?$AA@
+                    ??_C@_09BKKJ@Leverrier?$AA@
+
+ 0005:4FF8       ??_C@_05HANN@Adams?$AA@
+                    ??_C@_05HANN@Adams?$AA@
+
+ 0005:4FFE       ??_C@_06OKAA@Lowell?$AA@
+                    ??_C@_06OKAA@Lowell?$AA@
+
+ 0005:5006       ??_C@_09KMGD@Pickering?$AA@
+                    ??_C@_09KMGD@Pickering?$AA@
+
+ 0005:5010       ??_C@_0P@FOPH@name?5not?5found?$AA@
+                    ??_C@_0P@FOPH@name?5not?5found?$AA@
+
+ 0005:5020       ??_C@_0M@FLOM@seorbel?4txt?$AA@
+                    ??_C@_0M@FLOM@seorbel?4txt?$AA@
+
+ 0005:502C       ??_C@_0CP@DCOJ@error?5no?5elements?5for?5fictitious@
+                    ??_C@_0CP@DCOJ@error?5no?5elements?5for?5fictitious@
+
+ 0005:505C       ??_C@_01KMAE@?0?$AA@
+                    ??_C@_01KMAE@?0?$AA@
+
+ 0005:505E       ??_C@_0BO@DGH@error?5in?5file?5?$CFs?0?5line?5?$CF7?40f?3?$AA@
+                    ??_C@_0BO@DGH@error?5in?5file?5?$CFs?0?5line?5?$CF7?40f?3?$AA@
+
+ 0005:507C       ??_C@_0BK@OKGE@?$CFs?5nine?5elements?5required?$AA@
+                    ??_C@_0BK@OKGE@?$CFs?5nine?5elements?5required?$AA@
+
+ 0005:5096       ??_C@_05NOIN@j2000?$AA@
+                    ??_C@_05NOIN@j2000?$AA@
+
+ 0005:509C       ??_C@_05DOPC@b1950?$AA@
+                    ??_C@_05DOPC@b1950?$AA@
+
+ 0005:50A2       ??_C@_05HDNI@j1900?$AA@
+                    ??_C@_05HDNI@j1900?$AA@
+
+ 0005:50A8       ??_C@_0BB@PJME@?$CFs?5invalid?5epoch?$AA@
+                    ??_C@_0BB@PJME@?$CFs?5invalid?5epoch?$AA@
+
+ 0005:50BA       ??_C@_05KGH@jdate?$AA@
+                    ??_C@_05KGH@jdate?$AA@
+
+ 0005:50C0       ??_C@_0BD@NLLK@?$CFs?5invalid?5equinox?$AA@
+                    ??_C@_0BD@NLLK@?$CFs?5invalid?5equinox?$AA@
+
+ 0005:50D4       ??_C@_0BO@DLDB@?$CFs?5mean?5anomaly?5value?5invalid?$AA@
+                    ??_C@_0BO@DLDB@?$CFs?5mean?5anomaly?5value?5invalid?$AA@
+
+ 0005:50F2       ??_C@_0BL@CMJH@?$CFs?5semi?9axis?5value?5invalid?$AA@
+                    ??_C@_0BL@CMJH@?$CFs?5semi?9axis?5value?5invalid?$AA@
+
+ 0005:510E       ??_C@_0EE@KFOG@?$CFs?5eccentricity?5invalid?5?$CIno?5para@
+                    ??_C@_0EE@KFOG@?$CFs?5eccentricity?5invalid?5?$CIno?5para@
+
+ 0005:5152       ??_C@_0CF@CCCK@?$CFs?5perihelion?5argument?5value?5inv@
+                    ??_C@_0CF@CCCK@?$CFs?5perihelion?5argument?5value?5inv@
+
+ 0005:5178       ??_C@_0BG@LLPD@?$CFs?5node?5value?5invalid?$AA@
+                    ??_C@_0BG@LLPD@?$CFs?5node?5value?5invalid?$AA@
+
+ 0005:518E       ??_C@_0BN@FJAH@?$CFs?5inclination?5value?5invalid?$AA@
+                    ??_C@_0BN@FJAH@?$CFs?5inclination?5value?5invalid?$AA@
+
+ 0005:51AC       ??_C@_0CH@EGOF@?$CFs?5elements?5for?5planet?5?$CF7?40f?5not@
+                    ??_C@_0CH@EGOF@?$CFs?5elements?5for?5planet?5?$CF7?40f?5not@
+
+ 0005:51D4       ??_C@_02FNGK@?$CL?9?$AA@
+                    ??_C@_02FNGK@?$CL?9?$AA@
+
+ 0005:51D8       ??_C@_02CLHN@?5?7?$AA@
+                    ??_C@_02CLHN@?5?7?$AA@
+
+ 0005:51DC       ??_C@_03FNDA@?$CK?5?7?$AA@
+                    ??_C@_03FNDA@?$CK?5?7?$AA@
+
+ 0005:51E0       ??_C@_02OJBI@tT?$AA@
+                    ??_C@_02OJBI@tT?$AA@
+
+ 0005:51E4       ??_C@_0M@LNLC@0123456789?4?$AA@
+                    ??_C@_0M@LNLC@0123456789?4?$AA@
+
+ 0005:51F0       ??_C@_0DB@PGKD@barycentric?5Moshier?5positions?5ar@
+                    ??_C@_0DB@PGKD@barycentric?5Moshier?5positions?5ar@
+
+ 0005:5222       ??_C@_0BF@LBPN@?5?6trying?5Swiss?5Eph?$DL?5?$AA@
+                    ??_C@_0BF@LBPN@?5?6trying?5Swiss?5Eph?$DL?5?$AA@
+
+ 0005:5238       ??_C@_0BG@KAEI@?5?6using?5Moshier?5Eph?$DL?5?$AA@
+                    ??_C@_0BG@KAEI@?5?6using?5Moshier?5Eph?$DL?5?$AA@
+
+ 0005:524E       ??_C@_0BH@PJGA@?5?6using?5Moshier?5eph?4?$DL?5?$AA@
+                    ??_C@_0BH@PJGA@?5?6using?5Moshier?5eph?4?$DL?5?$AA@
+
+ 0005:5266       ??_C@_0DI@ECII@Chiron?8s?5ephemeris?5is?5restricted@
+                    ??_C@_0DI@ECII@Chiron?8s?5ephemeris?5is?5restricted@
+
+ 0005:529E       ??_C@_0DM@HCFP@Pholus?8s?5ephemeris?5is?5restricted@
+                    ??_C@_0DM@HCFP@Pholus?8s?5ephemeris?5is?5restricted@
+
+ 0005:52DA       ??_C@_0BG@KLGI@?6using?5Moshier?5eph?4?$DL?5?$AA@
+                    ??_C@_0BG@KLGI@?6using?5Moshier?5eph?4?$DL?5?$AA@
+
+ 0005:52F0       ??_C@_05DKJP@sun?3?5?$AA@
+                    ??_C@_05DKJP@sun?3?5?$AA@
+
+ 0005:52F6       ??_C@_0BK@FJH@illegal?5planet?5number?5?$CFd?4?$AA@
+                    ??_C@_0BK@FJH@illegal?5planet?5number?5?$CFd?4?$AA@
+
+ 0005:5310       ??_C@_0N@FBEL@SE_EPHE_PATH?$AA@
+                    ??_C@_0N@FBEL@SE_EPHE_PATH?$AA@
+
+ 0005:531E       ??_C@_0N@EOD@?2sweph?2ephe?2?$AA@
+                    ??_C@_0N@EOD@?2sweph?2ephe?2?$AA@
+
+ 0005:532C       ??_C@_01PCFE@?2?$AA@
+                    ??_C@_01PCFE@?2?$AA@
+
+ 0005:532E       ??_C@_0CA@CDED@?5?6using?5Moshier?5eph?4?5for?5moon?$DL?5?$AA@
+                    ??_C@_0CA@CDED@?5?6using?5Moshier?5eph?4?5for?5moon?$DL?5?$AA@
+
+ 0005:534E       ??_C@_03HCNO@se1?$AA@
+                    ??_C@_03HCNO@se1?$AA@
+
+ 0005:5352       ??_C@_04MCLM@s?4?$CFs?$AA@
+                    ??_C@_04MCLM@s?4?$CFs?$AA@
+
+ 0005:5358       ??_C@_0CD@KGKH@jd?5?$CFf?5?$DM?5Swiss?5Eph?4?5lower?5limit?5?$CF@
+                    ??_C@_0CD@KGKH@jd?5?$CFf?5?$DM?5Swiss?5Eph?4?5lower?5limit?5?$CF@
+
+ 0005:537C       ??_C@_0CD@GDCP@jd?5?$CFf?5?$DO?5Swiss?5Eph?4?5upper?5limit?5?$CF@
+                    ??_C@_0CD@GDCP@jd?5?$CFf?5?$DO?5Swiss?5Eph?4?5upper?5limit?5?$CF@
+
+ 0005:53A0       ??_C@_01FAJB@?$DL?$AA@
+                    ??_C@_01FAJB@?$DL?$AA@
+
+ 0005:53A2       ??_C@_01PJCK@?4?$AA@
+                    ??_C@_01PJCK@?4?$AA@
+
+ 0005:53A4       ??_C@_0DD@NJED@error?3?5file?5path?5and?5name?5must?5b@
+                    ??_C@_0DD@NJED@error?3?5file?5path?5and?5name?5must?5b@
+
+ 0005:53D8       ??_C@_02JKAF@rb?$AA@
+                    ??_C@_02JKAF@rb?$AA@
+
+ 0005:53DC       ??_C@_0CK@HEEE@SwissEph?5file?5?8?$CFs?8?5not?5found?5in?5@
+                    ??_C@_0CK@HEEE@SwissEph?5file?5?8?$CFs?8?5not?5found?5in?5@
+
+ 0005:5406       ??_C@_0DJ@ONGF@error?5in?5ephemeris?5file?3?5?$CFd?5coef@
+                    ??_C@_0DJ@ONGF@error?5in?5ephemeris?5file?3?5?$CFd?5coef@
+
+ 0005:5440       ??_C@_0DM@BJAP@error?5in?5ephemeris?5file?5?$CFs?3?5?$CFd?5c@
+                    ??_C@_0DM@BJAP@error?5in?5ephemeris?5file?5?$CFs?3?5?$CFd?5c@
+
+ 0005:547C       ??_C@_0BP@PABP@Ephemeris?5file?5?$CFs?5is?5damaged?4?5?$AA@
+                    ??_C@_0BP@PABP@Ephemeris?5file?5?$CFs?5is?5damaged?4?5?$AA@
+
+ 0005:549C       ??_C@_02PIMC@?$AN?6?$AA@
+                    ??_C@_02PIMC@?$AN?6?$AA@
+
+ 0005:54A0       ??_C@_0CN@DKAL@Ephemeris?5file?5name?5?8?$CFs?8?5wrong?$DL?5@
+                    ??_C@_0CN@DKAL@Ephemeris?5file?5name?5?8?$CFs?8?5wrong?$DL?5@
+
+ 0005:54CE       ??_C@_00A@?$AA@
+                    ??_C@_00A@?$AA@
+
+ 0005:54D0       ??_C@_0BM@KLBH@Ephemeris?5file?5is?5damaged?4?5?$AA@
+                    ??_C@_0BM@KLBH@Ephemeris?5file?5is?5damaged?4?5?$AA@
+
+ 0005:54EC       ??_C@_0BO@PPPE@Ephemeris?5file?5?$CFs?5is?5damaged?4?$AA@
+                    ??_C@_0BO@PPPE@Ephemeris?5file?5?$CFs?5is?5damaged?4?$AA@
+
+ 0005:550A       ??_C@_0N@JAAA@fixstars?4cat?$AA@
+                    ??_C@_0N@JAAA@fixstars?4cat?$AA@
+
+ 0005:5518       ??_C@_0BA@MABA@star?5name?5empty?$AA@
+                    ??_C@_0BA@MABA@star?5name?5empty?$AA@
+
+ 0005:5528       ??_C@_0CA@OJNE@star?5file?5?$CFs?5damaged?5at?5line?5?$CFd?$AA@
+                    ??_C@_0CA@OJNE@star?5file?5?$CFs?5damaged?5at?5line?5?$CFd?$AA@
+
+ 0005:5548       ??_C@_0BC@CPEH@star?5?$CFs?5not?5found?$AA@
+                    ??_C@_0BC@CPEH@star?5?$CFs?5not?5found?$AA@
+
+ 0005:555A       ??_C@_0CA@EKKE@data?5of?5star?5?8?$CFs?0?$CFs?8?5incomplete?$AA@
+                    ??_C@_0CA@EKKE@data?5of?5star?5?8?$CFs?0?$CFs?8?5incomplete?$AA@
+
+ 0005:557A       ??_C@_05ECIL@?$CFs?0?$CFs?$AA@
+                    ??_C@_05ECIL@?$CFs?0?$CFs?$AA@
+
+ 0005:5580       ??_C@_03FHEP@Sun?$AA@
+                    ??_C@_03FHEP@Sun?$AA@
+
+ 0005:5584       ??_C@_04NALI@Moon?$AA@
+                    ??_C@_04NALI@Moon?$AA@
+
+ 0005:558A       ??_C@_07OANG@Mercury?$AA@
+                    ??_C@_07OANG@Mercury?$AA@
+
+ 0005:5592       ??_C@_05MGAJ@Venus?$AA@
+                    ??_C@_05MGAJ@Venus?$AA@
+
+ 0005:5598       ??_C@_04MCIE@Mars?$AA@
+                    ??_C@_04MCIE@Mars?$AA@
+
+ 0005:559E       ??_C@_07KBKJ@Jupiter?$AA@
+                    ??_C@_07KBKJ@Jupiter?$AA@
+
+ 0005:55A6       ??_C@_06IHCG@Saturn?$AA@
+                    ??_C@_06IHCG@Saturn?$AA@
+
+ 0005:55AE       ??_C@_06CGFF@Uranus?$AA@
+                    ??_C@_06CGFF@Uranus?$AA@
+
+ 0005:55B6       ??_C@_07KOHO@Neptune?$AA@
+                    ??_C@_07KOHO@Neptune?$AA@
+
+ 0005:55BE       ??_C@_05PMO@Pluto?$AA@
+                    ??_C@_05PMO@Pluto?$AA@
+
+ 0005:55C4       ??_C@_09KPAP@mean?5Node?$AA@
+                    ??_C@_09KPAP@mean?5Node?$AA@
+
+ 0005:55CE       ??_C@_09GBEJ@true?5Node?$AA@
+                    ??_C@_09GBEJ@true?5Node?$AA@
+
+ 0005:55D8       ??_C@_0M@LCJ@mean?5Apogee?$AA@
+                    ??_C@_0M@LCJ@mean?5Apogee?$AA@
+
+ 0005:55E4       ??_C@_0M@INKK@osc?4?5Apogee?$AA@
+                    ??_C@_0M@INKK@osc?4?5Apogee?$AA@
+
+ 0005:55F0       ??_C@_05FMCF@Earth?$AA@
+                    ??_C@_05FMCF@Earth?$AA@
+
+ 0005:55F6       ??_C@_06JOBM@Chiron?$AA@
+                    ??_C@_06JOBM@Chiron?$AA@
+
+ 0005:55FE       ??_C@_06PHBB@Pholus?$AA@
+                    ??_C@_06PHBB@Pholus?$AA@
+
+ 0005:5606       ??_C@_05HHMA@Ceres?$AA@
+                    ??_C@_05HHMA@Ceres?$AA@
+
+ 0005:560C       ??_C@_06JOL@Pallas?$AA@
+                    ??_C@_06JOL@Pallas?$AA@
+
+ 0005:5614       ??_C@_04IDMJ@Juno?$AA@
+                    ??_C@_04IDMJ@Juno?$AA@
+
+ 0005:561A       ??_C@_05IHGO@Vesta?$AA@
+                    ??_C@_05IHGO@Vesta?$AA@
+
+ 0005:5620       ??_C@_0O@FFED@?$CFd?3?5not?5found?$AA@
+                    ??_C@_0O@FFED@?$CFd?3?5not?5found?$AA@
+
+ 0005:562E       ??_C@_0M@LEGN@seasnam?4txt?$AA@
+                    ??_C@_0M@LEGN@seasnam?4txt?$AA@
+
+ 0005:563A       ??_C@_03EMCM@?$CD?$AN?6?$AA@
+                    ??_C@_03EMCM@?$CD?$AN?6?$AA@
+
+ 0005:563E       ??_C@_02MECO@?$CFd?$AA@
+                    ??_C@_02MECO@?$CFd?$AA@
+
+ 0005:5642       ??_C@_0CF@JBNL@geographic?5position?5has?5not?5been@
+                    ??_C@_0CF@JBNL@geographic?5position?5has?5not?5been@
+
+ 0005:5668       ??_C@_04GJPN@semo?$AA@
+                    ??_C@_04GJPN@semo?$AA@
+
+ 0005:566E       ??_C@_04FLJ@sepl?$AA@
+                    ??_C@_04FLJ@sepl?$AA@
+
+ 0005:5674       ??_C@_04NBJH@seas?$AA@
+                    ??_C@_04NBJH@seas?$AA@
+
+ 0005:567A       ??_C@_0BB@GCIE@ast?$CFd?$CFsse?$CF05d?4?$CFs?$AA@
+                    ??_C@_0BB@GCIE@ast?$CFd?$CFsse?$CF05d?4?$CFs?$AA@
+
+ 0005:568C       ??_C@_01KDFD@m?$AA@
+                    ??_C@_01KDFD@m?$AA@
+
+ 0005:568E       ??_C@_01NON@_?$AA@
+                    ??_C@_01NON@_?$AA@
+
+ 0005:5690       ??_C@_07IDOH@?$CF02d?4?$CFs?$AA@
+                    ??_C@_07IDOH@?$CF02d?4?$CFs?$AA@
+
+ 0005:5698       ??_C@_08ION@?5?5?5?5?5?5?5?5?$AA@
+                    ??_C@_08ION@?5?5?5?5?5?5?5?5?$AA@
+
+ 0005:56A2       ??_C@_09PPIJ@?5?5?5?5?5?5?8?5?5?$AA@
+                    ??_C@_09PPIJ@?5?5?5?5?5?5?8?5?5?$AA@
+
+ 0005:56AC       ??_C@_08LGIM@?5?5?5?5?5?8?5?5?$AA@
+                    ??_C@_08LGIM@?5?5?5?5?5?8?5?5?$AA@
+
+ 0005:56B6       ??_C@_0BN@FHEF@no?5solar?5eclipse?5at?5tjd?5?$DN?5?$CFf?$AA@
+                    ??_C@_0BN@FHEF@no?5solar?5eclipse?5at?5tjd?5?$DN?5?$CFf?$AA@
+
+ 0005:56D4       ??_C@_0CG@JAPC@central?5partial?5eclipses?5do?5not?5@
+                    ??_C@_0CG@JAPC@central?5partial?5eclipses?5do?5not?5@
+
+ 0005:56FA       ??_C@_0BN@IIFB@no?5lunar?5eclipse?5at?5tjd?5?$DN?5?$CFf?$AA@
+                    ??_C@_0BN@IIFB@no?5lunar?5eclipse?5at?5tjd?5?$DN?5?$CFf?$AA@
+
+ 0005:5718       ??_C@_0DD@OJJE@nodes?1apsides?5for?5planet?5?$CF5?40f?5a@
+                    ??_C@_0DD@OJJE@nodes?1apsides?5for?5planet?5?$CF5?40f?5a@
+
+ 000A:0000       SWED
+ 000C:0004       rsrvptrs
+ 000C:1806       _STKHQQ
+ 000C:1808       __hModule
+ 000C:180A       __wDataSeg
+ 000C:180C       __wHeapSize
+ 000C:180E       __lpszCmdLine
+ 000C:1812       __dllinit
+ 000C:1813       _aseglo
+ 000C:1815       _aseghi
+ 000C:1817       ___aDBswpflg
+ 000C:1819       ___aDBrterr
+ 000C:181C       __aaltstkovr
+ 000C:1824       __pnhFarHeap
+ 000C:1828       __ctype_
+ 000C:1828       __ctype
+ 000C:193E       __aintdiv
+ 000C:1942       __fac
+ 000C:194C       _errno
+ 000C:194E       __umaskval
+ 000C:1950       __winminor
+ 000C:1950       __winver
+ 000C:1951       __winmajor
+ 000C:1952       __osver
+ 000C:1952       __osminor
+ 000C:1953       __osmajor
+ 000C:1954       __osversion
+ 000C:1956       __osmode
+ 000C:1957       __cpumode
+ 000C:1958       __oserr
+ 000C:1958       __doserrno
+ 000C:195A       __nfile
+ 000C:195C       __osfile
+ 000C:1970       ___argc
+ 000C:1972       ___argv
+ 000C:1976       __environ
+ 000C:197A       __pgmptr
+ 000C:197F       __child
+ 000C:1981       __exitflag
+ 000C:1982       __adbgmsg
+ 000C:19E8       __fheap
+ 000C:19F6       __amblksiz
+ 000C:19F8       __lastiob
+ 000C:19FA       __cfltcvt_tab
+ 000C:1A16       __sigintseg
+ 000C:1A18       __sigintoff
+ 000C:1A1A       __asizeC
+ 000C:1A1B       __asizeD
+ 000C:1A1C       __sqrtjmptab
+ 000C:1A34       __infinity
+ 000C:1A3E       __logemax
+ 000C:1A66       __ytoxjmptab
+ 000C:1A96       __logjmptab
+ 000C:1AAE       __lnjmptab
+ 000C:1AC6       __expjmptab
+ 000C:1AF0       __sinjmptab
+ 000C:1B08       __cosjmptab
+ 000C:1B20       __tanjmptab
+ 000C:1B38       __cotanjmptab
+ 000C:1B50       __asnjmptab
+ 000C:1B68       __acsjmptab
+ 000C:1B80       __atnjmptab
+ 000C:1B98       __atn2jmptab
+ 000C:1C0C       __cflush
+ 000C:1C22       __commode
+ 000C:1C24       __lseekchk
+ 000C:1C26       __indefinite
+ 000C:1C30       __piby2
+ 000C:1C3A       __cpower
+ 000C:1D82       __80x87
+ 000C:1DAA       __HUGE
+ 000C:1DB2       __matherr_flag
+ 000C:1DB4       __iomode
+ 000C:1DB4       __fmode
+ 000C:1E02       __fpinit
+ 000C:1E1A       __iob
+ 000C:1F0A       __iob2
+ 000C:3BB2       __edata
+ 000C:3BB2       _edata
+ 000C:4100       __mbac
+ 000C:4108       __end
+ 000C:4108       _end
+ 0000:4000  Abs  FJARQQ
+ 0000:5C32  Abs  FIDRQQ
+ 0000:8000  Abs  FJSRQQ
+ 0000:A23D  Abs  FIWRQQ
+ 0000:C000  Abs  FJCRQQ
+ 0000:FE32  Abs  FIARQQ
+
+Program entry point at 0005:0054

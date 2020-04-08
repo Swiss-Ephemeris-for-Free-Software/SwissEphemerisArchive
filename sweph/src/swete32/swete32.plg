@@ -1,0 +1,27 @@
+--------------------Configuration: swete32 - Win32 Release--------------------
+Begining build with project "S:\devlop\sweph\src\swete32\swete32.dsp", at root.
+Active configuration is Win32 (x86) Console Application (based on Win32 (x86) Console Application)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "USE_DLL" /D "DOS_DEGREE" /Fp"Release/swete32.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c "
+			"Win32 Resource Compiler" with flags "/l 0x807 /d "NDEBUG" "
+			"Browser Database Maker" with flags "/nologo /o"..\..\bin/swete32.bsc" "
+			"COFF Linker for 80x86" with flags "kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"..\..\bin/swete32.pdb" /machine:I386 /out:"..\..\bin/swete32.exe" "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating temp file "C:\DOKUME~1\alois\LOKALE~1\Temp\6\RSP17.tmp" with contents </nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /D "USE_DLL" /D "DOS_DEGREE" /Fp"Release/swete32.pch" /YX /Fo"Release/" /Fd"Release/" /FD /c 
+"S:\devlop\sweph\src\swetest.c"
+>
+Creating command line "cl.exe @C:\DOKUME~1\alois\LOKALE~1\Temp\6\RSP17.tmp" 
+Creating temp file "C:\DOKUME~1\alois\LOKALE~1\Temp\6\RSP18.tmp" with contents <kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:no /pdb:"..\..\bin/swete32.pdb" /machine:I386 /out:"..\..\bin/swete32.exe" 
+.\Release\swetest.obj
+..\..\bin\swedll32.lib>
+Creating command line "link.exe @C:\DOKUME~1\alois\LOKALE~1\Temp\6\RSP18.tmp" 
+Compiling...
+swetest.c
+Linking...
+
+
+
+swete32.exe - 0 error(s), 0 warning(s)

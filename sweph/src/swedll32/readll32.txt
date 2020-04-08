@@ -1,0 +1,30 @@
+How to build the SWISSEPH demo programs for Windows:
+
+2 DLLs
+=======
+2.2 swedll32.dll (32-bit)
+-------------------------
+
+files required:
+
+swedllst.c
+swephlib.c
+swejpl.c
+sweph.c
+swemmoon.c
+swemplan.c
+swemptab.c
+swedate.c
+swehouse.c
+
+sweph.h
+swephexp.h
+swephlib.h
+swejpl.h
+swemosh.h
+housasp.h
+sweodef.h
+
+define macros:
+
+MAKE_DLL	

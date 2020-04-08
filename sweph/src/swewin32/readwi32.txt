@@ -1,0 +1,55 @@
+How to build the SWISSEPH demo programs for Windows:
+
+4 Windows applications
+======================
+4.2 (32-bit) with linked Swisseph library
+-----------------------------------------
+
+files required:
+
+swewin.c
+swephlib.c
+swejpl.c
+sweph.c
+swemmoon.c
+swemplan.c
+swemptab.c
+swedate.c
+swehouse.c
+d2l.c
+csec.c
+
+swewin.h
+sweph.h
+swephexp.h
+swephlib.h
+swejpl.h
+swemosh.h
+housasp.h
+sweodef.h
+astrolib.h
+resource.h
+
+define macro:
+
+DOS32
+
+
+5 Windows applications that use a DLL
+=====================================
+5.2 swewin32.exe
+--------------
+
+swewin.c
+swedll16.lib
+swewin.rc
+
+swewin.h
+swephexp.h
+swedll.h
+sweodef.h
+resource.h
+
+define macro
+
+USE_DLL
