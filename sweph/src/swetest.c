@@ -69,7 +69,7 @@ static char *infocmd0 = "\n\
   With the proper options, swetest can be used to output a printed\n\
   ephemeris and transfer the data into other programs like spreadsheets\n\
   for graphical display.\n\
-  Version: $Header: /users/dieter/sweph/RCS/swetest.c,v 1.78 2010/06/25 07:22:10 dieter Exp $\n\
+  Version:                                                                                   \n\
 \n";
 static char *infocmd1 = "\n\
   Command line options:\n\
@@ -639,6 +639,7 @@ static void remove_whitespace(char *s);
 #if MSDOS
 static int cut_str_any(char *s, char *cutlist, char *cpos[], int nmax);
 #endif
+static int32 call_swe_fixstar(char *star, double te, int32 iflag, double *x, char *serr);
 
 /* globals shared between main() and print_line() */
 static char *fmt = "PLBRS";
@@ -690,6 +691,7 @@ static int do_set_astro_models = FALSE;
 static char smod[2000];
 static AS_BOOL inut = FALSE; /* for Astrodienst internal feature */
 static AS_BOOL have_gap_parameter = FALSE; 
+static AS_BOOL use_swe_fixstar2 = FALSE; 
 
 #define SP_LUNAR_ECLIPSE	1
 #define SP_SOLAR_ECLIPSE	2
@@ -1010,6 +1012,8 @@ int main(int argc, char *argv[])
       iflag_f = atoi(argv[i]+2);
       if (iflag_f & SEFLG_XYZ)
 	fmt = "PX";
+    } else if (strcmp(argv[i], "-swefixstar2") == 0) {
+      use_swe_fixstar2 = TRUE; 
     } else if (strncmp(argv[i], "-s", 2) == 0) {
       tstep = atof(argv[i]+2);
       if (*(argv[i] + strlen(argv[i]) -1) == 'm')
@@ -1052,7 +1056,13 @@ int main(int argc, char *argv[])
       || strncmp(argv[i], "-?", 2) == 0) {
       sp = argv[i]+2;
       if (*sp == 'c' || *sp == '\0') {
-        fputs(infocmd0,stdout);
+        char si0[sizeof(infocmd0)+1]; 
+	swe_version(sout);
+	strcpy(si0, infocmd0);
+        sp2 = strstr(si0, "Version:");
+	if (sp2 != NULL && strlen(sp2) > 10 + strlen(sout)) 
+	  strcpy(sp2 + 9, sout);
+        fputs(si0,stdout);
         fputs(infocmd1,stdout);
         fputs(infocmd2,stdout);
         fputs(infocmd3,stdout);
@@ -1269,11 +1279,11 @@ int main(int argc, char *argv[])
         t = tjd + (istep -1) * tstep / 86400;
       if (step_in_years) {
 	swe_revjul(tjd, gregflag, &jyear, &jmon, &jday, &jut);
-	t = swe_julday(jyear + (istep - 1) * tstep, jmon, jday, jut, gregflag);
+	t = swe_julday(jyear + (istep - 1) * (int) tstep, jmon, jday, jut, gregflag);
       }
       if (step_in_months) {
 	swe_revjul(tjd, gregflag, &jyear, &jmon, &jday, &jut);
-	jmon += (istep - 1) * tstep;
+	jmon += (istep - 1) * (int) tstep;
 	jyear += (int) ((jmon - 1) / 12);
 	jmon = ((jmon - 1) % 12) + 1;
 	t = swe_julday(jyear, jmon, jday, jut, gregflag);
@@ -1440,7 +1450,7 @@ int main(int argc, char *argv[])
 	if (iflag_f >=0)
 	  iflag = iflag_f;
         if (ipl == SE_FIXSTAR) {
-          iflgret = swe_fixstar(star, te, iflag, x, serr);
+          iflgret = call_swe_fixstar(star, te, iflag, x, serr);
 	  /* magnitude, etc. */
 	  if (iflgret != ERR && strpbrk(fmt, "=") != NULL) {
 	    double mag;
@@ -1533,7 +1543,7 @@ int main(int argc, char *argv[])
         if (strpbrk(fmt, "aADdQ") != NULL) {
           iflag2 = iflag | SEFLG_EQUATORIAL;
           if (ipl == SE_FIXSTAR)
-            iflgret = swe_fixstar(star, te, iflag2, xequ, serr);
+            iflgret = call_swe_fixstar(star, te, iflag2, xequ, serr);
           else
             iflgret = swe_calc(te, ipl, iflag2, xequ, serr);
           if (diff_mode) {
@@ -1560,7 +1570,7 @@ int main(int argc, char *argv[])
           /* first, get topocentric equatorial positions */
           iflgt = whicheph | SEFLG_EQUATORIAL | SEFLG_TOPOCTR;
           if (ipl == SE_FIXSTAR)
-            iflgret = swe_fixstar(star, te, iflgt, xt, serr);
+            iflgret = call_swe_fixstar(star, te, iflgt, xt, serr);
           else
             iflgret = swe_calc(te, ipl, iflgt, xt, serr);
           /* to azimuth/height */
@@ -1593,7 +1603,7 @@ int main(int argc, char *argv[])
         if (strpbrk(fmt, "XU") != NULL) {
           iflag2 = iflag | SEFLG_XYZ;
           if (ipl == SE_FIXSTAR)
-            iflgret = swe_fixstar(star, te, iflag2, xcart, serr);
+            iflgret = call_swe_fixstar(star, te, iflag2, xcart, serr);
           else
             iflgret = swe_calc(te, ipl, iflag2, xcart, serr);
           if (diff_mode) {
@@ -1610,7 +1620,7 @@ int main(int argc, char *argv[])
         if (strpbrk(fmt, "xu") != NULL) {
           iflag2 = iflag | SEFLG_XYZ | SEFLG_EQUATORIAL;
           if (ipl == SE_FIXSTAR)
-            iflgret = swe_fixstar(star, te, iflag2, xcartq, serr);
+            iflgret = call_swe_fixstar(star, te, iflag2, xcartq, serr);
           else
             iflgret = swe_calc(te, ipl, iflag2, xcartq, serr);
           if (diff_mode) {
@@ -1753,6 +1763,14 @@ int main(int argc, char *argv[])
   }
   swe_close();
   return  OK;
+}
+
+static int32 call_swe_fixstar(char *star, double te, int32 iflag, double *x, char *serr)
+{
+  if (use_swe_fixstar2) 
+    return swe_fixstar2(star, te, iflag, x, serr);
+  else
+    return swe_fixstar(star, te, iflag, x, serr);
 }
 
 /* This function calculates the geocentric relative distance of a planet,
@@ -2481,9 +2499,9 @@ static void insert_gap_string_for_tabs(char *sout, char *gap)
   }
 }
 
-static void print_rise_set_line(double trise, double tset, double *geopos, char *serr) {
+static int32 print_rise_set_line(double trise, double tset, double *geopos, char *serr) {
   double t0;
-  int retc;
+  int retc = OK;
   *sout = '\0';
   if (trise != 0) retc = ut_to_lmt_lat(trise, geopos, &(trise), serr);
   if (tset != 0) retc = ut_to_lmt_lat(tset, geopos, &(tset), serr);
@@ -2513,6 +2531,7 @@ static void print_rise_set_line(double trise, double tset, double *geopos, char 
   strcat(sout, "\n");
   if (have_gap_parameter) insert_gap_string_for_tabs(sout, gap);
   do_printf(sout);
+  return retc;
 }
 
 static int32 call_rise_set(double t_ut, int32 ipl, char *star, int32 whicheph, double *geopos, char *serr)
@@ -2582,22 +2601,26 @@ static int32 call_rise_set(double t_ut, int32 ipl, char *star, int32 whicheph, d
       trise = 0;	// we hope that exact time 0 never happens, is highly unlikely.
     }
     if (do_rise && do_set) {
-      print_rise_set_line(trise, tset, geopos, serr);
+      rval = print_rise_set_line(trise, tset, geopos, serr);
       last_was_empty = FALSE;
       tnext = tset + dayfrac;
     } else if (do_rise && !do_set) {
-      print_rise_set_line(trise, 0, geopos, serr);
+      rval = print_rise_set_line(trise, 0, geopos, serr);
       last_was_empty = FALSE;
       tnext = trise + dayfrac;
     } else if (do_set && ! do_rise) {
       tnext = tset + dayfrac;
-      print_rise_set_line(0, tset, geopos, serr);
+      rval = print_rise_set_line(0, tset, geopos, serr);
       last_was_empty = FALSE;
     } else { // neither rise nor set 
       // for sequences of days without rise or set, the line '-   -' is printed only once.
-      if (! last_was_empty) print_rise_set_line(0, 0, geopos, serr);
+      if (! last_was_empty) rval = print_rise_set_line(0, 0, geopos, serr);
       tnext += 1;
       last_was_empty = TRUE;
+    }
+    if (rval == ERR) {
+      do_printf(serr);
+      exit(0);
     }
     if (nstep == 1) break;
   }
@@ -2643,7 +2666,7 @@ static int32 call_rise_set(double t_ut, int32 ipl, char *star, int32 whicheph, d
 
 static int32 call_lunar_eclipse(double t_ut, int32 whicheph, int32 special_mode, double *geopos, char *serr)
 {
-  int i, ii, retc, eclflag, ecl_type = 0;
+  int i, ii, retc = OK, eclflag, ecl_type = 0;
   int ihou, imin, isec, isgn;
   double dfrc, attr[30], dt;
   char s1[AS_MAXCH], sout_short[AS_MAXCH], sfmt[AS_MAXCH];
@@ -2692,8 +2715,13 @@ ERR) {
       } 
       if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	for (i = 0; i < 10; i++) {
-	  if (tret[i] != 0)
+	  if (tret[i] != 0) {
 	    retc = ut_to_lmt_lat(tret[i], geopos, &(tret[i]), serr);
+	    if (retc == ERR) {
+	      do_printf(serr);
+	      return ERR;
+	    }
+	  }
 	}
       }
       t_ut = tret[0];
@@ -2784,8 +2812,13 @@ ERR) {
       }
       if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	for (i = 0; i < 10; i++) {
-	  if (tret[i] != 0)
+	  if (tret[i] != 0) {
 	    retc = ut_to_lmt_lat(tret[i], geopos, &(tret[i]), serr);
+	    if (retc == ERR) {
+	      do_printf(serr);
+	      return ERR;
+	    }
+	  }
 	}
       }
       t_ut = tret[0];
@@ -2842,7 +2875,7 @@ ERR) {
 
 static int32 call_solar_eclipse(double t_ut, int32 whicheph, int32 special_mode, double *geopos, char *serr)
 {
-  int i, ii, retc, eclflag, ecl_type = 0;
+  int i, ii, retc = OK, eclflag, ecl_type = 0;
   double dt, tret[30], attr[30], geopos_max[3];
   char s1[AS_MAXCH], s2[AS_MAXCH], sout_short[AS_MAXCH];
   AS_BOOL has_found = FALSE;
@@ -2887,8 +2920,13 @@ attr, direction_flag, serr)) == ERR) {
 	  swe_calc(t_ut + swe_deltat_ex(t_ut, whicheph, serr), SE_ECL_NUT, 0, x, serr);
 	  if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	    for (i = 0; i < 10; i++) {
-	      if (tret[i] != 0)
+	      if (tret[i] != 0) {
 		retc = ut_to_lmt_lat(tret[i], geopos, &(tret[i]), serr);
+		if (retc == ERR) {
+		  do_printf(serr);
+		  return ERR;
+		}
+	      }
 	    }
 	  }
 	  t_ut = tret[0];
@@ -2966,8 +3004,13 @@ attr, direction_flag, serr)) == ERR) {
       swe_sol_eclipse_where(t_ut, whicheph, geopos_max, attr, serr);
       if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	for (i = 0; i < 10; i++) {
-	  if (tret[i] != 0)
+	  if (tret[i] != 0) {
 	    retc = ut_to_lmt_lat(tret[i], geopos, &(tret[i]), serr);
+	    if (retc == ERR) {
+	      do_printf(serr);
+	      return ERR;
+	    }
+	  }
 	}
       }
       swe_revjul(tret[0], gregflag, &jyear, &jmon, &jday, &jut);
@@ -3030,7 +3073,7 @@ attr, direction_flag, serr)) == ERR) {
 
 static int32 call_lunar_occultation(double t_ut, int32 ipl, char *star, int32 whicheph, int32 special_mode, double *geopos, char *serr)
 {
-  int i, ii, ecl_type = 0, eclflag, retc;
+  int i, ii, ecl_type = 0, eclflag, retc = OK;
   double dt, tret[30], attr[30], geopos_max[3];
   char s1[AS_MAXCH], s2[AS_MAXCH];
   AS_BOOL has_found = FALSE;
@@ -3067,8 +3110,13 @@ static int32 call_lunar_occultation(double t_ut, int32 ipl, char *star, int32 wh
         t_ut = tret[0];
 	if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	  for (i = 0; i < 10; i++) {
-	    if (tret[i] != 0)
+	    if (tret[i] != 0) {
 	      retc = ut_to_lmt_lat(tret[i], geopos, &(tret[i]), serr);
+	      if (retc == ERR) {
+		do_printf(serr);
+		return ERR;
+	      }
+	    }
 	  }
 	}
 	has_found = FALSE;
@@ -3178,8 +3226,13 @@ static int32 call_lunar_occultation(double t_ut, int32 ipl, char *star, int32 wh
       } */
       if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	for (i = 0; i < 10; i++) {
-	  if (tret[i] != 0)
+	  if (tret[i] != 0) {
 	    retc = ut_to_lmt_lat(tret[i], geopos, &(tret[i]), serr);
+	    if (retc == ERR) {
+	      do_printf(serr);
+	      return ERR;
+	    }
+	  }
 	}
       }
       swe_revjul(tret[0], gregflag, &jyear, &jmon, &jday, &jut);
@@ -3269,7 +3322,7 @@ static void do_print_heliacal(double *dret, int32 event_type, char *obj_name)
 
 static int32 call_heliacal_event(double t_ut, int32 ipl, char *star, int32 whicheph, double *geopos, double *datm, double *dobs, char *serr)
 {
-  int ii, retc, event_type = 0, retflag;
+  int ii, retc = OK, event_type = 0, retflag;
   double dret[40], tsave1, tsave2 = 0;
   char obj_name[AS_MAXCH];
   helflag |= whicheph;
@@ -3301,8 +3354,12 @@ static int32 call_heliacal_event(double t_ut, int32 ipl, char *star, int32 which
     }
     if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
       retc = ut_to_lmt_lat(dret[0], geopos, &(dret[0]), serr);
-      retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
-      retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+      if (retc != ERR) retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
+      if (retc != ERR) retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+      if (retc == ERR) {
+	do_printf(serr);
+	return ERR;
+      }
     }
     do_print_heliacal(dret, event_type, obj_name);
     /* list all events within synodic cycle */
@@ -3317,8 +3374,12 @@ static int32 call_heliacal_event(double t_ut, int32 ipl, char *star, int32 which
 	}
 	if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	  retc = ut_to_lmt_lat(dret[0], geopos, &(dret[0]), serr);
-	  retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
-	  retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+	  if (retc != ERR) retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
+	  if (retc != ERR) retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+	  if (retc == ERR) {
+	    do_printf(serr);
+	    return ERR;
+	  }
 	}
 	do_print_heliacal(dret, event_type, obj_name);
 	tsave1 = dret[0];
@@ -3347,8 +3408,12 @@ repeat_mercury:
 	  continue;
 	if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	  retc = ut_to_lmt_lat(dret[0], geopos, &(dret[0]), serr);
-	  retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
-	  retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+	  if (retc != ERR) retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
+	  if (retc != ERR) retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+	  if (retc == ERR) {
+	    do_printf(serr);
+	    return ERR;
+	  }
 	}
 	do_print_heliacal(dret, event_type, obj_name);
       }
@@ -3362,8 +3427,12 @@ repeat_mercury:
 	}
 	if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	  retc = ut_to_lmt_lat(dret[0], geopos, &(dret[0]), serr);
-	  retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
-	  retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+	  if (retc != ERR) retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
+	  if (retc != ERR) retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+	  if (retc == ERR) {
+	    do_printf(serr);
+	    return ERR;
+	  }
 	}
 	do_print_heliacal(dret, event_type, obj_name);
       } else {
@@ -3376,8 +3445,12 @@ repeat_mercury:
 	}
 	if (time_flag & (BIT_TIME_LMT | BIT_TIME_LAT)) {
 	  retc = ut_to_lmt_lat(dret[0], geopos, &(dret[0]), serr);
-	  retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
-	  retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+	  if (retc != ERR) retc = ut_to_lmt_lat(dret[1], geopos, &(dret[1]), serr);
+	  if (retc != ERR) retc = ut_to_lmt_lat(dret[2], geopos, &(dret[2]), serr);
+	  if (retc == ERR) {
+	    do_printf(serr);
+	    return ERR;
+	  }
 	}
 	do_print_heliacal(dret, event_type, obj_name);
 	if (0 && ipl == SE_MERCURY) {

@@ -1239,7 +1239,7 @@ static int precess_2(double *R, double J, int32 iflag, int direction, int prec_m
 
 static int precess_3(double *R, double J, int direction, int iflag, int prec_meth)
 {
-  double T;
+  //double T;
   double x[3], pmat[9];
   int i, j;
   if( J == J2000 ) 
@@ -1247,7 +1247,7 @@ static int precess_3(double *R, double J, int direction, int iflag, int prec_met
   /* Each precession angle is specified by a polynomial in
    * T = Julian centuries from J2000.0.  See AA page B18.
    */
-  T = (J - J2000)/36525.0;
+  //T = (J - J2000)/36525.0;
   if (prec_meth == SEMOD_PREC_OWEN_1990)
     owen_pre_matrix(J, pmat, iflag);
   else
@@ -3150,10 +3150,10 @@ static double sidtime_long_term(double tjd_ut, double eps, double nut)
   double tsid = 0, tjd_et;
   double dlon, xs[6], xobl[6], dhour, nutlo[2];
   double dlt = AUNIT / CLIGHT / 86400.0;
-  double t, t2, t3, t4, t5, t6;
+  double t, t2, t3;
   tjd_et = tjd_ut + swe_deltat_ex(tjd_ut, -1, NULL);
   t = (tjd_et - J2000) / 365250.0;
-  t2 = t * t; t3 = t * t2; t4 = t * t3; t5 = t * t4; t6 = t * t5;
+  t2 = t * t; t3 = t * t2;
   /* mean longitude of earth J2000 */
   dlon = 100.46645683 + (1295977422.83429 * t - 2.04411 * t2 - 0.00523 * t3) / 3600.0;
   /* light time sun-earth */

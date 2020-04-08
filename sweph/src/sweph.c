@@ -72,6 +72,12 @@
 #include "sweph.h"
 #include "swephlib.h"
 
+#ifdef _MSC_VER
+#define CMP_CALL_CONV __cdecl
+#else
+#define CMP_CALL_CONV
+#endif
+
 #define IS_PLANET 		0
 #define IS_MOON			1
 #define IS_ANY_BODY		2
@@ -1378,7 +1384,7 @@ void load_dpsi_deps(void)
   FILE *fp;
   char s[AS_MAXCH];
   char *cpos[20];
-  int n = 0, np, iyear, mjd = 0, mjdsv = 0;
+  int n = 0, iyear, mjd = 0, mjdsv = 0;
   double dpsi, deps, TJDOFS = 2400000.5;
   if (swed.eop_dpsi_loaded > 0) 
     return;
@@ -1397,7 +1403,7 @@ void load_dpsi_deps(void)
   }
   swed.eop_tjd_beg_horizons = DPSI_DEPS_IAU1980_TJD0_HORIZONS;
   while (fgets(s, AS_MAXCH, fp) != NULL) {
-    np = swi_cutstr(s, " ", cpos, 16);
+    swi_cutstr(s, " ", cpos, 16);
     if ((iyear = atoi(cpos[0])) == 0) 
       continue;
     mjd = atoi(cpos[3]);
@@ -5984,26 +5990,31 @@ static int32 fixstar_format_search_name(char *star, char *sstar, char *serr)
 static int32 save_star_in_struct(int nrecs, struct fixed_star *fstp, char *serr)
 {
   int sizestru = sizeof(struct fixed_star);
+  struct fixed_star *ftarget;
   char *serr_alloc = "error in function load_all_fixed_stars(): could not resize fixed stars array";
   if ((swed.fixed_stars = realloc(swed.fixed_stars, nrecs * sizestru)) == NULL) {
     if (serr != NULL) strcpy(serr, serr_alloc);
     return ERR;
   }
-  memcpy((void *) swed.fixed_stars + (nrecs - 1) * sizestru, (void *) fstp, sizestru);
+  ftarget = swed.fixed_stars + (nrecs - 1);
+  memcpy((void *) ftarget, (void *) fstp, sizestru);
   return OK;
 }
 
 /* function for sorting fixed stars with qsort() */
-int fixedstar_name_compare(const struct fixed_star *star1, const struct fixed_star *star2)
+static int CMP_CALL_CONV fixedstar_name_compare(const void *star1, const void *star2)
 {
-  return strcmp(star1->skey, star2->skey);
+  const struct fixed_star *fs1 = (const struct fixed_star *) star1;
+  const struct fixed_star *fs2 = (const struct fixed_star *) star2;
+  return strcmp(fs1->skey, fs2->skey);
 }
 
 /* help function for finding a fixed star with bsearch() */
-int fstar_node_compare(const void *node1, const void *node2)
+static int CMP_CALL_CONV fstar_node_compare(const void *node1, const void *node2)
 {
-  return strcmp(((const struct fixed_star *)node1)->skey,
-                 ((const struct fixed_star *)node2)->skey);
+  const struct fixed_star *n1 = (const struct fixed_star *) node1;
+  const struct fixed_star *n2 = (const struct fixed_star *) node2;
+  return strcmp(n1->skey, n2->skey);
 }
 
 /* function cuts a comma-separated fixed star data record from sefstars.txt 
@@ -6122,7 +6133,7 @@ int32 fixstar_cut_string(char *srecord, char *star, struct fixed_star *stardata,
 static int32 load_all_fixed_stars(char *serr) 
 {
   int32 retc = OK;
-  int nstars = 0, line, fline, nrecs = 0, nnamed = 0;
+  int nstars = 0, line = 0, fline = 0, nrecs = 0, nnamed = 0;
   char s[AS_MAXCH], *sp;
   char srecord[AS_MAXCH];
   struct fixed_star fstdata;
@@ -6190,7 +6201,7 @@ static int32 load_all_fixed_stars(char *serr)
   swed.n_fixstars_records = nrecs;
   //printf("nstars=%d, nrecords=%d\n", nstars, nrecs);
   (void) qsort ((void *) swed.fixed_stars, (size_t) nrecs, sizeof (struct fixed_star),
-                    (int (*)(const void *,const void *))(fixedstar_name_compare));
+                    (int (CMP_CALL_CONV *)(const void *,const void *))(fixedstar_name_compare));
   return retc;
 }
 
@@ -6212,9 +6223,7 @@ static int32 fixstar_calc_from_struct(struct fixed_star *stardata, double tjd, i
   double ra_pm, de_pm, ra, de, t, cosra, cosde, sinra, sinde;
   double daya[2], rdist;
   double x[6], xxsv[6], xobs[6], xobs_dt[6], *xpo = NULL, *xpo_dt = NULL;
-  static TLS double tjd_save;
   static TLS double xearth[6], xearth_dt[6], xsun[6], xsun_dt[6];
-  struct plan_data *pedp = &swed.pldat[SEI_EARTH];
   double dt = PLAN_SPEED_INTV * 0.1;
   int32 epheflag, iflgsave;
   struct epsilon *oe = &swed.oec2000;
@@ -6312,9 +6321,7 @@ static int32 fixstar_calc_from_struct(struct fixed_star *stardata, double tjd, i
    * earth/sun 
    * for parallax, light deflection, and aberration,
    ****************************************************/
-  if ((!(iflag & SEFLG_BARYCTR) && (!(iflag & SEFLG_HELCTR) || !(iflag & SEFLG_MOSEPH)))
-    && tjd != pedp->teval) {
-    tjd_save = tjd;
+  if (!(iflag & SEFLG_BARYCTR) && (!(iflag & SEFLG_HELCTR) || !(iflag & SEFLG_MOSEPH))) {
     if ((retc =  main_planet_bary(tjd - dt, SEI_EARTH, epheflag, iflag, NO_SAVE, xearth_dt, xearth_dt, xsun_dt, NULL, serr)) != OK) {
       return ERR;
     }
@@ -6488,13 +6495,12 @@ if (0) {
  */
 static int32 search_star_in_list(char *sstar, struct fixed_star *stardata, char *serr)
 {
-  int i, cmplen, star_nr = 0, ndata = 0, len;
+  int i, star_nr = 0, ndata = 0, len;
   char *sp;
   char searchkey[AS_MAXCH];
   AS_BOOL is_bayer = FALSE;
   struct fixed_star *stardatap;
   struct fixed_star *stardatabegp;
-  cmplen = strlen(sstar);
   if (*sstar == ',') {
     is_bayer = TRUE;
   } else if (isdigit((int) *sstar)) {
@@ -6712,7 +6718,7 @@ int32 CALL_CONV swe_fixstar2_ut(char *star, double tjd_ut, int32 iflag,
   deltat = swe_deltat_ex(tjd_ut, iflag, serr);
   /* if ephe required is not ephe returned, adjust delta t: */
   retflag = swe_fixstar2(star, tjd_ut + deltat, iflag, xx, serr);
-  if ((retflag & SEFLG_EPHMASK) != epheflag) {
+  if (retflag != ERR && (retflag & SEFLG_EPHMASK) != epheflag) {
     deltat = swe_deltat_ex(tjd_ut, retflag, NULL);
     retflag = swe_fixstar2(star, tjd_ut + deltat, iflag, xx, NULL);
   }
@@ -7384,6 +7390,7 @@ static int32 swi_fixstar_load_record(char *star, char *srecord, char *sname, cha
     if (strlen(serr) + strlen(star) < AS_MAXCH) {
       sprintf(serr, "star %s not found", star);
     }
+    return ERR;
   }
   found:
   strcpy(srecord, s);
@@ -7428,10 +7435,8 @@ static int32 swi_fixstar_calc_from_record(char *srecord, double tjd, int32 iflag
   struct fixed_star stardata;
   double daya, rdist;
   double x[6], xxsv[6], xobs[6], xobs_dt[6], *xpo = NULL, *xpo_dt = NULL;
-  static TLS double tjd_save;
   static TLS double xearth[6], xearth_dt[6], xsun[6], xsun_dt[6];
   double dt = PLAN_SPEED_INTV * 0.1;
-  struct plan_data *pedp = &swed.pldat[SEI_EARTH];
   int32 epheflag, iflgsave;
   // char s[AS_MAXCH];
   struct epsilon *oe = &swed.oec2000;
@@ -7530,9 +7535,7 @@ static int32 swi_fixstar_calc_from_record(char *srecord, double tjd, int32 iflag
    * earth/sun 
    * for parallax, light deflection, and aberration,
    ****************************************************/
-  if ((!(iflag & SEFLG_BARYCTR) && (!(iflag & SEFLG_HELCTR) || !(iflag & SEFLG_MOSEPH)))
-    && tjd != pedp->teval) {
-    tjd_save = tjd;
+  if (!(iflag & SEFLG_BARYCTR) && (!(iflag & SEFLG_HELCTR) || !(iflag & SEFLG_MOSEPH))) {
     if ((retc =  main_planet_bary(tjd - dt, SEI_EARTH, epheflag, iflag, NO_SAVE, xearth_dt, xearth_dt, xsun_dt, NULL, serr)) == ERR) {
       return ERR;
     }
@@ -7715,9 +7718,6 @@ int32 CALL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
   double *xx, char *serr)
 {
   int i;
-  int star_nr = 0;
-  AS_BOOL  is_bayer = FALSE;
-  size_t cmplen;
   char sstar[SE_MAX_STNAME + 1];
   static TLS char slast_stardata[AS_MAXCH];
   static TLS char slast_starname[AS_MAXCH];
@@ -7732,13 +7732,12 @@ int32 CALL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
   retc = fixstar_format_search_name(star, sstar, serr);
   if (retc == ERR)
     goto return_err;
-  cmplen = strlen(sstar);
   if (*sstar == ',') {
-    is_bayer = TRUE;
+    ; // is Bayer designation
   } else if (isdigit((int) *sstar)) {
-    star_nr = atoi(sstar);
+    ; // is a sequential star number
   } else {
-    if ((sp = strchr(sstar, ',')) != NULL)
+    if ((sp = strchr(sstar, ',')) != NULL) // cut off Bayer, if trad. name
       *sp = '\0';
   }
   /* star elements from last call: */
@@ -7791,7 +7790,7 @@ int32 CALL_CONV swe_fixstar_ut(char *star, double tjd_ut, int32 iflag,
   deltat = swe_deltat_ex(tjd_ut, iflag, serr);
   /* if ephe required is not ephe returned, adjust delta t: */
   retflag = swe_fixstar(star, tjd_ut + deltat, iflag, xx, serr);
-  if ((retflag & SEFLG_EPHMASK) != epheflag) {
+  if (retflag != ERR && (retflag & SEFLG_EPHMASK) != epheflag) {
     deltat = swe_deltat_ex(tjd_ut, retflag, NULL);
     retflag = swe_fixstar(star, tjd_ut + deltat, iflag, xx, NULL);
   }
@@ -7811,9 +7810,6 @@ int32 CALL_CONV swe_fixstar_ut(char *star, double tjd_ut, int32 iflag,
 **********************************************************/
 int32 CALL_CONV swe_fixstar_mag(char *star, double *mag, char *serr)
 {
-  int star_nr = 0;
-  AS_BOOL  is_bayer = FALSE;
-  size_t cmplen;
   char sstar[SE_MAX_STNAME + 1];
   static TLS char slast_stardata[AS_MAXCH];
   static TLS char slast_starname[AS_MAXCH];
@@ -7825,13 +7821,12 @@ int32 CALL_CONV swe_fixstar_mag(char *star, double *mag, char *serr)
   retc = fixstar_format_search_name(star, sstar, serr);
   if (retc == ERR)
     goto return_err;
-  cmplen = strlen(sstar);
   if (*sstar == ',') {
-    is_bayer = TRUE;
+    ; // is Bayer designation
   } else if (isdigit((int) *sstar)) {
-    star_nr = atoi(sstar);
+    ; // is a sequential star number
   } else {
-    if ((sp = strchr(sstar, ',')) != NULL)
+    if ((sp = strchr(sstar, ',')) != NULL) // cut off Bayer, if trad. name
       *sp = '\0';
   }
   /* star elements from last call: */
