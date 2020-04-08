@@ -775,6 +775,16 @@ Public Declare Sub swe_set_lapse_rate Lib "swedll32.dll" _
           ByVal x As Double _
         )
 
+Public Declare Sub swe_set_delta_t_userdef Lib "swedll32.dll" _
+        Alias "_swe_set_delta_t_userdef@8" ( _
+          ByVal x As Double _
+        )
+
+Public Declare Sub swe_set_delta_t_userdef Lib "swedll32.dll" _
+        Alias "_swe_set_delta_t_userdef@8" ( _
+          ByVal x As Double _
+        )
+
 Public Declare Sub swe_set_tid_acc Lib "swedll32.dll" _
         Alias "_swe_set_tid_acc@8" ( _
           ByVal x As Double _
@@ -1047,6 +1057,36 @@ Public Declare Function swe_utc_time_zone Lib "swedll32.dll" _
      ByRef dsec_out As Double _
    ) As Long 
 
+Public Declare Function swe_get_library_path Lib "swedll32.dll" _
+        Alias "_swe_get_library_path@4" ( _
+          ByVal svers As String _
+        ) As String
+                        ' svers must be able to hold 256 bytes
+
+Public Declare Function swe_get_orbital_elements Lib "swedll32.dll" _
+        Alias "_swe_get_orbital_elements@24" ( _
+          ByVal tjd As Double, _
+          ByVal ipl As Long, _
+          ByVal iflag As Long, _
+          ByRef dret As Double, _
+          ByVal serr As String _
+        ) As Long       ' x must be first of six array elements
+                        ' serr must be able to hold 256 bytes
+                        ' star must be able to hold 40 bytes
+
+Public Declare Function swe_orbit_max_min_true_distance Lib "swedll32.dll" _
+        Alias "_swe_orbit_max_min_true_distance@32" ( _
+          ByVal tjd As Double, _
+          ByVal ipl As Long, _
+          ByVal iflag As Long, _
+          ByRef dmax As Double, _
+          ByRef dmin As Double, _
+          ByRef dtrue As Double, _
+          ByVal serr As String _
+        ) As Long       ' x must be first of six array elements
+                        ' serr must be able to hold 256 bytes
+                        ' star must be able to hold 40 bytes
+
 ' values for gregflag in swe_julday() and swe_revjul()
  Const SE_JUL_CAL As Integer = 0
  Const SE_GREG_CAL As Integer = 1
@@ -1129,11 +1169,13 @@ Const SEFLG_J2000 As Long = 32
 Const SEFLG_NONUT As Long = 64
 Const SEFLG_NOGDEFL As Long = 512
 Const SEFLG_NOABERR As Long = 1024
+Const SEFLG_ASTROMETRIC As Long = 1536
 Const SEFLG_EQUATORIAL As Long = 2048
 Const SEFLG_XYZ As Long = 4096
 Const SEFLG_RADIANS As Long = 8192
 Const SEFLG_BARYCTR As Long = 16384
 Const SEFLG_TOPOCTR As Long = 32768
+Const SEFLG_ORBEL_AA As Long = SEFLG_TOPOCTR 
 Const SEFLG_SIDEREAL As Long = 65536
 Const SEFLG_ICRS As Long = (128 * 1024)
 Const SEFLG_DPSIDEPS_1980 As Long = (256 * 1024)
@@ -1198,16 +1240,28 @@ Const SE_SIDM_SS_REVATI       As Long = 25
 Const SE_SIDM_SS_CITRA        As Long = 26
 Const SE_SIDM_TRUE_CITRA        As Long = 27
 Const SE_SIDM_TRUE_REVATI       As Long = 28
+Const SE_SIDM_TRUE_PUSHYA       As Long = 29
+Const SE_SIDM_GALCENT_RGILBRAND As Long = 30
+Const SE_SIDM_GALEQU_IAU1958  As Long = 31
+Const SE_SIDM_GALEQU_TRUE     As Long = 32
+Const SE_SIDM_GALEQU_MULA     As Long = 33
+Const SE_SIDM_GALALIGN_MARDYKS As Long = 34
+Const SE_SIDM_TRUE_MULA       As Long = 35
+Const SE_SIDM_GALCENT_MULA_WILHELM       As Long = 36
+Const SE_SIDM_ARYABHATA_522   As Long = 37
+Const SE_SIDM_BABYL_BRITTON   As Long = 38
 
 Const SE_SIDM_USER            As Long = 255
 
-Const SE_NSIDM_PREDEF         As Long = 29
+Const SE_NSIDM_PREDEF         As Long = 39
 
 Const SE_SIDBITS              As Long = 256
 'for projection onto ecliptic of t0
 Const SE_SIDBIT_ECL_T0        As Long = 256
 'for projection onto solar system plane
 Const SE_SIDBIT_SSY_PLANE     As Long = 512
+'with user-defined ayanamsha, t0 is UT
+Const SE_SIDBIT_USER_UT       As Long = 1024
 
 ' modes for planetary nodes/apsides, swe_nod_aps(), swe_nod_aps_ut()
 Const SE_NODBIT_MEAN		As Long = 1
