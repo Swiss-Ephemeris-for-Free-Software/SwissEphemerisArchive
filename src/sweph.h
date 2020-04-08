@@ -63,7 +63,7 @@
  * move over from swephexp.h
  */
 
-#define SE_VERSION      "1.79.00"
+#define SE_VERSION      "1.80.00"
 
 #define J2000           2451545.0  	/* 2000 January 1.5 */
 #define B1950           2433282.42345905  	/* 1950 January 0.923 */
@@ -374,8 +374,8 @@ static const struct aya_init ayanamsa[] = {
     {1903396.7895321, 0},	/*23: Aryabhata, same date, but UT 6:56:55.57
                                       analogous 21 */
     {1903396.7895321,-0.23763238},/*24: Aryabhata, analogous 22 */
-    {0, 0},                     /*25: - */
-    {0, 0},                     /*26: - */
+    {1903396.8128654,-0.79167046},/*25: SS, Revati/zePsc at polar long. 359°50'*/
+    {1903396.8128654, 2.11070444},/*26: SS, Citra/Spica at polar long. 180° */
     {0, 0},	                /*27: - */
     {0, 0},	                /*28: - */
     {0, 0},	                /*29: - */
@@ -460,6 +460,7 @@ extern int swi_moshplan(double tjd, int ipli, AS_BOOL do_save, double *xpret, do
 extern int swi_moshplan2(double J, int iplm, double *pobj);
 extern int swi_osc_el_plan(double tjd, double *xp, int ipl, int ipli, double *xearth, double *xsun, char *serr);
 extern FILE *swi_fopen(int ifno, char *fname, char *ephepath, char *serr);
+extern void swi_str_concat(char *sout, int maxch, char *s1, char *s2);
 
 /* nutation */
 struct nut {

@@ -1527,7 +1527,7 @@ int32 FAR PASCAL_CONV swe_lun_occult_when_glob(
   double dc[20], dctr;
   double twohr = 2.0 / 24.0;
   double tenmin = 10.0 / 24.0 / 60.0;
-  double dt1, dt2, dadd = 10, dadd2 = 6;
+  double dt1, dt2, dadd2 = 6;
   int nstartpos = 10;
   double geopos[20];
   double dtstart, dtdiv;
@@ -1563,6 +1563,8 @@ int32 FAR PASCAL_CONV swe_lun_occult_when_glob(
   if (backward)
     direction = -1;
   t = tjd_start - direction * 0.001;
+  tjd_start = t;
+  tjd = t;
 next_try:
   for (i = 0; i < nstartpos; i++, t += direction * dadd2) {
     if (calc_planet_star(t, ipl, starname, iflagcart, xs, serr) == ERR)
@@ -1572,15 +1574,20 @@ next_try:
     dc[i] = acos(swi_dot_prod_unit(xs, xm)) * RADTODEG;
     if (i > 1 && dc[i] > dc[i-1] && dc[i-2] > dc[i-1]) {
       tjd = t - direction * dadd2;
+      t = tjd;
       break;
+    } else if (fabs(tjd - t) > (30 - dadd2 * 0.8)) {
+      t = tjd;
     } else if (i == nstartpos-1) {
       /*for (j = 0; j < nstartpos; j++)
         printf("%f ", dc[j]);*/
       if (serr != NULL) {
-	if (starname != NULL && *starname != '\0')
-	  strcpy(s, starname);
-        else
+	if (starname != NULL && *starname != '\0') {
+	  *s = '\0';
+	  strncat(s, starname, 80);
+        } else {
 	  swe_get_planet_name(ipl , s);
+        }
 	sprintf(serr, "error in swe_lun_occult_when_glob(): conjunction of moon with planet %s not found\n", s);
       }
       return ERR;
@@ -1642,13 +1649,17 @@ next_try:
       tret[0] = tjd;
       return 0;
     }
-    t= tjd + direction * dadd;
+    /*t= tjd + direction * dadd;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   tret[0] = tjd;
   if ((backward && tret[0] >= tjd_start - 0.0001) 
     || (!backward && tret[0] <= tjd_start + 0.0001)) {
-    t= tjd + direction * dadd;
+    /*t= tjd + direction * dadd;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   /*
@@ -1667,27 +1678,37 @@ next_try:
    */
   /* non central eclipse is wanted: */
   if (!(ifltype & SE_ECL_NONCENTRAL) && (retflag & SE_ECL_NONCENTRAL)) {
-    t= tjd + direction * dadd;
+    /*t= tjd + direction * dadd;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   /* central eclipse is wanted: */
   if (!(ifltype & SE_ECL_CENTRAL) && (retflag & SE_ECL_CENTRAL)) {
-    t= tjd + direction * dadd;
+    /*t= tjd + direction * dadd;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   /* non annular eclipse is wanted: */
   if (!(ifltype & SE_ECL_ANNULAR) && (retflag & SE_ECL_ANNULAR)) {
-    t= tjd + direction * dadd;
+    /*t= tjd + direction * dadd;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   /* non partial eclipse is wanted: */
   if (!(ifltype & SE_ECL_PARTIAL) && (retflag & SE_ECL_PARTIAL)) {
-    t= tjd + direction * dadd;
+    /*t= tjd + direction * dadd;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   /* annular-total eclipse will be discovered later */
   if (!(ifltype & (SE_ECL_TOTAL | SE_ECL_ANNULAR_TOTAL)) && (retflag & SE_ECL_TOTAL)) {
-    t= tjd + direction * dadd;
+    /*t= tjd + direction * dadd;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   if (dont_times)
@@ -1772,12 +1793,16 @@ next_try:
   } 
   /* if eclipse is given but not wanted: */
   if (!(ifltype & SE_ECL_TOTAL) && (retflag & SE_ECL_TOTAL)) {
-    t= tjd + direction * dadd;
+    /*t= tjd + direction * dadd;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   /* if annular_total eclipse is given but not wanted: */
   if (!(ifltype & SE_ECL_ANNULAR_TOTAL) && (retflag & SE_ECL_ANNULAR_TOTAL)) {
-    t= tjd + direction * dadd;
+    /*t= tjd + direction * dadd;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   /*
@@ -2270,6 +2295,7 @@ static int32 occult_when_loc(
   if (backward)
     direction = -1;
   t = tjd_start - direction * 0.1;
+  tjd_start = t;
   tjd = tjd_start;
 next_try:
   for (i = 0; i < nstartpos; i++, t += direction * dadd2) {
@@ -2280,7 +2306,11 @@ next_try:
     dc[i] = acos(swi_dot_prod_unit(xs, xm)) * RADTODEG;
     if (i > 1 && dc[i] > dc[i-1] && dc[i-2] > dc[i-1]) {
       tjd = t - direction*dadd2;
+      t = tjd;
       break;
+    } else if (fabs(tjd - t) > (30 - dadd2 * 0.8)) {
+      t = tjd;
+      break; /* use initial tjd */
     } else if (i == nstartpos-1) {
       for (j = 0; j < nstartpos; j++)
         printf("%f ", dc[j]);
@@ -2322,7 +2352,9 @@ next_try:
         if (one_try) {
           stop_after_this = TRUE;
         } else {
-          t = tjd + direction * 2;
+          /*t = tjd + direction * 2;*/
+          t = tjd + direction * 20;
+          tjd = t;
           goto next_try;
         }
       }
@@ -2356,13 +2388,17 @@ next_try:
       tret[0] = tjd;
       return 0;
     }
-    t = tjd + direction;
+    /*t = tjd + direction;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   tret[0] = tjd - swe_deltat(tjd);
   if ((backward && tret[0] >= tjd_start - 0.0001) 
     || (!backward && tret[0] <= tjd_start + 0.0001)) {
-      t = tjd + direction;
+    /* t = tjd + direction;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
   if (dctr < rsminusrm)
@@ -2508,7 +2544,9 @@ next_try:
   }
 #if 1
   if (!(retflag & SE_ECL_VISIBLE)) {
-      t = tjd + direction;
+    /* t = tjd + direction;*/
+    t = tjd + direction * 20;
+    tjd = t;
     goto next_try;
   }
 #endif

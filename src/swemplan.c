@@ -754,11 +754,11 @@ static int read_elements_file(int32 ipl, double tjd,
     if ((sp = strchr(s, '#')) != NULL)
       *sp = '\0';
     ncpos = swi_cutstr(s, ",", cpos, 20);
-    sprintf(serri, "error in file %s, line %7.0f:",
-              SE_FICTFILE, (double) iline);
+    sprintf(serri, "error in file %s, line %7.0f:", SE_FICTFILE, (double) iline);
     if (ncpos < 9) {
-      if (serr != NULL) 
+      if (serr != NULL) {
         sprintf(serr, "%s nine elements required", serri);
+      }
       return ERR;
     }
     iplan++;
@@ -777,8 +777,9 @@ static int read_elements_file(int32 ipl, double tjd,
       else if (strncmp(sp, "j1900", 5) == OK)
         *tjd0 = J1900;
       else if (*sp == 'j' || *sp == 'b') {
-        if (serr != NULL) 
+        if (serr != NULL) {
           sprintf(serr, "%s invalid epoch", serri);
+	}
         goto return_err;
       } else
         *tjd0 = atof(sp);
@@ -800,8 +801,9 @@ static int read_elements_file(int32 ipl, double tjd,
       else if (strncmp(sp, "jdate", 5) == OK)
         *tequ = tjd;
       else if (*sp == 'j' || *sp == 'b') {
-        if (serr != NULL) 
+        if (serr != NULL) {
           sprintf(serr, "%s invalid equinox", serri);
+	}
         goto return_err;
       } else
         *tequ = atof(sp);
@@ -811,8 +813,9 @@ static int read_elements_file(int32 ipl, double tjd,
       retc = check_t_terms(tt, cpos[2], mano);
 	  *mano = swe_degnorm(*mano);
       if (retc == ERR) {
-        if (serr != NULL)
+        if (serr != NULL) {
           sprintf(serr, "%s mean anomaly value invalid", serri);
+	}
         goto return_err;
       }
       /* if mean anomaly has t terms (which happens with fictitious 
@@ -828,8 +831,9 @@ static int read_elements_file(int32 ipl, double tjd,
     if (sema != NULL) {
       retc = check_t_terms(tt, cpos[3], sema);
       if (*sema <= 0 || retc == ERR) {
-        if (serr != NULL)
+        if (serr != NULL) {
           sprintf(serr, "%s semi-axis value invalid", serri);
+	}
         goto return_err;
       }
     }
@@ -837,8 +841,9 @@ static int read_elements_file(int32 ipl, double tjd,
     if (ecce != NULL) {
       retc = check_t_terms(tt, cpos[4], ecce);
       if (*ecce >= 1 || *ecce < 0 || retc == ERR) {
-        if (serr != NULL)
+        if (serr != NULL) {
           sprintf(serr, "%s eccentricity invalid (no parabolic or hyperbolic orbits allowed)", serri);
+	}
         goto return_err;
       }
     }
@@ -847,8 +852,9 @@ static int read_elements_file(int32 ipl, double tjd,
       retc = check_t_terms(tt, cpos[5], parg);
 	  *parg = swe_degnorm(*parg);
       if (retc == ERR) {
-        if (serr != NULL)
+        if (serr != NULL) {
           sprintf(serr, "%s perihelion argument value invalid", serri);
+	}
         goto return_err;
       }
       *parg *= DEGTORAD;
@@ -858,8 +864,9 @@ static int read_elements_file(int32 ipl, double tjd,
       retc = check_t_terms(tt, cpos[6], node);
 	  *node = swe_degnorm(*node);
       if (retc == ERR) {
-        if (serr != NULL)
+        if (serr != NULL) {
           sprintf(serr, "%s node value invalid", serri);
+	}
         goto return_err;
       }
       *node *= DEGTORAD;
@@ -869,8 +876,9 @@ static int read_elements_file(int32 ipl, double tjd,
       retc = check_t_terms(tt, cpos[7], incl);
 	  *incl = swe_degnorm(*incl);
       if (retc == ERR) {
-        if (serr != NULL)
+        if (serr != NULL) {
           sprintf(serr, "%s inclination value invalid", serri);
+	}
         goto return_err;
       }
       *incl *= DEGTORAD;
@@ -893,8 +901,9 @@ static int read_elements_file(int32 ipl, double tjd,
     break;
   }
   if (!elem_found) {
-    if (serr != NULL)
+    if (serr != NULL) {
       sprintf(serr, "%s elements for planet %7.0f not found", serri, (double) ipl);
+    }
     goto return_err;
   }
   fclose(fp);

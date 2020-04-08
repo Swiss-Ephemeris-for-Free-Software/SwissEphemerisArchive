@@ -44,6 +44,7 @@ J1900, J1900, 165.5163, 83.66907, 0.00000,   0.0000,   0.0000, 0.0000, Poseidon 
     # The fraction is counted from 1 Jan. 1772
 2368547.66, 2431456.5, 0.0, 77.775, 0.3, 0.7, 0, 0, Isis-Transpluto             # 9
     # Nibiru, elements from Christian Woeltge, Hannover
+2415200, J1900, 0.0, 234.8921, 0.999592, -89.0, 88.0, 136.0, Nxbiru # 10
 1856113.380954, 1856113.380954, 0.0, 234.8921, 0.981092, 103.966, -44.567, 158.708, Nibiru # 10
     # Harrington, elements from Astronomical Journal 96(4), Oct. 1988 
 2374696.5, J2000, 0.0, 101.2, 0.411, 208.5, 275.4, 32.4, Harrington             # 11
