@@ -2,6 +2,9 @@
 # ====================================
 # At the same time a brief introduction into asteroids
 # ====================================================
+# Dieter Koch
+# updated 9 Feb 2004
+#
 # 
 # Ephemerides of all of the asteroids mentioned below
 # can be found on the SwissEph CD-ROM.
@@ -39,8 +42,8 @@
 # and none of them has been given a name as yet.
 # 
 # 
-# The largest asteroids
-# ---------------------
+# The largest main belt asteroids
+# -------------------------------
 # Most asteroids are actually only debris of collisions
 # of small planets that formed in the beginning of the 
 # solar system. Only the largest ones are still more
@@ -61,7 +64,7 @@
 15   Eunomia      # 260 km  one of the Hours, order and law
 324  Bamberga     # 252 km  after a city in Bavaria
 3    Juno         # 248 km  wife of Zeus
-15   Psyche       # 248 km  "soul", name of a nymph
+16   Psyche       # 248 km  "soul", name of a nymph
 
 
 # Asteroid families
@@ -97,11 +100,14 @@
 3200 Phaethon     # wanted to drive the solar chariot, crashed in flames
                   # Phaethon crosses Mercury, Venus, Earth, and Mars
                   # and has his perihelion very close to the Sun
+69230 Hermes      # Greek name of Mercury; 
+		  # discovered and lost in 1937, rediscovered in 2003
 
 # Amor family: they cross Mars, approach Earth
 
 1221 Amor         # Roman love god
 433  Eros         # Greek love god
+719  Albert       # dicovered and lost in 1911 rediscovered in 2000
 
 # Mars Trojans:
 # -------------
@@ -187,6 +193,10 @@
 7066 Nessus       # perihelion near Saturn, aphelion in Pluto's mean distance
                   # ferryman, killed by Hercules, kills Hercules
 
+# Neptune Trojans:
+# ----------------
+# none named by Feb 2004
+
 # Plutinos:
 # ---------
 # These are objects with periods similar to Pluto, i.e. objects
@@ -194,18 +204,31 @@
 # There are no Plutinos included in Swiss Ephemeris so far, but
 # PLUTO himself can be considered a Plutino type asteroid!
 
+28978 Ixion       # largest Plutino by Feb 2004 (besides Pluto himself): 1060 km
+
 # Cubewanos:
 # ----------
 # These are non-Plutino objects with periods greater than Pluto.
 # The word "Cubewano" is derived from the preliminary designation
 # of the first-discovered Cubewano: 1992 QB1
+# to be named after creation deities 
 
-20001 1992 QB1    # will be given the name of a creation deity 
-                  # (ficticious catalogue number 20001!)
+15760 1992 QB1    # first-discovered Cubewano
+20000 Varuna      # 980 km
+50000 Quaoar      # largest Cubewano by Feb 2004: 1230 km
 
-# other Transplutonians:
+# Scattered-Disk Objects:
+# ----------------------
+# Highly eccentric trans-Neptunian orbits
+# none named by Feb 2004
 
-20001 1996 TL66   # mean solar distance 85 AU, period 780 years
+# strange bodies
+# --------------------
+20461 Dioretsa	  # a retrograde asteroid at Period = 115 years (a=23.757)
+                  # perihelion = 2.4 AU aphelion = 45 AU, incl = 160
+# 2003 VB12 (= Sedna) # period = 11500 years (a = 509)
+                  # perihelion = 76.067, aphelion = 942 
+
 
 # Asteroids that challenge hypothetical planets astrology
 # -------------------------------------------------------
@@ -305,8 +328,6 @@
 1221 Amor               
 1387 Kama         # Indian god of sexual desire           
 1388 Aphrodite    # Greek love Goddess
-1389 Onnie        # what is this, after 1387 and 1388 ?
-1390 Abastumani   # and this?
  966 Muschi       
 
 # The Nine Muses
@@ -353,16 +374,15 @@ And there are many more...
 
 # programmers group:
 3045 Alois
-2396 Kochi
+10847 Koch
 2968 Iliya        # Alois' dog
 
 # artists group:
 412  Elisabetha
 
 # production family:
-612  Veronika
-1376 Michelle
-1343 Nicole
+2569 Madeline
+517 Edith
 1716 Peter
 
 # children group

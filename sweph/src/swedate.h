@@ -1,9 +1,7 @@
-/*******************************************************
-$Header: swehouse.h,v 1.65 2003/06/14 13:09:50 alois Exp $
-module swehouse.h
-house and (simple) aspect calculation 
-
-*******************************************************/
+/*********************************************************
+  $Header: swedate.h,v 1.65 2003/06/14 13:09:52 alois Exp $
+  version 15-feb-89 16:30
+*********************************************************/
 
 /* Copyright (C) 1997, 1998 Astrodienst AG, Switzerland.  All rights reserved.
   
@@ -43,27 +41,27 @@ house and (simple) aspect calculation
   The trademarks 'Swiss Ephemeris' and 'Swiss Ephemeris inside' may be used
   for promoting such software, products or services.
 */
-struct houses {
-	  double cusp[37];
-	  double ac;
-	  double mc;
-	  double vertex;
-	  double equasc;
-	  double coasc1;
-	  double coasc2;
-	  double polasc;
-	};
 
-#define HOUSES 	struct houses
-#define VERY_SMALL	1E-10
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#define degtocs(x)    (d2l((x) * DEG))
-#define cstodeg(x)    (double)((x) * CS2DEG)
+#ifndef _SWEDLL_H
+extern EXP32 int FAR PASCAL_CONV EXP16 swe_date_conversion (
+	int y , int m , int d ,		/* year, month, day */
+     	double utime, 	/* universal time in hours (decimal) */
+     	char c,  	/* calendar g[regorian]|j[ulian]|a[stro = greg] */
+ 	double *tgmt);
 
-#define sind(x) sin(x * DEGTORAD)
-#define cosd(x) cos(x * DEGTORAD)
-#define tand(x) tan(x * DEGTORAD)
-#define asind(x) (asin(x) * RADTODEG)
-#define acosd(x) (acos(x) * RADTODEG)
-#define atand(x) (atan(x) * RADTODEG)
-#define atan2d(y, x) (atan2(y, x) * RADTODEG)
+extern EXP32 double *FAR PASCAL_CONV EXP16 swe_julday(
+	int year, int month, int day, double hour, 
+	int gregflag);
+
+extern EXP32 void FAR PASCAL_CONV EXP16 swe_revjul (
+	double jd, 
+	int gregflag,
+     	int *jyear, int *jmon, int *jday, double *jut);
+#endif
+#ifdef __cplusplus
+}
+#endif
