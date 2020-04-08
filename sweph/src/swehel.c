@@ -3341,8 +3341,9 @@ int32 FAR PASCAL_CONV swe_heliacal_ut(double JDNDaysUTStart, double *dgeo, doubl
    */
   if (Planet == SE_MOON) {
     if (TypeEvent == 1 || TypeEvent == 2) {
-      if (serr_ret != NULL)
+      if (serr_ret != NULL) {
         sprintf(serr_ret, "%s (event type %d) does not exist for the moon\n", sevent[TypeEvent], TypeEvent);
+      }
       return ERR;
     }
     tjd = tjd0;

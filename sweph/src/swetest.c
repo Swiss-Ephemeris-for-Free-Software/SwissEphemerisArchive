@@ -104,7 +104,7 @@ static char *infocmd1 = "\n\
                 number is given, the default is 20.\n\
         -sN     timestep N days, default 1. This option is only meaningful\n\
                 when combined with option -n.\n\
-		";
+";
 static char *infocmd2 = "\
      output format:\n\
         -fSEQ   use SEQ as format sequence for the output columns;\n\
@@ -125,9 +125,28 @@ static char *infocmd2 = "\
 		Greenwich UK and Placidus is used: 0.00,51.50,p.\n\
 		The output lists 12 house cusps, Asc, MC, ARMC and Vertex.\n\
 		Houses can only be computed if option -ut is given.\n\
+                   A  equal\n\
+                   E  equal\n\
+                   B  Alcabitius\n\
+                   C  Campanus\n\
+                   G  36 Gauquelin sectors\n\
+                   H  horizon / azimut\n\
+                   K  Koch\n\
+                   M  Morinus\n\
+                   O  Porphyry\n\
+                   P  Placidus\n\
+                   R  Regiomontanus\n\
+                   T  Polich/Page (\"topocentric\")\n\
+                   U  Krusinski-Pisa-Goelzer\n\
+                   V  equal Vehlow\n\
+                   W  equal, whole sign\n\
+                   X  axial rotation system/ Meridian houses\n\
+                   Y  APC houses\n\
         -hsy[hsys]	\n\
 		house system to be used (for house positions of planets)\n\
 		for long, lat, hsys, see -house\n\
+";
+static char *infocmd3 = "\
         -geopos[long,lat,elev]	\n\
 		Geographic position. Can be used for azimuth and altitude\n\
                 or topocentric or house cups calculations.\n\
@@ -141,8 +160,6 @@ static char *infocmd2 = "\
 	                                           'sid1' for Lahiri\n\
 	-sidt0..  sidereal, projection on ecliptic of t0 \n\
 	-sidsp..  sidereal, projection on solar system plane \n\
-	";
-static char *infocmd3 = "\
      ephemeris specifications:\n\
         -edirPATH change the directory of the ephemeris files \n\
         -eswe   swiss ephemeris\n\
@@ -169,6 +186,8 @@ static char *infocmd3 = "\
         -testaa97\n\
         -roundsec         round to seconds\n\
         -roundmin         round to minutes\n\
+";
+static char *infocmd4 = "\
      observer position:\n\
         -hel    compute heliocentric positions\n\
         -bary   compute barycentric positions (bar. earth instead of node) \n\
@@ -178,8 +197,6 @@ static char *infocmd3 = "\
 		commas separated, + for east and north. If none are given,\n\
 		Zuerich is used: 8.55,47.38,400\n\
 \n\
-	";
-static char *infocmd4 = "\
      special events:\n\
         -solecl solar eclipse\n\
                 output 1st line:\n\
@@ -205,6 +222,8 @@ static char *infocmd4 = "\
                 output 2nd line:\n\
                   6 contacts for start and end of penumbral, partial, and\n\
                   total phase\n\
+";
+static char *infocmd5 = "\
         -local  only with -solecl or -occult, if the next event of this\n\
                 kind is wanted for a given geogr. position.\n\
                 Use -geopos[long,lat,elev] to specify that position.\n\
@@ -223,8 +242,6 @@ static char *infocmd4 = "\
 		type 3 = evening first\n\
 		type 4 = morning last\n\
 	        type 0 or missing = all four events are listed.\n\
-		";
-static char *infocmd5 = "\
         -rise   rising and setting of a planet or star.\n\
                 Use -geopos[long,lat,elev] to specify geographical position.\n\
         -metr   southern and northern meridian transit of a planet of star\n\
@@ -241,6 +258,8 @@ static char *infocmd5 = "\
         -norefrac   neglect refraction (with option -rise)\n\
         -disccenter find rise of disc center (with option -rise)\n\
 	-hindu      hindu version of sunrise (with option -rise)\n\
+";
+static char *infocmd6 = "\
      specifications for heliacal events:\n\
         -at[press,temp,rhum,visr]:\n\
 	            pressure in hPa\n\
@@ -611,7 +630,8 @@ int main(int argc, char *argv[])
     if (strncmp(argv[i], "-ut", 3) == 0) {
       universal_time = TRUE;
       if (strlen(argv[i]) > 3) {
-	strcpy(s1, argv[i] + 3);
+        *s1 = '\n';
+	strncat(s1, argv[i] + 3, 30);
 	if ((sp = strchr(s1, ':')) != NULL) {
 	  *sp = '.';
 	  if ((sp = strchr(s1, ':')) != NULL) {
@@ -621,9 +641,9 @@ int main(int argc, char *argv[])
 	}
         thour = atof(s1);
         /* h.mmss -> decimal */
-        t =  fmod(thour, 1) * 100 + 1e-10;
+        t =  fmod(thour, 1) * 100 + 1e-6;
         j = (int) t;
-        t = fmod(t, 1) * 100 + 1e-10;
+        t = fmod(t, 1) * 100 + 1e-6;
         thour = (int) thour + j / 60.0 + t / 3600.0;
       }
     } else if (strncmp(argv[i], "-head", 5) == 0) {
@@ -661,25 +681,29 @@ int main(int argc, char *argv[])
       begindate = argv[i] + 1;
     } else if (strncmp(argv[i], "-ejpl", 5) == 0) {
       whicheph = SEFLG_JPLEPH;
-      if (*(argv[i]+5) != '\0')
-        strcpy(fname, argv[i]+5);
+      if (*(argv[i]+5) != '\0') {
+	*fname = '\0';
+        strncat(fname, argv[i]+5, sizeof(fname) - 1);
+      }
     } else if (strncmp(argv[i], "-edir", 5) == 0) {
-      if (*(argv[i]+5) != '\0')
-        strcpy(ephepath, argv[i]+5);
+      if (*(argv[i]+5) != '\0') {
+	*ephepath = '\0';
+        strncat(ephepath, argv[i]+5, sizeof(ephepath) - 1);
+      }
     } else if (strcmp(argv[i], "-eswe") == 0) {
       whicheph = SEFLG_SWIEPH;
     } else if (strcmp(argv[i], "-emos") == 0) {
       whicheph = SEFLG_MOSEPH;
     } else if (strncmp(argv[i], "-helflag", 8) == 0) {
       helflag = atoi(argv[i]+8);
-      fprintf(stderr, "hier %d\n", helflag);
     } else if (strcmp(argv[i], "-hel") == 0) {
       iflag |= SEFLG_HELCTR;
     } else if (strcmp(argv[i], "-bary") == 0) {
       iflag |= SEFLG_BARYCTR;
     } else if (strncmp(argv[i], "-house", 6) == 0) {
-      *sout = '\0';
-      sscanf(argv[i] + 6, "%lf,%lf,%s", &top_long, &top_lat, sout);
+      sout[0] = '\0';
+      sout[1] = '\0';
+      sscanf(argv[i] + 6, "%lf,%lf,%c", &top_long, &top_lat, sout);
       top_elev = 0;
       if (*sout) ihsy = sout[0];
       do_houses = TRUE;
@@ -799,16 +823,20 @@ int main(int argc, char *argv[])
       }
     } else if (strncmp(argv[i], "-xs", 3) == 0) {
       /* number of asteroid */
-      strcpy(sastno, argv[i] + 3);
+      *sastno = '\0';
+      strncat(sastno, argv[i] + 3, sizeof(sastno) - 1);
     } else if (strncmp(argv[i], "-xf", 3) == 0) {
       /* name or number of fixed star */
-      strcpy(star, argv[i] + 3);
+      *star = '\0';
+      strncat(star, argv[i] + 3, sizeof(star) - 1);
     } else if (strncmp(argv[i], "-xz", 3) == 0) {
       /* number of hypothetical body */
-      strcpy(shyp, argv[i] + 3);
+      *shyp = '\0';
+      strncat(shyp, argv[i] + 3, sizeof(shyp) - 1);
     } else if (strncmp(argv[i], "-x", 2) == 0) {
       /* name or number of fixed star */
-      strcpy(star, argv[i] + 2);
+      *star = '\0';
+      strncat(star, argv[i] + 2, sizeof(star) - 1);
     } else if (strncmp(argv[i], "-n", 2) == 0) {
       nstep = atoi(argv[i]+2);
       if (nstep == 0)
@@ -839,7 +867,8 @@ int main(int argc, char *argv[])
       round_flag |= BIT_ROUND_MIN;
     } else if (strncmp(argv[i], "-t", 2) == 0) {
       if (strlen(argv[i]) > 2) {
-	strcpy(s1, argv[i] + 2);
+        *s1 = '\n';
+	strncat(s1, argv[i] + 3, 30);
 	if ((sp = strchr(s1, ':')) != NULL) {
 	  *sp = '.';
 	  if ((sp = strchr(s1, ':')) != NULL) {
@@ -849,36 +878,39 @@ int main(int argc, char *argv[])
 	}
         thour = atof(s1);
         /* h.mmss -> decimal */
-        t =  fmod(thour, 1) * 100 + 1e-10;
+        t =  fmod(thour, 1) * 100 + 1e-6;
         j = (int) t;
-        t = fmod(t, 1) * 100 + 1e-10;
+        t = fmod(t, 1) * 100 + 1e-6;
         thour = (int) thour + j / 60.0 + t / 3600.0;
       }
     } else if (strncmp(argv[i], "-h", 2) == 0
       || strncmp(argv[i], "-?", 2) == 0) {
       sp = argv[i]+2;
       if (*sp == 'c' || *sp == '\0') {
-        printf(infocmd0);
-        printf(infocmd1);
-        printf(infocmd2);
-        printf(infocmd3);
-        printf(infocmd4);
-        printf(infocmd5);
+        fputs(infocmd0,stdout);
+        fputs(infocmd1,stdout);
+        fputs(infocmd2,stdout);
+        fputs(infocmd3,stdout);
+        fputs(infocmd4,stdout);
+        fputs(infocmd5,stdout);
+        fputs(infocmd6,stdout);
       }
       if (*sp == 'p' || *sp == '\0')
-        printf(infoplan);
+        fputs(infoplan,stdout);
       if (*sp == 'f' || *sp == '\0') {
-        printf(infoform);
-        printf(infoform2);
+        fputs(infoform,stdout);
+        fputs(infoform2,stdout);
       }
       if (*sp == 'd' || *sp == '\0')
-        printf(infodate);
+        fputs(infodate,stdout);
       if (*sp == 'e' || *sp == '\0')
-        printf(infoexamp);
+        fputs(infoexamp,stdout);
       goto end_main;
     } else {
-      sprintf(sout, "illegal option %s\n", argv[i]);
-      printf(sout);
+      strcpy(sout, "illegal option ");
+      strncat(sout,  argv[i], sizeof(sout) - 50);
+      strcat(sout, "\n");
+      fputs(sout,stdout);
       exit(1);
     }
   }
@@ -906,16 +938,16 @@ int main(int argc, char *argv[])
 #endif
   if (with_header) {
     for (i = 0; i < argc; i++) {
-      printf(argv[i]);
+      fputs(argv[i],stdout);
       printf(" ");
     }
   }
   iflag = (iflag & ~SEFLG_EPHMASK) | whicheph;
   if (strpbrk(fmt, "SsQ") != NULL) 
     iflag |= SEFLG_SPEED;
-  if (*ephepath != '\0')
+  if (*ephepath != '\0') {
     swe_set_ephe_path(ephepath);
-  else if (make_ephemeris_path(iflag, argv[0]) == ERR) {
+  } else if (make_ephemeris_path(iflag, argv[0]) == ERR) {
     iflag = (iflag & ~SEFLG_EPHMASK) | SEFLG_MOSEPH;
     whicheph = SEFLG_MOSEPH;
   }
@@ -928,7 +960,8 @@ int main(int argc, char *argv[])
       sdate[0] = '\0';
       if( !fgets(sdate, AS_MAXCH, stdin) ) goto end_main;
     } else {
-      strcpy(sdate, begindate);
+      *sdate = '\0';
+      strncat(sdate, begindate, AS_MAXCH-1);
       begindate = ".";  /* to exit afterwards */
     }
     if (strcmp(sdate, "-bary") == 0) {
@@ -957,7 +990,7 @@ int main(int argc, char *argv[])
       *sdate = '\0';
     } else if (strncmp(sdate, "-xs",3) == 0) {
       /* number of asteroid */
-      strcpy(sastno, sdate + 3);
+      strcpy(sastno,  sdate + 3);
       *sdate = '\0';
     }
     sp = sdate;
@@ -968,8 +1001,9 @@ int main(int argc, char *argv[])
     } else {
       strcpy (sdate_save, sdate);
     }
-    if (*sdate == '\0')
+    if (*sdate == '\0') {
       sprintf(sdate, "j%f", tjd);
+    }
     if (*sp == 'j') {   /* it's a day number */
       if ((sp2 = strchr(sp, ',')) != NULL) 
         *sp2 = '.';
@@ -1025,21 +1059,17 @@ int main(int argc, char *argv[])
       t2 = t;
       swe_revjul(t2, gregflag, &jyear, &jmon, &jday, &jut);
       if (with_header) {
-        sprintf(sout, "\ndate (dmy) %d.%d.%d", jday, jmon, jyear);
-        printf(sout);
+        printf("\ndate (dmy) %d.%d.%d", jday, jmon, jyear);
         if (gregflag)
           printf(" greg.");
         else
           printf(" jul.");
         t2 = jut;
-        sprintf(sout, "  % 2d:", (int) t2); 
-        printf(sout);
+        printf("  % 2d:", (int) t2); 
         t2 = (t2 - (int32) t2) * 60;
-        sprintf(sout, "%02d:", (int) t2); 
-        printf(sout);
+        printf("%02d:", (int) t2); 
         t2 = (t2 - (int32) t2) * 60;
-        sprintf(sout, "%02d", (int) t2); 
-        printf(sout);
+        printf("%02d", (int) t2); 
         if (universal_time)
           printf(" UT");
         else
@@ -1049,12 +1079,10 @@ int main(int argc, char *argv[])
       delt = swe_deltat(t);
       if (universal_time) {
         if (with_header) {
-          sprintf(sout, "\nUT: %.11f", t);
-          printf(sout);
+          printf("\nUT: %.11f", t);
         }
         if (with_header) {
-          sprintf(sout, "     delta t: %f sec", delt * 86400.0);
-          printf(sout);
+          printf("     delta t: %f sec", delt * 86400.0);
         }
         te = t + delt;
         tut = t;
@@ -1064,12 +1092,10 @@ int main(int argc, char *argv[])
       }
       iflgret = swe_calc(te, SE_ECL_NUT, iflag, xobl, serr);
       if (with_header) {
-        sprintf(sout, "\nET: %.11f", te);
-        printf(sout);
+        printf("\nET: %.11f", te);
 	if (iflag & SEFLG_SIDEREAL) {
 	  daya = swe_get_ayanamsa(te);
-	  sprintf(sout, "   ayanamsa = %s", dms(daya, round_flag));
-	  printf(sout);
+	  printf("   ayanamsa = %s", dms(daya, round_flag));
 	}
 	if (have_geopos) {
 	  printf("\ngeo. long %f, lat %f, alt %f", geopos[0], geopos[1], geopos[2]);
@@ -1077,25 +1103,24 @@ int main(int argc, char *argv[])
 	if (iflag_f >=0)
 	  iflag = iflag_f;
 	if (strchr(plsel, 'o') == NULL) {
-	  sprintf(sout, "\n%-15s %s", "Epsilon (true)", dms(xobl[0],round_flag)); 
-	  printf(sout);
+	  printf("\n%-15s %s", "Epsilon (true)", dms(xobl[0],round_flag)); 
 	}
 	if (strchr(plsel, 'n') == NULL) {
-	  strcpy(s1, dms(xobl[2], round_flag)); 
-	  strcpy(s2, dms(xobl[3], round_flag));
-	  sprintf(sout, "\n%-15s %s%s%s", "Nutation", s1, gap, s2);
-	  printf(sout);
+	  fputs("\nNutation        ", stdout);
+	  fputs(dms(xobl[2], round_flag), stdout);
+	  fputs(gap, stdout);
+	  fputs(dms(xobl[3], round_flag), stdout);
 	}
         printf("\n");
 	if (do_houses) {
+	  char *shsy = swe_house_name(ihsy);
 	  if (!universal_time) {
 	    do_houses = FALSE;
 	    printf("option -house requires option -ut for Universal Time\n");
 	  } else {
 	  strcpy(s1, dms(top_long, round_flag)); 
 	  strcpy(s2, dms(top_lat, round_flag));
-	  sprintf(sout, "Houses system %c for long=%s, lat=%s\n", ihsy, s1, s2);
-	  printf(sout);
+	  printf("Houses system %c (%s) for long=%s, lat=%s\n", ihsy, shsy, s1, s2);
 	  }
 	}
       }
@@ -1103,7 +1128,11 @@ int main(int argc, char *argv[])
         with_header = FALSE;
       if (do_ayanamsa) {
 	daya = swe_get_ayanamsa(te);
-	printf("Ayanamsa%s%s\n", gap, dms(daya, round_flag));
+	fputs("Ayanamsa", stdout);
+	fputs(gap, stdout);
+	fputs(dms(daya, round_flag), stdout);
+	fputs("\n", stdout);
+	/*printf("Ayanamsa%s%s\n", gap, dms(daya, round_flag));*/
 	continue;
       }
       if (strchr(plsel, 'e'))
@@ -1173,8 +1202,9 @@ int main(int argc, char *argv[])
                 || ipl == SE_MEAN_NODE || ipl == SE_TRUE_NODE
                 || ipl == SE_CHIRON || ipl == SE_PHOLUS || ipl == SE_CUPIDO 
                 || ipl >= SE_AST_OFFSET || ipl == SE_FIXSTAR)) {
-            sprintf(sout, "error: %s\n", serr);
-            printf(sout);
+            fputs("error: ", stdout);
+            fputs(serr, stdout);
+            fputs("\n", stdout);
           }
           strcpy(serr_save, serr);
         } else if (*serr != '\0' && *serr_warn == '\0') {
@@ -1184,8 +1214,9 @@ int main(int argc, char *argv[])
         if (diff_mode) {
           iflgret = swe_calc(te, ipldiff, iflag, x2, serr);
           if (iflgret < 0) { 
-            sprintf(sout, "error: %s\n", serr);
-            printf(sout);
+            fputs("error: ", stdout);
+            fputs(serr, stdout);
+            fputs("\n", stdout);
           }
 	  if (diff_mode == DIFF_DIFF) {
 	    for (i = 1; i < 6; i++) 
@@ -1344,8 +1375,7 @@ int main(int argc, char *argv[])
 	print_line(0);
         line_count++;
         if (line_count >= line_limit) {
-          sprintf(sout, "****** line count %d was exceeded\n", line_limit);
-          printf(sout);
+          printf("****** line count %d was exceeded\n", line_limit);
           break;
         }
       }         /* for psp */
@@ -1358,8 +1388,9 @@ int main(int argc, char *argv[])
 	iflgret = swe_houses_ex(t,iflag, top_lat, top_long, ihsy, cusp, cusp+iofs);
         if (iflgret < 0) { 
           if (strcmp(serr, serr_save) != 0 ) {
-            sprintf(sout, "error: %s\n", serr);
-            printf(sout);
+            fputs("error: ", stdout);
+            fputs(serr, stdout);
+            fputs("\n", stdout);
           }
           strcpy(serr_save, serr);
 	} else {
@@ -1380,7 +1411,7 @@ int main(int argc, char *argv[])
     }           /* for tjd */
     if (*serr_warn != '\0') {
       printf("\nwarning: ");
-      printf(serr_warn);
+      fputs(serr_warn,stdout);
       printf("\n");
     }
   }             /* while 1 */
@@ -1397,7 +1428,7 @@ int main(int argc, char *argv[])
  */
 static int print_line(int mode)
 {
-  char *sp, *sp2, sout[AS_MAXCH];
+  char *sp, *sp2;
   double t2, ju2 = 0;
   double y_frac;
   double ar, sinp;
@@ -1408,183 +1439,184 @@ static int print_line(int mode)
   for (sp = fmt; *sp != '\0'; sp++) {
     if (is_house && strchr("bBsSrRxXuUQnNfF+-*/=", *sp) != NULL) continue;
     if (sp != fmt) 
-      printf(gap);
+      fputs(gap,stdout);
     switch(*sp) {
     case 'y':
         if (is_label) { printf("year"); break; }
-	sprintf(sout, "%d", jyear);
-	printf(sout);
+	printf("%d", jyear);
 	break;
     case 'Y':
         if (is_label) { printf("year"); break; }
 	t2 = swe_julday(jyear,1,1,ju2,gregflag);
 	y_frac = (t - t2) / 365.0;
-	sprintf(sout, "%.2f", jyear + y_frac);
-	printf(sout);
+	printf("%.2f", jyear + y_frac);
 	break;
     case 'p':
         if (is_label) { printf("obj.nr"); break; }
-	if (! is_house && diff_mode == DIFF_DIFF)
-	  sprintf(sout, "%d-%d", ipl, ipldiff);
-	else if (! is_house && diff_mode == DIFF_MIDP)
-	  sprintf(sout, "%d/%d", ipl, ipldiff);
-	else
-	  sprintf(sout, "%d", ipl);
-	printf(sout);
+	if (! is_house && diff_mode == DIFF_DIFF) {
+	  printf("%d-%d", ipl, ipldiff);
+	} else if (! is_house && diff_mode == DIFF_MIDP) {
+	  printf("%d/%d", ipl, ipldiff);
+	} else {
+	  printf("%d", ipl);
+	}
 	break;
     case 'P':
         if (is_label) { printf("%-15s", "name"); break; }
 	if (is_house) {
-	  if (ipl <= nhouses)
-	    sprintf(sout, "house %2d       ", ipl);
-	  else
-	    sprintf(sout, "%-15s", hs_nam[ipl - nhouses]);
-	} else if (diff_mode == DIFF_DIFF)
-	  sprintf(sout, "%.3s-%.3s", spnam, spnam2);
-	else if (diff_mode == DIFF_MIDP)
-	  sprintf(sout, "%.3s/%.3s", spnam, spnam2);
-	else
-	  sprintf(sout, "%-15s", spnam);
-	printf(sout);
+	  if (ipl <= nhouses) {
+	    printf("house %2d       ", ipl);
+	  } else {
+	    printf("%-15s", hs_nam[ipl - nhouses]);
+	  }
+	} else if (diff_mode == DIFF_DIFF) {
+	  printf("%.3s-%.3s", spnam, spnam2);
+	} else if (diff_mode == DIFF_MIDP) {
+	  printf("%.3s/%.3s", spnam, spnam2);
+	} else {
+	  printf("%-15s", spnam);
+	}
 	break;
     case 'J':
         if (is_label) { printf("julday"); break; }
 	y_frac = (t - floor(t)) * 100;
-	if (floor(y_frac) != y_frac)
-	  sprintf(sout, "%.5f", t);
-	else
-	  sprintf(sout, "%.2f", t);
-	printf(sout);
+	if (floor(y_frac) != y_frac) {
+	  printf("%.5f", t);
+	} else {
+	  printf("%.2f", t);
+	}
 	break;
     case 'T':
         if (is_label) { printf("date"); break; }
-	sprintf(sout, "%02d.%02d.%d", jday, jmon, jyear);
+	printf("%02d.%02d.%d", jday, jmon, jyear);
 	if (jut != 0) {
 	  int h, m, s;
 	  s = (int) (jut * 3600 + 0.5);
 	  h = (int) (s / 3600.0);
 	  m = (int) ((s % 3600) / 60.0);
 	  s %= 60;
-	  sprintf(sout + strlen(sout), " %d:%02d:%02d", h, m, s);
+	  printf(" %d:%02d:%02d", h, m, s);
 	  if (universal_time)
-	    strcat(sout, " UT");
+	    printf(" UT");
 	  else
-	    strcat(sout, " ET");
+	    printf(" ET");
 	}
-	printf(sout);
 	break;
     case 't':
         if (is_label) { printf("date"); break; }
-	sprintf(sout, "%02d%02d%02d", jyear % 100, jmon, jday);
-	printf(sout);
+	printf("%02d%02d%02d", jyear % 100, jmon, jday);
 	break;
     case 'L':
         if (is_label) { printf("long."); break; }
 	if (*psp == 'q') /* delta t */
 	  goto ldec;
-	printf(dms(x[0], round_flag));
+	fputs(dms(x[0], round_flag),stdout);
 	break;
     case 'l':
         if (is_label) { printf("long"); break; }
 	ldec:
-	sprintf(sout, "%# 11.7f", x[0]);
-	printf(sout);
+	printf("%# 11.7f", x[0]);
 	break;
     case 'G':
         if (is_label) { printf("housPos"); break; }
-	printf(dms(hpos, round_flag));
+	fputs(dms(hpos, round_flag),stdout);
 	break;
     case 'g':
         if (is_label) { printf("housPos"); break; }
-	sprintf(sout, "%# 11.7f", hpos);
-	printf(sout);
+	printf("%# 11.7f", hpos);
 	break;
     case 'j':
         if (is_label) { printf("houseNr"); break; }
-	sprintf(sout, "%# 11.7f", hposj);
-	printf(sout);
+	printf("%# 11.7f", hposj);
 	break;
     case 'Z':
         if (is_label) { printf("long"); break; }
-	printf(dms(x[0], round_flag|BIT_ZODIAC));
+	fputs(dms(x[0], round_flag|BIT_ZODIAC),stdout);
 	break;
     case 'S':
     case 's':
 	if (*(sp+1) == 'S' || *(sp+1) == 's' || strpbrk(fmt, "XUxu") != NULL) {
 	  for (sp2 = fmt; *sp2 != '\0'; sp2++) {
 	    if (sp2 != fmt) 
-	      printf(gap);
+	      fputs(gap,stdout);
 	    switch(*sp2) {
 	      case 'L':   /* speed! */
 	      case 'Z':   /* speed! */
 		if (is_label) { printf("lon/day"); break; }
-		printf(dms(x[3], round_flag));
+		fputs(dms(x[3], round_flag),stdout);
 		break;
 	      case 'l':   /* speed! */
 		if (is_label) { printf("lon/day"); break; }
-		sprintf(sout, "%11.7f", x[3]);
-		printf(sout);
+		printf("%11.7f", x[3]);
 		break;
 	      case 'B':   /* speed! */
 		if (is_label) { printf("lat/day"); break; }
-		printf(dms(x[4], round_flag));
+		fputs(dms(x[4], round_flag),stdout);
 		break;
 	      case 'b':   /* speed! */
 		if (is_label) { printf("lat/day"); break; }
-		sprintf(sout, "%11.7f", x[4]);
-		printf(sout);
+		printf("%11.7f", x[4]);
 		break;
 	      case 'A':   /* speed! */
 		if (is_label) { printf("RA/day"); break; }
-		printf(dms(xequ[3]/15, round_flag|SEFLG_EQUATORIAL));
+		fputs(dms(xequ[3]/15, round_flag|SEFLG_EQUATORIAL),stdout);
 		break;
 	      case 'a':   /* speed! */
 		if (is_label) { printf("RA/day"); break; }
-		sprintf(sout, "%11.7f", xequ[3]);
-		printf(sout);
+		printf("%11.7f", xequ[3]);
 		break;
 	      case 'D':   /* speed! */
 		if (is_label) { printf("dcl/day"); break; }
-		printf(dms(xequ[4], round_flag));
+		fputs(dms(xequ[4], round_flag),stdout);
 		break;
 	      case 'd':   /* speed! */
 		if (is_label) { printf("dcl/day"); break; }
-		sprintf(sout, "%11.7f", xequ[4]);
-		printf(sout);
+		printf("%11.7f", xequ[4]);
 		break;
 	      case 'R':   /* speed! */
 	      case 'r':   /* speed! */
 		if (is_label) { printf("AU/day"); break; }
-		sprintf(sout, "%# 14.9f", x[5]);
-		printf(sout);
+		printf("%# 14.9f", x[5]);
 		break;
 	      case 'U':   /* speed! */
 	      case 'X':   /* speed! */
-		if (is_label) { printf("speed_0%sspeed_1%sspeed_2",gap,gap); break; }
+		if (is_label) { 
+		  fputs("speed_0", stdout);
+		  fputs(gap, stdout);
+		  fputs("speed_1", stdout);
+		  fputs(gap, stdout);
+		  fputs("speed_2", stdout);
+		  break; 
+		}
 		if (*sp =='U') 
 		  ar = sqrt(square_sum(xcart));
 		else 
 		  ar = 1;
-		sprintf(sout, "%# 14.9f%s", xcart[3]/ar, gap);
-		printf(sout);
-		sprintf(sout, "%# 14.9f%s", xcart[4]/ar, gap);
-		printf(sout);
-		sprintf(sout, "%# 14.9f", xcart[5]/ar);
-		printf(sout);
+		printf("%# 14.9f", xcart[3]/ar);
+		fputs(gap,stdout);
+		printf("%# 14.9f", xcart[4]/ar);
+		fputs(gap,stdout);
+		printf("%# 14.9f", xcart[5]/ar);
 		break;
 	      case 'u':   /* speed! */
 	      case 'x':   /* speed! */
-		if (is_label) { printf("speed_0%sspeed_1%sspeed_2",gap,gap); break; }
+		if (is_label) { 
+		  fputs("speed_0", stdout);
+		  fputs(gap, stdout);
+		  fputs("speed_1", stdout);
+		  fputs(gap, stdout);
+		  fputs("speed_2", stdout);
+		  break; 
+		}
 		if (*sp =='u') 
 		  ar = sqrt(square_sum(xcartq));
 		else 
 		  ar = 1;
-		sprintf(sout, "%# 14.9f%s", xcartq[3]/ar, gap);
-		printf(sout);
-		sprintf(sout, "%# 14.9f%s", xcartq[4]/ar, gap);
-		printf(sout);
-		sprintf(sout, "%# 14.9f", xcartq[5]/ar);
-		printf(sout);
+		printf("%# 14.9f", xcartq[3]/ar);
+		fputs(gap,stdout);
+		printf("%# 14.9f", xcartq[4]/ar);
+		fputs(gap,stdout);
+		printf("%# 14.9f", xcartq[5]/ar);
 		break;
 	      default:
 		break;
@@ -1594,7 +1626,7 @@ static int print_line(int mode)
 	    sp++;
 	} else if (*sp == 'S') {
 	  if (is_label) { printf("deg/day"); break; }
-	  printf(dms(x[3], round_flag));
+	  fputs(dms(x[3], round_flag),stdout);
 	} else {
 	  if (is_label) { printf("deg/day"); break; }
 	  printf("%# 11.7f", x[3]);
@@ -1602,62 +1634,55 @@ static int print_line(int mode)
 	break;
     case 'B':
 	if (is_label) { printf("lat"); break; }
-	printf(dms(x[1], round_flag));
+	fputs(dms(x[1], round_flag),stdout);
 	break;
     case 'b':
 	if (is_label) { printf("lat"); break; }
-	sprintf(sout, "%# 11.7f", x[1]);
-	printf(sout);
+	printf("%# 11.7f", x[1]);
 	break;
     case 'A':     /* right ascension */
 	if (is_label) { printf("RA"); break; }
-	printf(dms(xequ[0]/15, round_flag|SEFLG_EQUATORIAL));
+	fputs(dms(xequ[0]/15, round_flag|SEFLG_EQUATORIAL),stdout);
 	break;
     case 'a':     /* right ascension */
 	if (is_label) { printf("RA"); break; }
-	sprintf(sout, "%# 11.7f", xequ[0]);
-	printf(sout);
+	printf("%# 11.7f", xequ[0]);
 	break;
     case 'D':     /* declination */
 	if (is_label) { printf("decl"); break; }
-	printf(dms(xequ[1], round_flag));
+	fputs(dms(xequ[1], round_flag),stdout);
 	break;
     case 'd':     /* declination */
 	if (is_label) { printf("decl"); break; }
-	sprintf(sout, "%# 11.7f", xequ[1]);
-	printf(sout);
+	printf("%# 11.7f", xequ[1]);
 	break;
     case 'I':     /* azimuth */
 	if (is_label) { printf("azimuth"); break; }
-	printf(dms(xaz[0], round_flag));
+	fputs(dms(xaz[0], round_flag),stdout);
 	break;
     case 'i':     /* azimuth */
 	if (is_label) { printf("azimuth"); break; }
-	sprintf(sout, "%# 11.7f", xaz[0]);
-	printf(sout);
+	printf("%# 11.7f", xaz[0]);
 	break;
     case 'H':     /* height */
 	if (is_label) { printf("height"); break; }
-	printf(dms(xaz[1], round_flag));
+	fputs(dms(xaz[1], round_flag),stdout);
 	break;
     case 'h':     /* height */
 	if (is_label) { printf("height"); break; }
-	sprintf(sout, "%# 11.7f", xaz[1]);
-	printf(sout);
+	printf("%# 11.7f", xaz[1]);
 	break;
     case 'K':     /* height (apparent) */
 	if (is_label) { printf("hgtApp"); break; }
-	printf(dms(xaz[2], round_flag));
+	fputs(dms(xaz[2], round_flag),stdout);
 	break;
     case 'k':     /* height (apparent) */
 	if (is_label) { printf("hgtApp"); break; }
-	sprintf(sout, "%# 11.7f", xaz[2]);
-	printf(sout);
+	printf("%# 11.7f", xaz[2]);
 	break;
     case 'R':
 	if (is_label) { printf("distAU"); break; }
-	sprintf(sout, "%# 14.9f", x[2]);
-	printf(sout);
+	printf("%# 14.9f", x[2]);
 	break;
     case 'r':
 	if (is_label) { printf("dist"); break; }
@@ -1667,14 +1692,13 @@ static int print_line(int mode)
 	    sinp = 8.794 / x[2];    /* in seconds of arc */
 	    ar = sinp * (1 + sinp * sinp * 3.917402e-12);
 	    /* the factor is 1 / (3600^2 * (180/pi)^2 * 6) */
-	    sprintf(sout, "%# 13.5f\" %# 13.5f'", ar, ar/60.0);        
+	    printf("%# 13.5f\" %# 13.5f'", ar, ar/60.0);
 	  }
 	  swe_pheno(te, ipl, iflag, dret, serr);
-	  sprintf(sout + strlen(sout), "%# 13.5f\"", dret[5] * 3600);
+	  printf("%# 13.5f\"", dret[5] * 3600);
 	} else {
-	  sprintf(sout, "%# 14.9f", x[2]);
+	  printf("%# 14.9f", x[2]);
 	}
-	printf(sout);
 	break;
     case 'U':
     case 'X':
@@ -1682,45 +1706,45 @@ static int print_line(int mode)
 	  ar = sqrt(square_sum(xcart));
 	else 
 	  ar = 1;
-	sprintf(sout, "%# 14.9f%s", xcart[0]/ar, gap);
-	printf(sout);
-	sprintf(sout, "%# 14.9f%s", xcart[1]/ar, gap);
-	printf(sout);
-	sprintf(sout, "%# 14.9f", xcart[2]/ar);
-	printf(sout);
+	printf("%# 14.9f", xcart[0]/ar);
+	fputs(gap,stdout);
+	printf("%# 14.9f", xcart[1]/ar);
+	fputs(gap,stdout);
+	printf("%# 14.9f", xcart[2]/ar);
 	break;
     case 'u':
     case 'x':
-	if (is_label) { printf("x0%sx1%sx2",gap,gap); break; }
+	if (is_label) { 
+	  fputs("x0", stdout);
+	  fputs(gap, stdout);
+	  fputs("x1", stdout);
+	  fputs(gap, stdout);
+	  fputs("x2", stdout);
+	  break; 
+	}
 	if (*sp =='u') 
 	  ar = sqrt(square_sum(xcartq));
 	else 
 	  ar = 1;
-	sprintf(sout, "%# 14.9f%s", xcartq[0]/ar, gap);
-	printf(sout);
-	sprintf(sout, "%# 14.9f%s", xcartq[1]/ar, gap);
-	printf(sout);
-	sprintf(sout, "%# 14.9f", xcartq[2]/ar);
-	printf(sout);
+	printf("%# 14.9f", xcartq[0]/ar);
+	fputs(gap,stdout);
+	printf("%# 14.9f", xcartq[1]/ar);
+	fputs(gap,stdout);
+	printf("%# 14.9f", xcartq[2]/ar);
 	break;
     case 'Q':
 	if (is_label) { printf("Q"); break; }
-	sprintf(sout, "%-15s", spnam);
-	printf(sout);
-	printf(dms(x[0], round_flag));
-	printf(dms(x[1], round_flag));
-	sprintf(sout, "  %# 14.9f", x[2]);
-	printf(sout);
-	printf(dms(x[3], round_flag));
-	printf(dms(x[4], round_flag));
-	sprintf(sout, "  %# 14.9f\n", x[5]);
-	printf(sout);
-	sprintf(sout, "               %s", dms(xequ[0], round_flag));
-	printf(sout);
-	printf(dms(xequ[1], round_flag));
-	sprintf(sout, "                %s", dms(xequ[3], round_flag));
-	printf(sout);
-	printf(dms(xequ[4], round_flag));
+	printf("%-15s", spnam);
+	fputs(dms(x[0], round_flag),stdout);
+	fputs(dms(x[1], round_flag),stdout);
+	printf("  %# 14.9f", x[2]);
+	fputs(dms(x[3], round_flag),stdout);
+	fputs(dms(x[4], round_flag),stdout);
+	printf("  %# 14.9f\n", x[5]);
+	printf("               %s", dms(xequ[0], round_flag));
+	fputs(dms(xequ[1], round_flag),stdout);
+	printf("                %s", dms(xequ[3], round_flag));
+	fputs(dms(xequ[4], round_flag),stdout);
 	break;
     case 'N': 
     case 'n': {
@@ -1728,9 +1752,14 @@ static int print_line(int mode)
 	int imeth = (*sp == tolower(*sp))?SE_NODBIT_MEAN:SE_NODBIT_OSCU;
 	iflgret = swe_nod_aps(te, ipl, iflag, imeth, xasc, xdsc, NULL, NULL, serr);
 	if (iflgret >= 0 && (ipl <= SE_NEPTUNE || *sp == 'N') ) {
-	  if (is_label) { printf("nodAsc%snodDesc", gap); break; }
+	  if (is_label) { 
+	    fputs("nodAsc", stdout);
+	    fputs(gap, stdout);
+	    fputs("nodDesc", stdout);
+	    break; 
+	  }
 	  printf("%# 11.7f", xasc[0]);
-	  printf(gap);
+	  fputs(gap,stdout);
 	  printf("%# 11.7f", xdsc[0]);
 	}
       };
@@ -1742,16 +1771,25 @@ static int print_line(int mode)
 	int imeth = (*sp == tolower(*sp))?SE_NODBIT_MEAN:SE_NODBIT_OSCU;
 	iflgret = swe_nod_aps(te, ipl, iflag, imeth, NULL, NULL, xper, xaph, serr);
 	if (iflgret >= 0 && (ipl <= SE_NEPTUNE || *sp == 'F') ) {
-	  if (is_label) { printf("peri%sapo", gap); break; }
+	  if (is_label) { 
+	    fputs("peri", stdout);
+	    fputs(gap, stdout);
+	    fputs("apo", stdout);
+	    break; 
+	  }
 	  printf("%# 11.7f", xper[0]);
-	  printf(gap);
+	  fputs(gap,stdout);
 	  printf("%# 11.7f", xaph[0]);
 	}
 	imeth |= SE_NODBIT_FOPOINT;
 	iflgret = swe_nod_aps(te, ipl, iflag, imeth, NULL, NULL, xper, xfoc, serr);
 	if (iflgret >= 0 && (ipl <= SE_NEPTUNE || *sp == 'F') ) {
-	  if (is_label) { printf("%sfocus", gap); break; }
-	  printf(gap);
+	  if (is_label) { 
+	    fputs(gap, stdout);
+	    fputs("focus", stdout);
+	    break; 
+	  }
+	  fputs(gap,stdout);
 	  printf("%# 11.7f", xfoc[0]);
 	}
       };
@@ -1759,7 +1797,7 @@ static int print_line(int mode)
     case '+':
 	if (is_house) break;
         if (is_label) { printf("phase"); break; }
-	printf(dms(attr[0], round_flag));
+	fputs(dms(attr[0], round_flag),stdout);
 	break;
     case '-':
         if (is_label) { printf("phase"); break; }
@@ -1769,12 +1807,12 @@ static int print_line(int mode)
     case '*':
         if (is_label) { printf("elong"); break; }
 	if (is_house) break;
-	printf(dms(attr[2], round_flag));
+	fputs(dms(attr[2], round_flag),stdout);
 	break;
     case '/':
         if (is_label) { printf("diamet"); break; }
 	if (is_house) break;
-	printf(dms(attr[3], round_flag));
+	fputs(dms(attr[3], round_flag),stdout);
 	break;
     case '=':
         if (is_label) { printf("magn"); break; }
@@ -1835,20 +1873,22 @@ static char *dms(double xv, int32 iflg)
   xv -= kdeg;
   xv *= 60;
   kmin = (int32) xv;
-  if ((iflg & BIT_ZODIAC) && (iflg & BIT_ROUND_MIN))
+  if ((iflg & BIT_ZODIAC) && (iflg & BIT_ROUND_MIN)) {
     sprintf(s1, "%2d", kmin);
-  else
+  } else {
     sprintf(s1, "%2d'", kmin);
+  }
   strcat(s, s1);
   if (iflg & BIT_ROUND_MIN)
     goto return_dms;
   xv -= kmin;
   xv *= 60;
   ksec = (int32) xv;
-  if (iflg & BIT_ROUND_SEC)
+  if (iflg & BIT_ROUND_SEC) {
     sprintf(s1, "%2d\"", ksec);
-  else
+  } else {
     sprintf(s1, "%2d", ksec);
+  }
   strcat(s, s1);
   if (iflg & BIT_ROUND_SEC)
     goto return_dms;
@@ -1931,16 +1971,14 @@ static int32 call_rise_set(double t_ut, int32 ipl, char *star, int32 whicheph, i
         strcat(sout, "         -                     ");
       } else {
 	swe_revjul(tret[0], gregflag, &jyear, &jmon, &jday, &jut);
-	sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s    ", 
-		  jday, jmon, jyear, hms(jut,BIT_LZEROES));
+	sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s    ", jday, jmon, jyear, hms(jut,BIT_LZEROES));
       }
       strcat(sout, "set      ");
       if (tret[1] == 0) {
         strcat(sout, "         -                     \n");
       } else {
 	swe_revjul(tret[1], gregflag, &jyear, &jmon, &jday, &jut);
-	sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\n", 
-		  jday, jmon, jyear, hms(jut,BIT_LZEROES));
+	sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\n", jday, jmon, jyear, hms(jut,BIT_LZEROES));
       }
       do_printf(sout);
     }
@@ -1962,15 +2000,13 @@ static int32 call_rise_set(double t_ut, int32 ipl, char *star, int32 whicheph, i
       if (tret[0] == 0) strcat(sout, "         -                     ");
       else {
 	swe_revjul(tret[0], gregflag, &jyear, &jmon, &jday, &jut);
-	sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s    ", 
-		  jday, jmon, jyear, hms(jut,BIT_LZEROES));
+	sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s    ", jday, jmon, jyear, hms(jut,BIT_LZEROES));
       }
       strcat(sout, "itransit ");
       if (tret[1] == 0) strcat(sout, "         -                     \n");
       else {
 	swe_revjul(tret[1], gregflag, &jyear, &jmon, &jday, &jut);
-	sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\n", 
-		  jday, jmon, jyear, hms(jut,BIT_LZEROES));
+	sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\n", jday, jmon, jyear, hms(jut,BIT_LZEROES));
       }
       do_printf(sout);
     }
@@ -1983,7 +2019,7 @@ static int32 call_lunar_eclipse(double t_ut, int32 whicheph, int32 special_mode,
   int ii, eclflag, ecl_type = 0;
   int ihou, imin, isec, isgn;
   double dfrc, attr[30], dt;
-  char s1[AS_MAXCH], sout_short[AS_MAXCH];
+  char s1[AS_MAXCH], sout_short[AS_MAXCH], sfmt[AS_MAXCH];
   /* no selective eclipse type set, set all */
   if ((search_flag & SE_ECL_ALLTYPES_LUNAR) == 0)
     search_flag |= SE_ECL_ALLTYPES_LUNAR;
@@ -1999,16 +2035,20 @@ ERR) {
         return ERR;
       } else {
         if (eclflag & SE_ECL_TOTAL) {
-          sprintf(sout, "total lunar eclipse: %f o/o \n", attr[0]);
 	  ecl_type = ECL_LUN_TOTAL;
+	  strcpy(sfmt, "total lunar eclipse: %f o/o \n");
         } else if (eclflag & SE_ECL_PARTIAL)  {
-          sprintf(sout, "partial lunar eclipse: %f o/o \n", attr[0]);
 	  ecl_type = ECL_LUN_PARTIAL;
+	  strcpy(sfmt, "partial lunar eclipse: %f o/o \n");
         } else if (eclflag & SE_ECL_PENUMBRAL)  {
-          sprintf(sout, "penumbral lunar eclipse: %f o/o \n", attr[0]);
 	  ecl_type = ECL_LUN_PENUMBRAL;
-        } else {
-          sprintf(sout, "no lunar eclipse \n");
+	  strcpy(sfmt, "penumbral lunar eclipse: %f o/o \n");
+	} else {
+	  strcpy(sfmt, "no lunar eclipse \n");
+	}
+	strcpy(sout, sfmt);
+	if (strchr(sfmt, '%') != NULL) {
+          sprintf(sout, sfmt, attr[0]);
 	}
         do_printf(sout);
       }
@@ -2042,40 +2082,31 @@ ERR) {
         return ERR;
       }
       dt = (tret[3] - tret[2]) * 24 * 60;
-      sprintf(s1, "%d min %4.2f sec",
-	      (int) dt, fmod(dt, 1) * 60);
+      sprintf(s1, "%d min %4.2f sec", (int) dt, fmod(dt, 1) * 60);
       /* short output: 
        * date, time of day, umbral magnitude, umbral duration, saros series, member number */
-      sprintf(sout_short, "%s\t%2d.%2d.%4d\t%s\t%.3f\t%s\t%d\t%d\n", 
-         sout, jday, jmon, jyear, hms(jut,0), attr[8],s1, (int) attr[9], (int) attr[10]);
-      /* long output: 
-       * eclipse maximum, percentage, saros series/member no. */
-      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%.4f/%.4f\tsaros %d/%d\t%.6f\n", 
-              jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[0],attr[1], (int) attr[9], (int) attr[10], t_ut);
-      /* sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f o/o\t%.6f\n",
-         jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[0], t_ut); */
+      sprintf(sout_short, "%s\t%2d.%2d.%4d\t%s\t%.3f\t%s\t%d\t%d\n", sout, jday, jmon, jyear, hms(jut,0), attr[8],s1, (int) attr[9], (int) attr[10]);
+      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%.4f/%.4f\tsaros %d/%d\t%.6f\n", jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[0],attr[1], (int) attr[9], (int) attr[10], t_ut);
       /* second line:
        * eclipse times, penumbral, partial, total begin and end */
-	sprintf(sout + strlen(sout), "  %s ", hms_from_tjd(tret[6])); 
-        if (tret[2] != 0)
-	  sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[2])); 
-        else
-          strcat(sout, "   -         ");
-        if (tret[4] != 0)
-	  sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[4])); 
-        else
-          strcat(sout, "   -         ");
-        if (tret[5] != 0)
-	  sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[5])); 
-        else
-          strcat(sout, "   -         ");
-        if (tret[3] != 0)
-	  sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[3])); 
-        else
-          strcat(sout, "   -         ");
-	sprintf(sout + strlen(sout), "%s\n", hms_from_tjd(tret[7])); 
-	/*{int i;
-	for (i = 0; i < 6; i++) {fprintf(stderr, "%f\n", tret[i]);}}*/
+      sprintf(sout + strlen(sout), "  %s ", hms_from_tjd(tret[6])); 
+      if (tret[2] != 0)
+	sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[2])); 
+      else
+	strcat(sout, "   -         ");
+      if (tret[4] != 0)
+	sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[4])); 
+      else
+	strcat(sout, "   -         ");
+      if (tret[5] != 0)
+	sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[5])); 
+      else
+	strcat(sout, "   -         ");
+      if (tret[3] != 0)
+	sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[3])); 
+      else
+	strcat(sout, "   -         ");
+      sprintf(sout + strlen(sout), "%s\n", hms_from_tjd(tret[7])); 
       if (special_mode & SP_MODE_HOCAL) {
 	swe_split_deg(jut, SE_SPLIT_DEG_ROUND_MIN, &ihou, &imin, &isec, &dfrc, &isgn);
 	sprintf(sout, "\"%04d %02d %02d %02d.%02d %d\",\n", jyear, jmon, jday, ihou, imin, ecl_type);
@@ -2134,12 +2165,9 @@ attr, direction_flag, serr)) == ERR) {
 	} else {
 	  swe_calc(t_ut + swe_deltat(t_ut), SE_ECL_NUT, 0, x, serr);
 	  swe_revjul(t_ut, gregflag, &jyear, &jmon, &jday, &jut);
-	  sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%.4f/%.4f/%.4f\tsaros %d/%d\t%.6f\n", 
-              jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[8], attr[0], attr[2], (int) attr[9], (int) attr[10], t_ut);
-	  /* sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%fo/o\t%.6f\n", jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[0], t_ut); */
 	  dt = (tret[3] - tret[2]) * 24 * 60;
-	  sprintf(sout + strlen(sout), "\t%d min %4.2f sec\t",
-                (int) dt, fmod(dt, 1) * 60); 
+	  sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%.4f/%.4f/%.4f\tsaros %d/%d\t%.6f\n", jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[8], attr[0], attr[2], (int) attr[9], (int) attr[10], t_ut);
+	  sprintf(sout + strlen(sout), "\t%d min %4.2f sec\t", (int) dt, fmod(dt, 1) * 60); 
 	  if (eclflag & SE_ECL_1ST_VISIBLE)
 	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[1])); 
 	  else
@@ -2198,30 +2226,21 @@ attr, direction_flag, serr)) == ERR) {
         strcat(sout, "non-central ");
       swe_sol_eclipse_where(t_ut, whicheph, geopos, attr, serr);
       swe_revjul(t_ut, gregflag, &jyear, &jmon, &jday, &jut);
-      sprintf(sout_short, "%s\t%2d.%2d.%4d\t%s\t%.3f", 
-         sout, jday, jmon, jyear, hms(jut,0), attr[8]);
-      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\t%.4f/%.4f/%.4f\tsaros %d/%d\t%.6f\n", 
-                jday, jmon, jyear, hms(jut,0), attr[3], attr[8], attr[0], attr[2], (int) attr[9], (int) attr[10], t_ut);
-      /* sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\t%f o/o\t%.6f\n",
-         jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[3], attr[0], t_ut); */
+      sprintf(sout_short, "%s\t%2d.%2d.%4d\t%s\t%.3f", sout, jday, jmon, jyear, hms(jut,0), attr[8]);
+      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\t%.4f/%.4f/%.4f\tsaros %d/%d\t%.6f\n", jday, jmon, jyear, hms(jut,0), attr[3], attr[8], attr[0], attr[2], (int) attr[9], (int) attr[10], t_ut);
       sprintf(sout + strlen(sout), "\t%s ", hms_from_tjd(tret[2])); 
-      if (tret[4] != 0)
-	  sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[4])); 
-      else
-          strcat(sout, "   -         ");
-      if (tret[5] != 0)
-	  sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[5])); 
-      else
-          strcat(sout, "   -         ");
+      if (tret[4] != 0) {
+	sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[4])); 
+      } else {
+	strcat(sout, "   -         ");
+      }
+      if (tret[5] != 0) {
+	sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[5])); 
+      } else {
+	strcat(sout, "   -         ");
+      }
       sprintf(sout + strlen(sout), "%s\n", hms_from_tjd(tret[3])); 
-#if 0
-      swe_revjul(tret[1], gregflag, &jyear, &jmon, &jday, &jut);
-      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\n", 
-                jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[3]);
-#endif
-      sprintf(sout + strlen(sout), "\t%s\t%s", 
-                strcpy(s1, dms(geopos[0], BIT_ROUND_MIN)),
-                strcpy(s2, dms(geopos[1], BIT_ROUND_MIN)));
+      sprintf(sout + strlen(sout), "\t%s\t%s", strcpy(s1, dms(geopos[0], BIT_ROUND_MIN)), strcpy(s2, dms(geopos[1], BIT_ROUND_MIN)));
       strcat(sout, "\t");
       strcat(sout_short, "\t");
       if (!(eclflag & SE_ECL_PARTIAL) && !(eclflag & SE_ECL_NONCENTRAL)) {
@@ -2233,8 +2252,7 @@ geopos, tret, attr, 0, serr)) == ERR) {
         if (fabs(tret[0] - t_ut) > 1) 
           do_printf("when_loc returns wrong date\n");
         dt = (tret[3] - tret[2]) * 24 * 60;
-        sprintf(s1, "%d min %4.2f sec",
-                (int) dt, fmod(dt, 1) * 60);
+        sprintf(s1, "%d min %4.2f sec", (int) dt, fmod(dt, 1) * 60);
         strcat(sout, s1);
         strcat(sout_short, s1);
       }
@@ -2247,6 +2265,7 @@ geopos, tret, attr, 0, serr)) == ERR) {
 	swe_split_deg(jut, SE_SPLIT_DEG_ROUND_MIN, &ihou, &imin, &isec, &dfrc, &isgn);
 	sprintf(sout, "\"%04d %02d %02d %02d.%02d %d\",\n", jyear, jmon, jday, ihou, imin, ecl_type);
       } 
+      /*printf("len=%ld\n", strlen(sout));*/
       if (short_output)
 	do_printf(sout_short);
       else
@@ -2298,10 +2317,9 @@ static int32 call_lunar_occultation(double t_ut, int32 ipl, char *star, int32 wh
 	} else {
 	  swe_calc(t_ut + swe_deltat(t_ut), SE_ECL_NUT, 0, x, serr);
 	  swe_revjul(t_ut, gregflag, &jyear, &jmon, &jday, &jut);
-	  sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%fo/o\n", jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[0]);
 	  dt = (tret[3] - tret[2]) * 24 * 60;
-	  sprintf(sout + strlen(sout), "\t%d min %4.2f sec\t",
-                (int) dt, fmod(dt, 1) * 60); 
+	  sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%fo/o\n", jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[0]);
+	  sprintf(sout + strlen(sout), "\t%d min %4.2f sec\t", (int) dt, fmod(dt, 1) * 60); 
 	  if (eclflag & SE_ECL_1ST_VISIBLE)
 	    sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[1])); 
 	  else
@@ -2358,8 +2376,7 @@ static int32 call_lunar_occultation(double t_ut, int32 ipl, char *star, int32 wh
         strcat(sout, "non-central ");
       swe_lun_occult_where(t_ut, ipl, star, whicheph, geopos, attr, serr);
       swe_revjul(t_ut, gregflag, &jyear, &jmon, &jday, &jut);
-      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\t%f o/o\n", 
-                jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[3], attr[0]);
+      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\t%f o/o\n", jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[3], attr[0]);
       sprintf(sout + strlen(sout), "\t%s ", hms_from_tjd(tret[2])); 
       if (tret[4] != 0)
 	  sprintf(sout + strlen(sout), "%s ", hms_from_tjd(tret[4])); 
@@ -2370,14 +2387,7 @@ static int32 call_lunar_occultation(double t_ut, int32 ipl, char *star, int32 wh
       else
           strcat(sout, "   -         ");
       sprintf(sout + strlen(sout), "%s\n", hms_from_tjd(tret[3])); 
-#if 0
-      swe_revjul(tret[1], gregflag, &jyear, &jmon, &jday, &jut);
-      sprintf(sout + strlen(sout), "%2d.%02d.%04d\t%s\t%f km\n", 
-                jday, jmon, jyear, hms(jut,BIT_LZEROES), attr[3]);
-#endif
-      sprintf(sout + strlen(sout), "\t%s\t%s", 
-                strcpy(s1, dms(geopos[0], BIT_ROUND_MIN)),
-                strcpy(s2, dms(geopos[1], BIT_ROUND_MIN)));
+      sprintf(sout + strlen(sout), "\t%s\t%s", strcpy(s1, dms(geopos[0], BIT_ROUND_MIN)), strcpy(s2, dms(geopos[1], BIT_ROUND_MIN)));
       if (!(eclflag & SE_ECL_PARTIAL) && !(eclflag & SE_ECL_NONCENTRAL)) {
         if ((eclflag = swe_lun_occult_when_loc(t_ut - 10, ipl, star, whicheph, geopos, tret, attr, 0, serr)) == ERR) {
           do_printf(serr);
@@ -2386,8 +2396,7 @@ static int32 call_lunar_occultation(double t_ut, int32 ipl, char *star, int32 wh
         if (fabs(tret[0] - t_ut) > 1) 
           do_printf("when_loc returns wrong date\n");
         dt = (tret[3] - tret[2]) * 24 * 60;
-        sprintf(sout + strlen(sout), "\t%d min %4.2f sec\t",
-                (int) dt, fmod(dt, 1) * 60);
+        sprintf(sout + strlen(sout), "\t%d min %4.2f sec\t", (int) dt, fmod(dt, 1) * 60);
       } 
       strcat(sout, "\n");
       if (special_mode & SP_MODE_HOCAL) {
@@ -2408,10 +2417,11 @@ static void do_print_heliacal(double *dret, int32 event_type, char *obj_name)
   char *sevtname[] = {"", "heliacal rising ", "heliacal setting", "evening first   ", "morning last    ", "evening rising  ", "morning setting ",};
   *sout = '\0';
   swe_revjul(dret[0], gregflag, &jyear, &jmon, &jday, &jut);
-  if (event_type <= 4)
+  if (event_type <= 4) {
     sprintf(sout + strlen(sout), "%s %s: %d/%02d/%02d %sUT (%f), visible for: %#4.1f min\n", obj_name, sevtname[event_type], jyear, jmon, jday, hms_from_tjd(dret[0]), dret[0], (dret[2] - dret[0]) * 1440);
-  else 
+  } else {
     sprintf(sout + strlen(sout), "%s %s: %d/%02d/%02d %sUT (%f)\n", obj_name, sevtname[event_type], jyear, jmon, jday, hms_from_tjd(dret[0]), dret[0]);
+  }
   do_printf(sout);
 }
 
@@ -2564,7 +2574,7 @@ static void do_printf(char *info)
 #ifdef _WINDOWS
   fprintf(fp, info);
 #else
-  printf(info);
+  fputs(info,stdout);
 #endif
 }
 
@@ -2578,7 +2588,7 @@ static void do_printf(char *info)
  */
 static int make_ephemeris_path(int32 iflg, char *argv0)
 {
-  char path[AS_MAXCH], s[AS_MAXCH];
+  char path[AS_MAXCH];
   char *sp;
   char *dirglue = DIR_GLUE;
   size_t pathlen = 0; 
@@ -2591,10 +2601,9 @@ static int make_ephemeris_path(int32 iflg, char *argv0)
   sp = strrchr(argv0, *dirglue);
   if (sp != NULL) {
     pathlen = sp - argv0;
-    if (strlen(path) + pathlen < AS_MAXCH-1) {
-      strcpy(s, argv0);
-      *(s+pathlen) = '\0';
-      sprintf(path + strlen(path), "%s%c", s, *PATH_SEPARATOR);
+    if (strlen(path) + pathlen < AS_MAXCH-2) {
+      strncat(path, argv0, pathlen);
+      sprintf(path + strlen(path), "%c", *PATH_SEPARATOR);
     } 
   }
 #if MSDOS
@@ -2634,13 +2643,14 @@ static int make_ephemeris_path(int32 iflg, char *argv0)
     if (s[1] == ':')  /* drive already there */
       continue;
     for (j = 0; j < 3; j++) {
-      if (sp[j] != NULL && strlen(path) + 2 + strlen(s) < AS_MAXCH-1)
+      if (sp[j] != NULL && strlen(path) + 2 + strlen(s) < AS_MAXCH-1) {
 	sprintf(path + strlen(path), "%c:%s%c", *sp[j], s, *PATH_SEPARATOR);
+      }
     }
   }
 }
 #else
-    if (strlen(path) + pathlen < AS_MAXCH-1)
+    if (strlen(path) + strlen(SE_EPHE_PATH) < AS_MAXCH-1)
       strcat(path, SE_EPHE_PATH);
 #endif
   return OK;

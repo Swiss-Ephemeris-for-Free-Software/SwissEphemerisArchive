@@ -232,6 +232,8 @@ extern "C" {
 #define SE_SIDM_SURYASIDDHANTA_MSUN  22
 #define SE_SIDM_ARYABHATA       23
 #define SE_SIDM_ARYABHATA_MSUN  24
+#define SE_SIDM_SS_REVATI       25
+#define SE_SIDM_SS_CITRA        26
 #define SE_SIDM_USER            255
 
 #define SE_NSIDM_PREDEF	  	    27
@@ -262,12 +264,18 @@ extern "C" {
 #define SE_ECL_PENUMBRAL	64
 #define SE_ECL_ALLTYPES_SOLAR   (SE_ECL_CENTRAL|SE_ECL_NONCENTRAL|SE_ECL_TOTAL|SE_ECL_ANNULAR|SE_ECL_PARTIAL|SE_ECL_ANNULAR_TOTAL)
 #define SE_ECL_ALLTYPES_LUNAR   (SE_ECL_TOTAL|SE_ECL_PARTIAL|SE_ECL_PENUMBRAL)
-#define SE_ECL_VISIBLE		128
-#define SE_ECL_MAX_VISIBLE	256
-#define SE_ECL_1ST_VISIBLE	512
-#define SE_ECL_2ND_VISIBLE	1024
-#define SE_ECL_3RD_VISIBLE	2048
-#define SE_ECL_4TH_VISIBLE	4096
+#define SE_ECL_VISIBLE			128
+#define SE_ECL_MAX_VISIBLE		256
+#define SE_ECL_1ST_VISIBLE		512	/* begin of partial eclipse */
+#define SE_ECL_PARTBEG_VISIBLE		512	/* begin of partial eclipse */
+#define SE_ECL_2ND_VISIBLE		1024	/* begin of total eclipse */
+#define SE_ECL_TOTBEG_VISIBLE		1024	/* begin of total eclipse */
+#define SE_ECL_3RD_VISIBLE		2048    /* end of total eclipse */
+#define SE_ECL_TOTEND_VISIBLE		2048    /* end of total eclipse */
+#define SE_ECL_4TH_VISIBLE		4096    /* end of partial eclipse */
+#define SE_ECL_PARTEND_VISIBLE		4096    /* end of partial eclipse */
+#define SE_ECL_PENUMBBEG_VISIBLE	8192    /* begin of penumbral eclipse */
+#define SE_ECL_PENUMBEND_VISIBLE	16384   /* end of penumbral eclipse */
 #define SE_ECL_ONE_TRY          (32*1024) 
 		/* check if the next conjunction of the moon with
 		 * a planet is an occultation; don't search further */
@@ -607,6 +615,10 @@ ext_def( int ) swe_houses_armc(
 
 ext_def(double) swe_house_pos(
 	double armc, double geolat, double eps, int hsys, double *xpin, char *serr);
+
+ext_def(char *) swe_house_name(int hsys);
+
+
 
 /**************************** 
  * exports from swecl.c 

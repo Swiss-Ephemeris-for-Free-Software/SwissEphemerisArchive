@@ -2325,9 +2325,7 @@ void swi_gen_filename(double tjd, int ipli, char *fname)
       sform = "ast%d%sse%05d.%s";
       if (ipli - SE_AST_OFFSET > 99999) 
 	sform = "ast%d%ss%06d.%s";
-      sprintf(fname, sform,
-	(ipli - SE_AST_OFFSET) / 1000, DIR_GLUE, ipli - SE_AST_OFFSET, 
-	SE_FILE_SUFFIX);
+      sprintf(fname, sform, (ipli - SE_AST_OFFSET) / 1000, DIR_GLUE, ipli - SE_AST_OFFSET, SE_FILE_SUFFIX);
       return;	/* asteroids: only one file 3000 bc - 3000 ad */
       /* break; */
   }
@@ -2776,8 +2774,9 @@ void swi_open_trace(char *serr)
     sprintf(sp1, "_%d%s", ipid, sp);
 #endif
     if ((swi_fp_trace_c = fopen(fname, FILE_A_ACCESS)) == NULL) {
-      if (serr != NULL)
+      if (serr != NULL) {
 	sprintf(serr, "could not open trace output file '%s'", fname);
+      }
     } else {
       fputs("#include \"sweodef.h\"\n", swi_fp_trace_c);   
       fputs("#include \"swephexp.h\"\n\n", swi_fp_trace_c);   
@@ -2808,8 +2807,9 @@ void swi_open_trace(char *serr)
     sprintf(sp1, "_%d%s", ipid, sp);
 #endif
     if ((swi_fp_trace_out = fopen(fname, FILE_A_ACCESS)) == NULL) {
-      if (serr != NULL)
+      if (serr != NULL) {
 	sprintf(serr, "could not open trace output file '%s'", fname);
+      }
     }
   }
 }
