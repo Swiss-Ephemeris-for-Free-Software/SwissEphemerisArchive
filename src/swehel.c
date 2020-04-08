@@ -3264,7 +3264,7 @@ int32 FAR PASCAL_CONV swe_heliacal_ut(double JDNDaysUTStart, double *dgeo, doubl
   swe_set_topo(dgeo[0], dgeo[1], dgeo[2]);
   Planet = DeterObject(ObjectName);
   if (Planet == SE_SUN) {
-    if (serr != NULL) {
+    if (serr_ret != NULL) {
       strcpy(serr_ret, "the sun has no heliacal rising or setting\n");
     }
     return ERR;

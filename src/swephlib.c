@@ -2124,7 +2124,7 @@ static int32 calc_deltat(double tjd, int32 iflag, double *deltat, char *serr)
     retc = swi_get_tid_acc(tjd, 0, 9999, &denumret, &tid_acc, serr); /* for default tid_acc */
   /* otherwise we use tid_acc consistent with epheflag */
   } else {
-    if (swi_init_swed_if_start() == 1 && !(epheflag && SEFLG_MOSEPH)) {
+    if (swi_init_swed_if_start() == 1 && !(epheflag & SEFLG_MOSEPH)) {
       if (serr != NULL) 
 	strcpy(serr, "Please call swe_set_ephe_path() or swe_set_jplfile() before calling swe_deltat_ex()");
       retc = swi_set_tid_acc(tjd, epheflag, 0, NULL);  /* _set_ saves tid_acc in swed */
@@ -2499,20 +2499,12 @@ void FAR PASCAL_CONV swe_set_tid_acc(double t_acc)
 
 int32 swi_guess_ephe_flag()
 {
-  int32 iflag = SEFLG_MOSEPH;
+  int32 iflag = SEFLG_SWIEPH;
   /* if jpl file is open, assume SEFLG_JPLEPH */
   if (swed.jpl_file_is_open) {
     iflag = SEFLG_JPLEPH;
-  /* if semo* or sepl* file were found already, assume SEFLG_SWIEPH */
-  } else if (*swed.fidat[SEI_FILE_MOON].fnam != '\0' || *swed.fidat[SEI_FILE_PLANET].fnam != '\0') {
+  } else {
     iflag = SEFLG_SWIEPH;
-  /* if swe_set_ephe_path() has not been called yet, call it now to check the availability
-   * of semo* file. If it is available, assume SEFLG_SWIEPH */
-  } else if (!swed.ephe_path_is_set) {
-    swe_set_ephe_path(NULL);
-    if (*swed.fidat[SEI_FILE_MOON].fnam != '\0')
-      iflag = SEFLG_SWIEPH;
-  /* ... otherwise assume SEFLG_MOSEPH */
   }
   return iflag;
 }

@@ -1082,7 +1082,7 @@ int32 swi_init_swed_if_start(void)
 {
   /* initialisation of swed, when called first time from */
   if (!swed.ephe_path_is_set) {
-    memset((void *) &swed, 0, sizeof(struct swe_data));
+    //memset((void *) &swed, 0, sizeof(struct swe_data));
     strcpy(swed.ephepath, SE_EPHE_PATH);
     strcpy(swed.jplfnam, SE_FNAME_DFT);
     swe_set_tid_acc(SE_TIDAL_AUTOMATIC);
@@ -1377,14 +1377,12 @@ void FAR PASCAL_CONV swe_set_jpl_file(char *fname)
   if (strlen(sp) >= AS_MAXCH)
     sp[AS_MAXCH] = '\0';
   strcpy(swed.jplfnam, sp);
-  /* open ephemeris, if still closed */
-  if (1 || !swed.jpl_file_is_open) {
-    retc = open_jpl_file(ss, swed.jplfnam, swed.ephepath, NULL);
-    if (retc == OK) {
-      if (swed.jpldenum >= 403) {
-	/*if (INCLUDE_CODE_FOR_DPSI_DEPS_IAU1980) */
-	  load_dpsi_deps();
-      }
+  /* open ephemeris */
+  retc = open_jpl_file(ss, swed.jplfnam, swed.ephepath, NULL);
+  if (retc == OK) {
+    if (swed.jpldenum >= 403) {
+      /*if (INCLUDE_CODE_FOR_DPSI_DEPS_IAU1980) */
+	load_dpsi_deps();
     }
   }
 #ifdef TRACE
@@ -2578,6 +2576,7 @@ static int app_pos_rest(struct plan_data *pdp, int32 iflag,
 {
   int i;
   double daya;
+  double xxsv[24];
   /************************************************
    * nutation                                     *
    ************************************************/
@@ -2617,8 +2616,16 @@ static int app_pos_rest(struct plan_data *pdp, int32 iflag,
     } else {
     /* traditional algorithm */
       swi_cartpol_sp(pdp->xreturn+6, pdp->xreturn); 
+      /* note, swe_get_ayanamsa_ex() disturbs present calculations, if sun is calculated with 
+       * TRUE_CHITRA ayanamsha, because the ayanamsha also calculates the sun.
+       * Therefore current values are saved... */
+      for (i = 0; i < 24; i++)
+        xxsv[i] = pdp->xreturn[i];
       if (swe_get_ayanamsa_ex(pdp->teval, iflag, &daya, serr) == ERR)
         return ERR;
+      /* ... and restored */
+      for (i = 0; i < 24; i++)
+        pdp->xreturn[i] = xxsv[i];
       pdp->xreturn[0] -= daya * DEGTORAD;
       swi_polcart_sp(pdp->xreturn, pdp->xreturn+6); 
     }
@@ -2691,7 +2698,7 @@ int32 FAR PASCAL_CONV swe_get_ayanamsa_ex(double tjd_et, int32 iflag, double *da
   iflag |= SEFLG_NONUT;
   /* warning, if swe_set_ephe_path() or swe_set_jplfile() was not called yet,
    * although ephemeris files are required */
-  if (swi_init_swed_if_start() == 1 && !(epheflag && SEFLG_MOSEPH) && (sip->sid_mode ==  SE_SIDM_TRUE_CITRA || sip->sid_mode == SE_SIDM_TRUE_REVATI || sip->sid_mode == SE_SIDM_TRUE_PUSHYA) && serr != NULL) {
+  if (swi_init_swed_if_start() == 1 && !(epheflag & SEFLG_MOSEPH) && (sip->sid_mode ==  SE_SIDM_TRUE_CITRA || sip->sid_mode == SE_SIDM_TRUE_REVATI || sip->sid_mode == SE_SIDM_TRUE_PUSHYA) && serr != NULL) {
     strcpy(serr, "Please call swe_set_ephe_path() or swe_set_jplfile() before calling swe_get_ayanamsa_ex()");
   }
   if (!swed.ayana_is_set)
@@ -5637,7 +5644,7 @@ int32 FAR PASCAL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
 #endif /* TRACE */
   iflag = plaus_iflag(iflag, -1, tjd, serr);
   epheflag = iflag & SEFLG_EPHMASK;
-  if (swi_init_swed_if_start() == 1 && !(epheflag && SEFLG_MOSEPH) && serr != NULL) {
+  if (swi_init_swed_if_start() == 1 && !(epheflag & SEFLG_MOSEPH) && serr != NULL) {
     strcpy(serr, "Please call swe_set_ephe_path() or swe_set_jplfile() before calling swe_fixstar() or swe_fixstar_ut()");
   }
   if (swed.last_epheflag != epheflag) {
@@ -5716,9 +5723,13 @@ int32 FAR PASCAL_CONV swe_fixstar(char *star, double tjd, int32 iflag,
 	/* Ayanamsha SE_SIDM_TRUE_REVATI */
 	} else if (strstr(star, ",zePsc") != NULL || strncmp(star, "Revati", 6) == 0) {
 	  strcpy(s, "Revati,zePsc,ICRS,01,13,43.8857,7,34,31.274,141.66,-55.62,0.0,22.09,5.204,06,174");
+	  strcpy(sstar, "revati");
+	  goto found;
 	/* Ayanamsha SE_SIDM_TRUE_PUSHYA */
 	} else if (strstr(star, ",deCnc") != NULL || strncmp(star, "Pushya", 6) == 0) {
 	  strcpy(s, "Pushya,deCnc,ICRS,08,44,41.0996,+18,09,15.511,-17.10,-228.46,17.14,23.97,3.94,18,2027");
+	  strcpy(sstar, "pushya");
+	  goto found;
 	}
 	retc = ERR;
 	goto return_err;
@@ -6701,7 +6712,7 @@ int32 FAR PASCAL_CONV swe_time_equ(double tjd_ut, double *E, char *serr)
   double sidt = swe_sidtime(tjd_ut);
   int32 iflag = SEFLG_EQUATORIAL;
   iflag = plaus_iflag(iflag, -1, tjd_ut, serr);
-  if (swi_init_swed_if_start() == 1 && !(iflag && SEFLG_MOSEPH) && serr != NULL) {
+  if (swi_init_swed_if_start() == 1 && !(iflag & SEFLG_MOSEPH) && serr != NULL) {
     strcpy(serr, "Please call swe_set_ephe_path() or swe_set_jplfile() before calling swe_time_equ(), swe_lmt_to_lat() or swe_lat_to_lmt()");
   }
   if (swed.jpl_file_is_open)
