@@ -1,5 +1,5 @@
 /************************************************************
-  $Header: swephexp.h,v 1.65 2003/06/14 13:09:46 alois Exp $
+  $Header: /home/dieter/sweph/RCS/swephexp.h,v 1.74 2008/06/16 10:07:20 dieter Exp $
   SWISSEPH: exported definitions and constants 
 
   This file represents the standard application interface (API)
@@ -19,28 +19,43 @@
   Authors: Dieter Koch and Alois Treindl, Astrodienst Zürich
 
 ************************************************************/
-/* Copyright (C) 1997, 1998 Astrodienst AG, Switzerland.  All rights reserved.
-  
-  This file is part of Swiss Ephemeris Free Edition.
-  
+/* Copyright (C) 1997 - 2008 Astrodienst AG, Switzerland.  All rights reserved.
+
+  License conditions
+  ------------------
+
+  This file is part of Swiss Ephemeris.
+
   Swiss Ephemeris is distributed with NO WARRANTY OF ANY KIND.  No author
   or distributor accepts any responsibility for the consequences of using it,
   or for whether it serves any particular purpose or works at all, unless he
-  or she says so in writing.  Refer to the Swiss Ephemeris Public License
-  ("SEPL" or the "License") for full details.
-  
-  Every copy of Swiss Ephemeris must include a copy of the License,
-  normally in a plain ASCII text file named LICENSE.  The License grants you
-  the right to copy, modify and redistribute Swiss Ephemeris, but only
-  under certain conditions described in the License.  Among other things, the
-  License requires that the copyright notices and this notice be preserved on
-  all copies.
+  or she says so in writing.  
 
-  For uses of the Swiss Ephemeris which do not fall under the definitions
-  laid down in the Public License, the Swiss Ephemeris Professional Edition
-  must be purchased by the developer before he/she distributes any of his
-  software or makes available any product or service built upon the use of
-  the Swiss Ephemeris.
+  Swiss Ephemeris is made available by its authors under a dual licensing
+  system. The software developer, who uses any part of Swiss Ephemeris
+  in his or her software, must choose between one of the two license models,
+  which are
+  a) GNU public license version 2 or later
+  b) Swiss Ephemeris Professional License
+
+  The choice must be made before the software developer distributes software
+  containing parts of Swiss Ephemeris to others, and before any public
+  service using the developed software is activated.
+
+  If the developer choses the GNU GPL software license, he or she must fulfill
+  the conditions of that license, which includes the obligation to place his
+  or her whole software project under the GNU GPL or a compatible license.
+  See http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+  If the developer choses the Swiss Ephemeris Professional license,
+  he must follow the instructions as found in http://www.astro.com/swisseph/ 
+  and purchase the Swiss Ephemeris Professional Edition from Astrodienst
+  and sign the corresponding license contract.
+
+  The License grants you the right to use, copy, modify and redistribute
+  Swiss Ephemeris, but only under certain conditions described in the License.
+  Among other things, the License requires that the copyright notices and
+  this notice be preserved on all copies.
 
   Authors of the Swiss Ephemeris: Dieter Koch and Alois Treindl
 
@@ -98,8 +113,10 @@
 #define SE_PALLAS       18      
 #define SE_JUNO         19      
 #define SE_VESTA        20      
+#define SE_INTP_APOG    21      
+#define SE_INTP_PERG    22    
 
-#define SE_NPLANETS     21      
+#define SE_NPLANETS     23      
 
 #define SE_AST_OFFSET   10000
 #define SE_VARUNA   (SE_AST_OFFSET + 20000)
@@ -178,6 +195,7 @@
 #define SEFLG_BARYCTR	(16*1024)   /* barycentric positions */
 #define SEFLG_TOPOCTR	(32*1024)   /* topocentric positions */
 #define SEFLG_SIDEREAL	(64*1024)   /* sidereal positions */
+#define SEFLG_ICRS	(128*1024)   /* ICRS (DE406 reference frame) */
 
 #define SE_SIDBITS		256
 /* for projection onto ecliptic of t0 */
@@ -252,7 +270,7 @@
 #define SE_CALC_ITRANSIT	8
 #define SE_BIT_DISC_CENTER      256 /* to be or'ed to SE_CALC_RISE/SET */
 				    /* if rise or set of disc center is */
-				    /* requried */
+				    /* required */
 #define SE_BIT_NO_REFRACTION    512 /* to be or'ed to SE_CALC_RISE/SET, */
 				    /* if refraction is not to be considered */
 
@@ -320,7 +338,7 @@
 					 * to 13°59'59" (or 13°59' or 13°) */
 
 /*
- * by compiling with -DPAIR_SWEPH in he compiler options it
+ * by compiling with -DPAIR_SWEPH in the compiler options it
  * is possible to create a more compact version of SwissEph which
  * contains no code for the JPL ephemeris file and for the builtin
  * Moshier ephemeris.
@@ -331,7 +349,6 @@
  */
 #ifdef PAIR_SWEPH	
 # define NO_JPL
-# define NO_MOSHIER
 #endif
 
 /**************************************************************
@@ -427,6 +444,8 @@ ext_def( int32 ) swe_fixstar(
 
 ext_def(int32) swe_fixstar_ut(char *star, double tjd_ut, int32 iflag, 
 	double *xx, char *serr);
+
+ext_def(int32) swe_fixstar_mag(char *star, double *mag, char *serr);
 
 /* close Swiss Ephemeris */
 ext_def( void ) swe_close(void);
@@ -538,6 +557,10 @@ ext_def(int32) swe_pheno_ut(double tjd_ut, int32 ipl, int32 iflag, double *attr,
 
 ext_def (double) swe_refrac(double inalt, double atpress, double attemp, int32 calc_flag);
 
+ext_def (double) swe_refrac_extended(double inalt, double geoalt, double atpress, double attemp, double lapse_rate, int32 calc_flag, double *dret);
+
+ext_def (void) swe_set_lapse_rate(double lapse_rate);
+
 ext_def (void) swe_azalt(
       double tjd_ut,
       int32 calc_flag,
@@ -573,6 +596,7 @@ ext_def (int32) swe_nod_aps_ut(double tjd_ut, int32 ipl, int32 iflag,
                       double *xnasc, double *xndsc, 
                       double *xperi, double *xaphe, 
                       char *serr);
+
 
 /**************************** 
  * exports from swephlib.c 

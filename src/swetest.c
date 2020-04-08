@@ -1,33 +1,48 @@
 /* 
-  $Header: /users/dieter/sweph/RCS/swetest.c,v 1.66 2004/09/07 18:53:47 dieter Exp $
+  $Header: /home/dieter/sweph/RCS/swetest.c,v 1.74 2008/06/16 10:07:20 dieter Exp $
   swetest.c	A test program
    
   Authors: Dieter Koch and Alois Treindl, Astrodienst Zürich
 
 **************************************************************/
 
-/* Copyright (C) 1997, 1998 Astrodienst AG, Switzerland.  All rights reserved.
+/* Copyright (C) 1997 - 2008 Astrodienst AG, Switzerland.  All rights reserved.
   
-  This file is part of Swiss Ephemeris Free Edition.
-  
+  License conditions
+  ------------------
+
+  This file is part of Swiss Ephemeris.
+
   Swiss Ephemeris is distributed with NO WARRANTY OF ANY KIND.  No author
   or distributor accepts any responsibility for the consequences of using it,
   or for whether it serves any particular purpose or works at all, unless he
-  or she says so in writing.  Refer to the Swiss Ephemeris Public License
-  ("SEPL" or the "License") for full details.
-  
-  Every copy of Swiss Ephemeris must include a copy of the License,
-  normally in a plain ASCII text file named LICENSE.  The License grants you
-  the right to copy, modify and redistribute Swiss Ephemeris, but only
-  under certain conditions described in the License.  Among other things, the
-  License requires that the copyright notices and this notice be preserved on
-  all copies.
+  or she says so in writing.  
 
-  For uses of the Swiss Ephemeris which do not fall under the definitions
-  laid down in the Public License, the Swiss Ephemeris Professional Edition
-  must be purchased by the developer before he/she distributes any of his
-  software or makes available any product or service built upon the use of
-  the Swiss Ephemeris.
+  Swiss Ephemeris is made available by its authors under a dual licensing
+  system. The software developer, who uses any part of Swiss Ephemeris
+  in his or her software, must choose between one of the two license models,
+  which are
+  a) GNU public license version 2 or later
+  b) Swiss Ephemeris Professional License
+
+  The choice must be made before the software developer distributes software
+  containing parts of Swiss Ephemeris to others, and before any public
+  service using the developed software is activated.
+
+  If the developer choses the GNU GPL software license, he or she must fulfill
+  the conditions of that license, which includes the obligation to place his
+  or her whole software project under the GNU GPL or a compatible license.
+  See http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+
+  If the developer choses the Swiss Ephemeris Professional license,
+  he must follow the instructions as found in http://www.astro.com/swisseph/ 
+  and purchase the Swiss Ephemeris Professional Edition from Astrodienst
+  and sign the corresponding license contract.
+
+  The License grants you the right to use, copy, modify and redistribute
+  Swiss Ephemeris, but only under certain conditions described in the License.
+  Among other things, the License requires that the copyright notices and
+  this notice be preserved on all copies.
 
   Authors of the Swiss Ephemeris: Dieter Koch and Alois Treindl
 
@@ -44,6 +59,7 @@
   The trademarks 'Swiss Ephemeris' and 'Swiss Ephemeris inside' may be used
   for promoting such software, products or services.
 */
+
 /* attention: Microsoft Compiler does not accept strings > 2048 char */
 static char *infocmd0 = "\n\
   Swetest computes a complete set of geocentric planetary positions,\n\
@@ -53,7 +69,7 @@ static char *infocmd0 = "\n\
   With the proper options, swetest can be used to output a printed\n\
   ephemeris and transfer the data into other programs like spreadsheets\n\
   for graphical display.\n\
-  Version: $Header: /users/dieter/sweph/RCS/swetest.c,v 1.66 2004/09/07 18:53:47 dieter Exp $\n\
+  Version: $Header: /home/dieter/sweph/RCS/swetest.c,v 1.74 2008/06/16 10:07:20 dieter Exp $\n\
 \n";
 static char *infocmd1 = "\n\
   Command line options:\n\
@@ -123,6 +139,7 @@ static char *infocmd3 = "\
         -noaberr        no aberration\n\
         -nodefl no gravitational light deflection\n\
         -j2000  no precession (i.e. J2000 positions)\n\
+        -icrs   ICRS (positions in the Internat. Celestial Reference System)\n\
         -nonut  no nutation \n\
         -speed  high precision speed \n\
         -speed3 'low' precision speed from 3 positions \n\
@@ -193,6 +210,9 @@ static char *infocmd5 = "\
         -noncentral non-central eclipse (only with -solecl, nonlocal)\n\
         -rise   rising and setting of a planet or star.\n\
                 Use -geopos[long,lat,elev] to specify geographical position.\n\
+        -norefrac   neglect refraction (with option -rise)\n\
+        -disccenter find rise of disc center (with option -rise)\n\
+	-hindu      hindu version of sunrise (with option -rise)\n\
         -metr   southern and northern meridian transit of a planet of star\n\
                 Use -geopos[long,lat,elev] to specify geographical position.\n\
         -bwd    search backward\n";
@@ -201,7 +221,7 @@ static char *infocmd5 = "\
  */
 static char *infoplan = "\n\
   Planet selection letters:\n\
-        d (default) main factors 0123456789mtABC\n\
+        d (default) main factors 0123456789mtABCcg\n\
         p main factors as above, plus main asteroids DEFGHI\n\
         h ficticious factors J..X\n\
         a all factors\n\
@@ -218,6 +238,8 @@ static char *infoplan = "\n\
 	q delta t\n\
         A mean lunar apogee (Lilith, Black Moon) \n\
         B osculating lunar apogee \n\
+        c intp. lunar apogee \n\
+        g intp. lunar perigee \n\
         C Earth \n\
         D Chiron\n\
         E Pholus\n\
@@ -249,7 +271,7 @@ static char *infoplan = "\n\
         e print a line of labels\n\
           \n";
 /* characters still available 
-   cegjmov
+   cgjv
 */
 static char *infoform = "\n\
   Output format SEQ letters:\n\
@@ -402,10 +424,10 @@ static char *infoexamp = "\n\
 #define BIT_ROUND_SEC   1
 #define BIT_ROUND_MIN   2
 #define BIT_ZODIAC      4
-#define PLSEL_D  "0123456789mtABC"
-#define PLSEL_P  "0123456789mtABCDEFGHI"
+#define PLSEL_D  "0123456789mtA"
+#define PLSEL_P  "0123456789mtABCcgDEFGHI"
 #define PLSEL_H  "JKLMNOPQRSTUVWXYZw"
-#define PLSEL_A  "0123456789mtABCDEFGHIJKLMNOPQRSTUVWXYZw"
+#define PLSEL_A  "0123456789mtABCcgDEFGHIJKLMNOPQRSTUVWXYZw"
 
 #define DIFF_DIFF	'd'
 #define DIFF_MIDP	'D'
@@ -458,6 +480,8 @@ static int32 search_flag = 0;
 static char sout[AS_MAXCH];
 static int32 whicheph = SEFLG_SWIEPH;   
 static char *psp;
+static int32 norefrac = 0;
+static int32 disccenter = 0;
 
 # define SMOD_LUNAR     1
 # define SMOD_HOW       2       /* an option for Lunar */
@@ -494,11 +518,10 @@ int main(int argc, char *argv[])
   int i, j, n, iflag_f = -1, iflgt;
   int line_count, line_limit = 32000;
   double daya;
-  double top_long = 8.55;	/* Zurich */
-  double top_lat = 47.38;
-  double top_elev = 400;
-  double hous_long = 0;	/* Greenwich, UK */
-  double hous_lat = 51.5;
+  double top_long = 0.0;	/* Greenwich UK */
+  double top_lat = 51.5;
+  double top_elev = 0;
+  AS_BOOL have_geopos = FALSE;
   int ihsy = 'p';
   AS_BOOL do_houses = FALSE;
   char ephepath[AS_MAXCH];
@@ -512,6 +535,7 @@ int main(int argc, char *argv[])
   int32 sid_mode = SE_SIDM_FAGAN_BRADLEY;
   double t2, tstep = 1, thour = 0;
   double delt;
+/*  swe_set_tid_acc(-25.858); * to test delta t output */
   serr[0] = serr_save[0] = serr_warn[0] = saves[0] = '\0';
 # ifdef MACOS
   argc = ccommand(&argv); /* display the arguments window */    
@@ -541,6 +565,8 @@ int main(int argc, char *argv[])
       with_header_always = TRUE;
     } else if (strcmp(argv[i], "-j2000") == 0) {
       iflag |= SEFLG_J2000;
+    } else if (strcmp(argv[i], "-icrs") == 0) {
+      iflag |= SEFLG_ICRS;
     } else if (strncmp(argv[i], "-ay", 3) == 0) {
       do_ayanamsa = TRUE;
       sid_mode = atol(argv[i]+3);
@@ -583,21 +609,24 @@ int main(int argc, char *argv[])
       iflag |= SEFLG_BARYCTR;
     } else if (strncmp(argv[i], "-house", 6) == 0) {
       *sout = '\0';
-      sscanf(argv[i] + 6, "%lf,%lf,%s", &hous_long, &hous_lat, sout);
-      top_long = hous_long;
-      top_lat = hous_lat;
+      sscanf(argv[i] + 6, "%lf,%lf,%s", &top_long, &top_lat, sout);
+      top_elev = 0;
       if (*sout) ihsy = sout[0];
       do_houses = TRUE;
+      have_geopos = TRUE;
     } else if (strncmp(argv[i], "-hsy", 4) == 0) {
       ihsy = *(argv[i] + 4);
       if (ihsy == '\0') ihsy = 'p';
       if (strlen(argv[i]) > 5)
 	hpos_meth = atoi(argv[i] + 5);
+      have_geopos = TRUE;
     } else if (strncmp(argv[i], "-topo", 5) == 0) {
       iflag |= SEFLG_TOPOCTR;
       sscanf(argv[i] + 5, "%lf,%lf,%lf", &top_long, &top_lat, &top_elev);
+      have_geopos = TRUE;
     } else if (strncmp(argv[i], "-geopos", 7) == 0) {
       sscanf(argv[i] + 7, "%lf,%lf,%lf", &top_long, &top_lat, &top_elev);
+      have_geopos = TRUE;
     } else if (strcmp(argv[i], "-true") == 0) {
       iflag |= SEFLG_TRUEPOS;
     } else if (strcmp(argv[i], "-noaberr") == 0) {
@@ -629,12 +658,14 @@ int main(int argc, char *argv[])
       smod |= SMOD_SOLAR;
       search_flag |= SE_ECL_CENTRAL;
       search_flag |= SE_ECL_NONCENTRAL;
+      have_geopos = TRUE;
     } else if (strcmp(argv[i], "-occult") == 0) {
       smod |= SMOD_OCCULT;
       smod &= ~SMOD_SOLAR;
       smod &= ~SMOD_LUNAR;
       search_flag |= SE_ECL_CENTRAL;
       search_flag |= SE_ECL_NONCENTRAL;
+      have_geopos = TRUE;
     } else if (strcmp(argv[i], "-hocal") == 0) {
       /* used to create a listing for inclusion in hocal.c source code */
       smod |= SMOD_HOCAL;
@@ -661,9 +692,18 @@ int main(int argc, char *argv[])
     } else if (strcmp(argv[i], "-rise") == 0) {
       smod |= SMOD_RISE;
       smod &= ~SMOD_SOLAR;
+      have_geopos = TRUE;
+    } else if (strcmp(argv[i], "-norefrac") == 0) {
+      norefrac = 1;
+    } else if (strcmp(argv[i], "-disccenter") == 0) {
+      disccenter = 1;
+    } else if (strcmp(argv[i], "-hindu") == 0) {
+      norefrac = 1;
+      disccenter = 1;
     } else if (strcmp(argv[i], "-metr") == 0) {
       smod |= SMOD_METR;
       smod &= ~SMOD_SOLAR;
+      have_geopos = TRUE;
     } else if (strcmp(argv[i], "-bwd") == 0) {
       direction = -1;
       direction_flag = TRUE;
@@ -880,7 +920,7 @@ int main(int argc, char *argv[])
         gregflag = SE_GREG_CAL;
       jut = 0;
       tjd = swe_julday(jyear,jmon,jday,jut,gregflag);        
-      tjd += thour / 24;
+      tjd += thour / 24.0;
     }
     line_count = 0;
     if (smod > 0) {
@@ -897,7 +937,8 @@ int main(int argc, char *argv[])
         gregflag = SE_JUL_CAL;
       else if (strstr(spsave, "greg") != NULL)
         gregflag = SE_GREG_CAL;
-      swe_revjul(t, gregflag, &jyear, &jmon, &jday, &jut);
+      t2 = t;
+      swe_revjul(t2, gregflag, &jyear, &jmon, &jday, &jut);
       if (with_header) {
         sprintf(sout, "\ndate (dmy) %d.%d.%d", jday, jmon, jyear);
         printf(sout);
@@ -905,9 +946,7 @@ int main(int argc, char *argv[])
           printf(" greg.");
         else
           printf(" jul.");
-        t2 = t + 0.5;
-	t2 += 0.5 / 86400; /* round to second */
-        t2 = (t2 - (int32) t2) * 24;
+        t2 = jut;
         sprintf(sout, "  % 2d:", (int) t2); 
         printf(sout);
         t2 = (t2 - (int32) t2) * 60;
@@ -946,6 +985,9 @@ int main(int argc, char *argv[])
 	  sprintf(sout, "   ayanamsa = %s", dms(daya, round_flag));
 	  printf(sout);
 	}
+	if (have_geopos) {
+	  printf("\ngeo. long %f, lat %f, alt %f", geopos[0], geopos[1], geopos[2]);
+	}
 	if (iflag_f >=0)
 	  iflag = iflag_f;
 	if (strchr(plsel, 'o') == NULL) {
@@ -964,8 +1006,8 @@ int main(int argc, char *argv[])
 	    do_houses = FALSE;
 	    printf("option -house requires option -ut for Universal Time\n");
 	  } else {
-	  strcpy(s1, dms(hous_long, round_flag)); 
-	  strcpy(s2, dms(hous_lat, round_flag));
+	  strcpy(s1, dms(top_long, round_flag)); 
+	  strcpy(s2, dms(top_lat, round_flag));
 	  sprintf(sout, "Houses system %c for long=%s, lat=%s\n", ihsy, s1, s2);
 	  printf(sout);
 	  }
@@ -1010,6 +1052,12 @@ int main(int argc, char *argv[])
 	  iflag = iflag_f;
         if (ipl == SE_FIXSTAR) {
           iflgret = swe_fixstar(star, te, iflag, x, serr);
+	  /* magnitude, etc. */
+	  if (iflgret != ERR && strpbrk(fmt, "=") != NULL) {
+	    double mag;
+	    iflgret = swe_fixstar_mag(star, &mag, serr);
+	    attr[4] = mag; 
+	  }
           strcpy(se_pname, star);
         } else {
           iflgret = swe_calc(te, ipl, iflag, x, serr);
@@ -1104,10 +1152,14 @@ int main(int argc, char *argv[])
           else
             iflgret = swe_calc(te, ipl, iflgt, xt, serr);
           /* to azimuth/height */
-          swe_azalt(tut, SE_EQU2HOR, geopos, 1013.25, 10, xt, xaz);
+	  /* atmospheric pressure "0" has the effect that a value
+	   * of 1013.25 mbar is assumed at 0 m above sea level.
+	   * If the altitude of the observer is given (in geopos[2])
+	   * pressure is estimated according to that */
+          swe_azalt(tut, SE_EQU2HOR, geopos, 0, 10, xt, xaz);
           if (diff_mode) {
             iflgret = swe_calc(te, ipldiff, iflgt, xt, serr);
-            swe_azalt(tut, SE_EQU2HOR, geopos, 1013.25, 10, xt, x2);
+            swe_azalt(tut, SE_EQU2HOR, geopos, 0, 10, xt, x2);
 	    if (diff_mode == DIFF_DIFF) {
 	      for (i = 1; i < 3; i++) 
 		xaz[i] -= x2[i];
@@ -1217,7 +1269,7 @@ int main(int argc, char *argv[])
 	if (tolower(ihsy) == 'g')
 	  nhouses = 36;
 	iofs = nhouses + 1;
-	iflgret = swe_houses_ex(t,iflag, hous_lat, hous_long, ihsy, cusp, cusp+iofs);
+	iflgret = swe_houses_ex(t,iflag, top_lat, top_long, ihsy, cusp, cusp+iofs);
         if (iflgret < 0) { 
           if (strcmp(serr, serr_save) != 0 ) {
             sprintf(sout, "error: %s\n", serr);
@@ -1263,6 +1315,7 @@ static int print_line(int mode)
   double t2, ju2 = 0;
   double y_frac;
   double ar, sinp;
+  double dret[20];
   AS_BOOL is_house = ((mode & MODE_HOUSE) != 0);
   AS_BOOL is_label = ((mode & MODE_LABEL) != 0);
   int32 iflgret;
@@ -1523,10 +1576,15 @@ static int print_line(int mode)
     case 'r':
 	if (is_label) { printf("dist"); break; }
 	if ( ipl == SE_MOON ) { /* for moon print parallax */
-	  sinp = 8.794 / x[2];    /* in seconds of arc */
-	  ar = sinp * (1 + sinp * sinp * 3.917402e-12);
-	  /* the factor is 1 / (3600^2 * (180/pi)^2 * 6) */
-	  sprintf(sout, "%# 13.5f\"", ar);        
+	  /* geocentric horizontal parallax: */
+	  if (0) {
+	    sinp = 8.794 / x[2];    /* in seconds of arc */
+	    ar = sinp * (1 + sinp * sinp * 3.917402e-12);
+	    /* the factor is 1 / (3600^2 * (180/pi)^2 * 6) */
+	    sprintf(sout, "%# 13.5f\" %# 13.5f'", ar, ar/60.0);        
+	  }
+	  swe_pheno(te, ipl, iflag, dret, serr);
+	  sprintf(sout + strlen(sout), "%# 13.5f\"", dret[5] * 3600);
 	} else {
 	  sprintf(sout, "%# 14.9f", x[2]);
 	}
@@ -1714,6 +1772,8 @@ static int letter_to_ipl(int letter)
     return letter - 'J' + SE_CUPIDO;
   switch (letter) {
   case 'm': return SE_MEAN_NODE;
+  case 'c': return SE_INTP_APOG;
+  case 'g': return SE_INTP_PERG;
   case 'n': 
   case 'o': return SE_ECL_NUT;
   case 't': return SE_TRUE_NODE;
@@ -1739,6 +1799,7 @@ static int do_eclipse_etc()
   double t_ut, dt;
   int ecl_type = 0, eclflag;
   char s1[AS_MAXCH], s2[AS_MAXCH];
+  int32 rsmi = 0;
   if (smod & (SMOD_LUNAR | SMOD_SOLAR | SMOD_OCCULT))  {
     if ((smod & SMOD_ALL) == 0) /* no selective eclipse type set, set all */
       smod |= SMOD_ALL;
@@ -2091,11 +2152,17 @@ geopos, tret, attr, 0, serr)) == ERR) {
       do_printf(sout);
     }
     if (smod & SMOD_RISE) {
-      if (swe_rise_trans(t_ut, ipl, star, whicheph, SE_CALC_RISE, geopos, 1013.25, 10, &(tret[0]), serr) != OK) {
+      rsmi = SE_CALC_RISE;
+      if (norefrac) rsmi |= SE_BIT_NO_REFRACTION;
+      if (disccenter) rsmi |= SE_BIT_DISC_CENTER;
+      if (swe_rise_trans(t_ut, ipl, star, whicheph, rsmi, geopos, 1013.25, 10, &(tret[0]), serr) != OK) {
 	do_printf(serr);
 	exit(0);
       } 
-      if (swe_rise_trans(t_ut, ipl, star, whicheph, SE_CALC_SET, geopos, 1013.25, 10, &(tret[1]), serr) != OK) {
+      rsmi = SE_CALC_SET;
+      if (norefrac) rsmi |= SE_BIT_NO_REFRACTION;
+      if (disccenter) rsmi |= SE_BIT_DISC_CENTER;
+      if (swe_rise_trans(t_ut, ipl, star, whicheph, rsmi, geopos, 1013.25, 10, &(tret[1]), serr) != OK) {
 	do_printf(serr);
 	exit(0);
       } 

@@ -13,11 +13,9 @@
 # send email to swisseph@astro.ch
 #
 
-CFLAGS = -Aa +z -g +DA1.1  	# for HPUX 10.20
-#CFLAGS = -g -O9 -Wall -pedantic 	# for Linux and other gcc systems
+CFLAGS = -g -O9 -Wall -pedantic 	# for Linux and other gcc systems
 OP=$(CFLAGS)  
-CC=cc	# for HPUX 
-#CC=gcc	#for Linux
+CC=cc	#for Linux
 
 # compilation rule for general cases
 .o :
