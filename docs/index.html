@@ -58,16 +58,27 @@ But I include an identical file named like this:
 </ul>
 </p>
 <p>
-For each Astro Dienst release there will be a commit in 
-Swiss Ephemeris Archive which will be taged by its release number.
-These commits will be organized as described below.
+There are four per release branches, tarball-contents, tarball-delta, zip-contents, and zip
 </p>
-<h1>Repository Directory Structure</h1>
+<p>
+For each Astro Dienst release there will be a commit in each of these
+release branches. The per-release commit in the tarball-contents, and zip-contents branches
+will be tagged with its tarball file name, or zip file name. The *-contents branches
+will contain the source tree from the expanded tarball, or zip file.
+The tarball-delta branch will contain a small delta file, created by
+<code>
+pristine-tar gentar
+</code>.
+
+
+These branches will be organized as described below.
+</p>
+<h1>Repository Branch Structure</h1>
 <p>
 <dl>
-	<dt>root directory:</dt>
+	<dt>root directory: in master branch</dt>
 	<dd><code>README.md LICENSE</code></dd>
-	<dt>tarball_contents:</dt>
+	<dt>tarball_contents branch</dt>
 	<dd>unpacked files from the release tarball
 	<dl>
 		<dt>Example:</dt>
@@ -76,7 +87,7 @@ These commits will be organized as described below.
 
 		
 	</dd>
-	<dt>tarball_delta:</dt>
+	<dt>tarball_delta branch</dt>
 	<dd>delta file necessary to reconstruct the tarball from tarball_contents
    <dl>
 	  	<dt>Example:</dt>
@@ -95,7 +106,7 @@ These commits will be organized as described below.
 </dl>
 
    </dd>
-	<dt>zip:</dt>
+	<dt>zip branch</dt>
 	<dd>
 	zip file
 	<br>
