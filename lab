@@ -1,0 +1,34 @@
+#!/bin/bash
+
+B=$1
+#branch
+P=$2
+#prefix
+E=$3
+echo branch is $B
+echo name is ${P}LABEL${E}
+
+#exit
+
+git checkout $B
+
+for x in $(git log $B --oneline|cut '-d ' -f1)
+do
+    echo x=$x
+    for y in $(git log $x --oneline -1|cut '-d ' -f4)
+    do
+	echo y=$y
+
+	echo "git checkout $x"
+	git checkout $x
+
+	echo "git tag ${P}${y}$E"
+	git tag ${P}${y}$E
+
+	
+	
+    done
+done
+
+git checkout $B
+

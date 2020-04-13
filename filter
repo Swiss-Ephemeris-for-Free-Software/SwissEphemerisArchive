@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#$1     branch
+
+
+for X in tarball-contents tarball-delta zip-contents zip
+do
+
+    BRANCH=$X
+
+    DIR=$(echo $BRANCH|tr "-" "_")
+
+    echo "b=$BRANCH,d=$DIR"
+
+    echo git checkout -B $BRANCH old-master
+    git checkout -B $BRANCH old-master
+
+    echo git filter-branch -f --prune-empty --subdirectory-filter $DIR  --tag-name-filter cat -- $BRANCH
+
+    git filter-branch -f --prune-empty --subdirectory-filter $DIR  --tag-name-filter cat -- $BRANCH
+
+
+done
