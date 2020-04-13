@@ -1,0 +1,6 @@
+
+
+export GIT_COMMITTER_NAME="Paul Elliott"
+export GIT_COMMITTER_EMAIL="pelliott@blackpatchpanel.com"
+export GIT_AUTHOR_NAME="Paul Elliott"
+export GIT_AUTHOR_EMAIL="pelliott@blackpatchpanel.com"
